@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "About";
+    var isArabic = Context.Request.Cookies["Language"] == "ar";
+}
+
+<div class="about-page">
+    <div class="container">
+        <div class="about-header">
+            <h1 class="about-title">@(isArabic ? "عن CARS ON HANDS" : "About CARS ON HANDS")</h1>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="about-content">
+            <div class="about-card philosophy-card">
+                <div class="card-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h2>@(isArabic ? "فلسفتنا" : "Our Philosophy")</h2>
+                <p class="philosophy-main">
+                    @(isArabic ? "في CARS ON HANDS، نؤمن بأن العميل هو جوهر عملنا. ليست السيارة هي الأهم، وليس المال، بل أنت - عميلنا العزيز."
+                                        : "At CARS ON HANDS, we believe the customer is the heart of our business. It's not about the car, not about the money, but about you - our valued customer.")
+                </p>
+                <div class="philosophy-quote">
+                    <i class="fas fa-quote-right"></i>
+                    <p>@(isArabic ? "راحتك وثقتك هما نجاحنا الحقيقي" : "Your comfort and trust are our true success")</p>
+                </div>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="card-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>@(isArabic ? "سهولة وسرعة" : "Easy & Fast")</h3>
+                    <p>
+                        @(isArabic ? "لا أوراق معقدة، لا انتظار طويل. عملية تأجير سلسة وبسيطة."
+                                                : "No complicated paperwork, no long waiting. Smooth and simple rental process.")
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>@(isArabic ? "سيارات مضمونة" : "Guaranteed Cars")</h3>
+                    <p>
+                        @(isArabic ? "جميع سياراتنا مختارة بعناية وفي أفضل حالة لضمان تجربة قيادة آمنة وممتعة."
+                                                : "All our cars are carefully selected and in best condition for a safe and enjoyable drive.")
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <div class="card-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>@(isArabic ? "خدمة مخصصة" : "Personalized Service")</h3>
+                    <p>
+                        @(isArabic ? "نستمع لاحتياجاتك ونقدم لك السيارة التي تناسبك تماماً."
+                                                : "We listen to your needs and provide you with the car that perfectly fits you.")
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <div class="card-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>@(isArabic ? "تجربة فاخرة" : "Luxury Experience")</h3>
+                    <p>
+                        @(isArabic ? "نقدم لك تجربة قيادة فاخرة بأسعار تنافسية تناسب الجميع."
+                                                : "We offer you a luxury driving experience at competitive prices for everyone.")
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

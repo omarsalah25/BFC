@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    var isArabic = Context.Request.Cookies["Language"] == "ar";
+}
+
+<div class="admin-dashboard">
+    <div class="container">
+        <h1 class="dashboard-title">@(isArabic ? "لوحة التحكم" : "Admin Dashboard")</h1>
+
+        <div class="dashboard-grid">
+            <a href="/Admin/Cars" class="dashboard-card">
+                <div class="card-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <h3>@(isArabic ? "إدارة السيارات" : "Manage Cars")</h3>
+                <p>@(isArabic ? "إضافة، تعديل، أو حذف السيارات" : "Add, edit, or remove cars")</p>
+            </a>
+
+            <a href="/Admin/HeroImages" class="dashboard-card">
+                <div class="card-icon">
+                    <i class="fas fa-images"></i>
+                </div>
+                <h3>@(isArabic ? "إدارة صور الصفحة الرئيسية" : "Manage Hero Images")</h3>
+                <p>@(isArabic ? "تغيير صور وخلفيات الصفحة الرئيسية" : "Change homepage images and backgrounds")</p>
+            </a>
+
+            <div class="dashboard-card">
+                <div class="card-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>@(isArabic ? "الإحصائيات" : "Statistics")</h3>
+                <p>@(isArabic ? "عرض إحصائيات الموقع والحجوزات" : "View site and booking statistics")</p>
+                <div class="stats-preview">
+                    <div class="stat-item">
+                        <span class="stat-value">@ViewBag.TotalCars ?? 0</span>
+                        <span class="stat-label">@(isArabic ? "سيارة" : "Cars")</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">@ViewBag.AvailableCars ?? 0</span>
+                        <span class="stat-label">@(isArabic ? "متاحة" : "Available")</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <h3>@(isArabic ? "الإعدادات" : "Settings")</h3>
+                <p>@(isArabic ? "تعديل إعدادات الموقع والمعلومات" : "Modify site settings and information")</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+﻿@model IEnumerable<CarRentalPortfolio.Models.HeroImage>
+@{
+    ViewData["Title"] = "Manage Hero Images";
+    var isArabic = Context.Request.Cookies["Language"] == "ar";
+}
+
+<div class="admin-cars">
+    <div class="container">
+        <div class="header-actions">
+            <h1>@(isArabic ? "إدارة صور الصفحة الرئيسية" : "Manage Hero Images")</h1>
+            <a href="/Admin/AddHeroImage" class="btn-add">
+                <i class="fas fa-plus"></i>
+                @(isArabic ? "إضافة صورة جديدة" : "Add New Image")
+            </a>
+        </div>
+
+        <div class="hero-images-grid">
+            @foreach (var hero in Model)
+            {
+                <div class="hero-card" id="hero-@hero.Id">
+                    <div class="hero-preview">
+                        <img src="@hero.ImageUrl" alt="Hero Image">
+                        @if (hero.IsActive)
+                        {
+                            <span class="active-badge">@(isArabic ? "نشط" : "Active")</span>
+                        }
+                    </div>
+                    <div class="hero-info">
+                        <h3>@(isArabic? hero.TitleAr: hero.Title)</h3>
+                        <p>@(isArabic? hero.SubtitleAr: hero.Subtitle)</p>
+                    </div>
+                    <div class="hero-actions">
+                        <a href="/Admin/EditHeroImage/@hero.Id" class="btn-edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <button onclick="deleteHero(@hero.Id)" class="btn-delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        @if (!hero.IsActive)
+                        {
+                            <button onclick="setActive(@hero.Id)" class="btn-activate">
+                                <i class="fas fa-check-circle"></i>
+                            </button>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function deleteHero(id) {
+            if (confirm('@(isArabic ? "هل أنت متأكد من حذف هذه الصورة؟" : "Are you sure you want to delete this image?")')) {
+                $.post('/Admin/DeleteHeroImage', { id: id })
+                    .done(function(response) {
+                        if (response.success) {
+                            $('#hero-' + id).fadeOut();
+                        } else {
+                            alert(response.message);
+                        }
+                    });
+            }
+        }
+
+        function setActive(id) {
+            $.post('/Admin/SetActiveHeroImage', { id: id })
+                .done(function(response) {
+                    if (response.success) {
+                        location.reload();
+                    }
+                });
+        }
+    </script>
+}

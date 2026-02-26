@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+@{
+    var currentLang = Context.Request.Cookies["Language"] ?? "en";
+    var isArabic = currentLang == "ar";
+}
+<html lang="@currentLang" dir="ltr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Cars On Hands</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="/">
+                        <span class="logo-text">CARS ON HANDS</span>
+                        <span class="logo-sub">@(isArabic ? "سيارات بين يديك" : "Luxury Car Rental")</span>
+                    </a>
+                </div>
+
+                <div class="nav-menu">
+                    <a href="/" class="nav-link">@(isArabic ? "الرئيسية" : "Home")</a>
+                    <a href="/Home/About" class="nav-link">@(isArabic ? "عن الشركة" : "About")</a>
+                    @if (Context.Session.GetString("AdminId") != null)
+                    {
+                        <a href="/Admin/Dashboard" class="nav-link">@(isArabic ? "لوحة التحكم" : "Dashboard")</a>
+                        <a href="/Admin/Cars" class="nav-link">@(isArabic ? "السيارات" : "Cars")</a>
+                        <a href="/Admin/Logout" class="nav-link">@(isArabic ? "تسجيل خروج" : "Logout")</a>
+                    }
+                </div>
+
+                <div class="nav-actions">
+                    <div class="language-switch">
+                        <a href="/Home/ChangeLanguage?lang=en" class="lang-link @(currentLang == "en" ? "active" : "")">EN</a>
+                        <span class="lang-separator">|</span>
+                        <a href="/Home/ChangeLanguage?lang=ar" class="lang-link @(currentLang == "ar" ? "active" : "")">AR</a>
+                    </div>
+
+                    @if (Context.Session.GetString("AdminId") == null)
+                    {
+                        <a href="/Admin/Login" class="admin-login-btn">
+                            <i class="fas fa-user-shield"></i>
+                            <span>@(isArabic ? "دخول المدير" : "Admin Login")</span>
+                        </a>
+                    }
+                </div>
+            </div>
+        </nav>
+        <main role="main">
+            @RenderBody()
+        </main>
+
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <h3>CARS ON HANDS</h3>
+                        <p>@(isArabic ? "حيث عميلنا هو الأولوية القصوى" : "Where our customer is the top priority")</p>
+                    </div>
+                    <div class="footer-philosophy">
+                        <p class="philosophy-text">
+                            <i class="fas fa-heart"></i>
+                            @(isArabic ? "الأهم هو عميلنا، ليس السيارة ولا المال" : "The most important is our customer, not the car nor the money")
+                        </p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; @DateTime.Now.Year - Cars On Hands. @(isArabic ? "جميع الحقوق محفوظة" : "All rights reserved")</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

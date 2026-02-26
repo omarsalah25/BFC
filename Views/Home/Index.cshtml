@@ -1,0 +1,517 @@
+﻿@model IEnumerable<CarRentalPortfolio.Models.Car>
+@{
+    ViewData["Title"] = "Home";
+    var isArabic = Context.Request.Cookies["Language"] == "ar";
+    var heroImage = ViewBag.HeroImage as CarRentalPortfolio.Models.HeroImage;
+}
+<!-- Floating Admin Button (only show when not logged in) -->
+@if (Context.Session.GetString("AdminId") == null)
+{
+    <a href="/Admin/Login" class="floating-admin-btn">
+        <i class="fas fa-user-shield"></i>
+        <span class="tooltip">@(isArabic ? "دخول المدير" : "Admin Login")</span>
+    </a>
+}
+<!-- Hero Section with Dynamic Image -->
+@if (heroImage != null)
+{
+    <div class="hero-section" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('@heroImage.ImageUrl');">
+        <div class="hero-content">
+            <span class="hero-welcome">@(isArabic ? "مرحباً بكم في" : "Welcome to")</span>
+            <h1 class="hero-title">CARS ON HANDS</h1>
+            <p class="hero-subtitle">@(isArabic? heroImage.SubtitleAr: heroImage.Subtitle)</p>
+            <div class="hero-features">
+                <div class="hero-feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span>@(isArabic ? "لا أوراق معقدة" : "No Paperwork")</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span>@(isArabic ? "أسعار تنافسية" : "Competitive Prices")</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span>@(isArabic ? "دعم 24/7" : "24/7 Support")</span>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <a href="#cars" class="btn-primary">
+                    <i class="fas fa-car"></i>
+                    @(isArabic ? "استعرض السيارات" : "Browse Cars")
+                </a>
+                <a href="/Home/About" class="btn-secondary">
+                    <i class="fas fa-info-circle"></i>
+                    @(isArabic ? "تعرف علينا" : "About Us")
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Company Philosophy Section -->
+<section class="philosophy-section">
+    <div class="container">
+        <div class="philosophy-grid">
+            <div class="philosophy-text">
+                <h2 class="section-title-left">@(isArabic ? "فلسفتنا" : "Our Philosophy")</h2>
+                <div class="philosophy-message-box">
+                    <i class="fas fa-quote-right quote-icon"></i>
+@*                     <p class="philosophy-main">
+                        @(isArabic ? "في CARS ON HANDS، نؤمن بأن العميل هو جوهر عملنا. ليست السيارة هي الأهم، وليس المال، بل أنت - عميلنا العزيز."
+                                                : "At CARS ON HANDS, we believe the customer is the heart of our business. It's not about the car, not about the money, but about you - our valued customer.")
+                    </p>
+ *@                </div>
+                <div class="philosophy-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">@(isArabic ? "عام من التميز" : "Years of Excellence")</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5000+</span>
+                        <span class="stat-label">@(isArabic ? "عميل سعيد" : "Happy Clients")</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">@(isArabic ? "رضا العملاء" : "Client Satisfaction")</span>
+                    </div>
+                </div>
+            </div>
+            <div class="philosophy-image">
+                <img src="/images/philosophy-image.jpg" alt="Luxury Car" class="philosophy-img">
+                <div class="experience-badge">
+                    <i class="fas fa-star"></i>
+                    <span>@(isArabic ? "تجربة فاخرة" : "Luxury Experience")</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <h2 class="section-title">@(isArabic ? "لماذا تختار CARS ON HANDS؟" : "Why Choose CARS ON HANDS?")</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-file-signature"></i>
+                </div>
+                <h3>@(isArabic ? "لا أوراق معقدة" : "No Complicated Paperwork")</h3>
+                <p>@(isArabic ? "عملية تأجير سلسة وبسيطة، بدون تعقيدات أو أوراق رسمية." : "Smooth and simple rental process, no complicated paperwork.")</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <h3>@(isArabic ? "خدمة شخصية" : "Personalized Service")</h3>
+                <p>@(isArabic ? "نستمع لاحتياجاتك ونقدم لك السيارة التي تناسبك تماماً." : "We listen to your needs and provide the perfect car for you.")</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>@(isArabic ? "سيارات مفحوصة" : "Fully Inspected Cars")</h3>
+                <p>@(isArabic ? "جميع سياراتنا تخلف لفحص شامل لضمان سلامتك وراحتك." : "All our cars undergo thorough inspection for your safety.")</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3>@(isArabic ? "مرونة في الوقت" : "Flexible Timing")</h3>
+                <p>@(isArabic ? "استلم السيارة في أي وقت وأعدها في الوقت الذي يناسبك." : "Pick up and return the car at your convenience.")</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <h3>@(isArabic ? "أسعار تنافسية" : "Competitive Prices")</h3>
+                <p>@(isArabic ? "أفضل الأسعار مع أعلى مستوى من الخدمة والجودة." : "Best prices with highest service quality.")</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>@(isArabic ? "دعم على مدار الساعة" : "24/7 Support")</h3>
+                <p>@(isArabic ? "فريق دعم متاح دائماً لمساعدتك في أي وقت." : "Support team always available to assist you.")</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Banner -->
+<section class="stats-banner">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <i class="fas fa-car-side"></i>
+                <span class="stat-number" data-target="@Model.Count()">0</span>
+                <span class="stat-label">@(isArabic ? "سيارة فاخرة" : "Luxury Cars")</span>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-users"></i>
+                <span class="stat-number" data-target="5000">0</span>
+                <span class="stat-label">@(isArabic ? "عميل سعيد" : "Happy Clients")</span>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-calendar-check"></i>
+                <span class="stat-number" data-target="15000">0</span>
+                <span class="stat-label">@(isArabic ? "رحلة ناجحة" : "Successful Trips")</span>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-award"></i>
+                <span class="stat-number" data-target="25">0</span>
+                <span class="stat-label">@(isArabic ? "جائزة تميز" : "Awards Won")</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Cars Section -->
+<section id="cars" class="cars-section">
+    <div class="container">
+        <h2 class="section-title">@(isArabic ? "سياراتنا الفاخرة" : "Our Luxury Fleet")</h2>
+        <p class="section-subtitle">@(isArabic ? "اختر سيارتك المثالية من مجموعتنا المختارة" : "Choose your perfect car from our curated collection")</p>
+
+        @if (!Model.Any())
+        {
+            <div class="no-cars-message">
+                <i class="fas fa-car"></i>
+                <p>@(isArabic ? "لا توجد سيارات متاحة حالياً" : "No cars available at the moment")</p>
+            </div>
+        }
+        else
+        {
+            <div class="cars-grid">
+                @foreach (var car in Model)
+                {
+                    <div class="car-card" data-aos="fade-up">
+                        <div class="car-image">
+                            @if (!string.IsNullOrEmpty(car.ImageUrl))
+                            {
+                                <img src="@car.ImageUrl" alt="@(isArabic? car.NameAr: car.Name)" loading="lazy">
+                            }
+                            else
+                            {
+                                <div class="image-placeholder">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                            }
+                            <div class="car-badges">
+                                @if (car.IsAvailable)
+                                {
+                                    <span class="badge available">@(isArabic ? "متاحة" : "Available")</span>
+                                }
+                                <span class="badge year">@car.Year</span>
+                            </div>
+                        </div>
+
+                        <div class="car-details">
+                            <h3 class="car-name">@(isArabic? car.NameAr: car.Name)</h3>
+
+                            <div class="car-specs">
+                                <div class="spec-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>@car.Seats @(isArabic ? "مقاعد" : "Seats")</span>
+                                </div>
+                                <div class="spec-item">
+                                    <i class="fas fa-gas-pump"></i>
+                                    <span>@(isArabic? car.FuelTypeAr: car.FuelType)</span>
+                                </div>
+                                <div class="spec-item">
+                                    <i class="fas fa-cog"></i>
+                                    <span>@(isArabic? car.TransmissionAr: car.Transmission)</span>
+                                </div>
+                            </div>
+
+                            <p class="car-description">@(isArabic? car.DescriptionAr: car.Description)</p>
+
+                            <div class="car-footer">
+                                <div class="car-price">
+                                    <span class="price">@car.PricePerDay.ToString("N0")</span>
+                                    <span class="currency">EGP @(isArabic ? "لليوم" : "/day")</span>
+                                </div>
+
+                                <button class="btn-rent" onclick="openInquiryModal('@(isArabic? car.NameAr: car.Name)')">
+                                    <i class="fas fa-calendar-check"></i>
+                                    @(isArabic ? "احجز الآن" : "Book Now")
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+    <div class="container">
+        <h2 class="section-title">@(isArabic ? "ماذا يقول عملاؤنا" : "What Our Clients Say")</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">
+                    @(isArabic ? "خدمة ممتازة وسيارات نظيفة. عملية التأجير كانت سهلة جداً بدون أي تعقيدات."
+                                        : "Excellent service and clean cars. The rental process was very easy with no complications.")
+                </p>
+                <div class="testimonial-author">
+                    <i class="fas fa-user-circle"></i>
+                    <div>
+                        <h4>Ahmed Hassan</h4>
+                        <span>@(isArabic ? "عميل مميز" : "VIP Client")</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">
+                    @(isArabic ? "فريق محترف وسيارات فاخرة. أنصح الجميع بالتعامل مع CARS ON HANDS."
+                                        : "Professional team and luxury cars. I recommend everyone to deal with CARS ON HANDS.")
+                </p>
+                <div class="testimonial-author">
+                    <i class="fas fa-user-circle"></i>
+                    <div>
+                        <h4>Sarah Mahmoud</h4>
+                        <span>@(isArabic ? "عميلة دائمة" : "Regular Client")</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">
+                    @(isArabic ? "أفضل شركة تأجير سيارات تعاملت معها. أسعار مناسبة وخدمة عملاء رائعة."
+                                        : "The best car rental company I've dealt with. Reasonable prices and great customer service.")
+                </p>
+                <div class="testimonial-author">
+                    <i class="fas fa-user-circle"></i>
+                    <div>
+                        <h4>Mohamed Ali</h4>
+                        <span>@(isArabic ? "عميل جديد" : "New Client")</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h2>@(isArabic ? "تواصل معنا" : "Contact Us")</h2>
+                <p>@(isArabic ? "نحن هنا لمساعدتك 24 ساعة طوال أيام الأسبوع" : "We're here to help you 24/7")</p>
+
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h4>@(isArabic ? "الهاتف" : "Phone")</h4>
+                            <p>+20 123 456 7890</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>@(isArabic ? "البريد الإلكتروني" : "Email")</h4>
+                            <p>info@carsonhands.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>@(isArabic ? "العنوان" : "Address")</h4>
+                            <p>@(isArabic ? "القاهرة، مصر" : "Cairo, Egypt")</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+
+            <div class="contact-form">
+                <h3>@(isArabic ? "أرسل لنا رسالة" : "Send us a message")</h3>
+                <form id="contactForm" onsubmit="submitContactForm(event)">
+                    <div class="form-group">
+                        <input type="text" placeholder="@(isArabic ? "الاسم" : "Name")" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="@(isArabic ? "البريد الإلكتروني" : "Email")" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="@(isArabic ? "رقم الهاتف" : "Phone")" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="4" placeholder="@(isArabic ? "رسالتك" : "Your message")" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i>
+                        @(isArabic ? "إرسال" : "Send")
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Inquiry Modal -->
+<div id="inquiryModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle">@(isArabic ? "طلب حجز" : "Booking Request")</h2>
+        <form id="inquiryForm" onsubmit="submitInquiry(event)">
+            <input type="hidden" id="carName" name="carName">
+            <div class="form-group">
+                <label for="name">@(isArabic ? "الاسم الكامل" : "Full Name")</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">@(isArabic ? "رقم الهاتف" : "Phone Number")</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="email">@(isArabic ? "البريد الإلكتروني" : "Email")</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="date">@(isArabic ? "تاريخ الاستلام" : "Pickup Date")</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="days">@(isArabic ? "عدد الأيام" : "Number of Days")</label>
+                    <input type="number" id="days" name="days" min="1" max="30" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="message">@(isArabic ? "ملاحظات إضافية" : "Additional Notes")</label>
+                <textarea id="message" name="message" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn-submit">
+                <i class="fas fa-paper-plane"></i>
+                @(isArabic ? "إرسال الطلب" : "Submit Request")
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Statistics counter animation
+        function animateStats() {
+            const stats = document.querySelectorAll('.stat-number[data-target]');
+            stats.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-target'));
+                const increment = target / 50;
+                let current = 0;
+
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        stat.textContent = Math.ceil(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        stat.textContent = target;
+                    }
+                };
+
+                updateCounter();
+            });
+        }
+
+        // Trigger animation when stats section is in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsBanner = document.querySelector('.stats-banner');
+        if (statsBanner) {
+            observer.observe(statsBanner);
+        }
+
+        // Modal functions
+        function openInquiryModal(carName) {
+            document.getElementById('carName').value = carName;
+            document.getElementById('inquiryModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('inquiryModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function submitInquiry(event) {
+            event.preventDefault();
+            alert('@(isArabic ? "شكراً لتواصلك! سنتواصل معك خلال 24 ساعة." : "Thank you for your inquiry! We'll contact you within 24 hours.")');
+            closeModal();
+        }
+
+        function submitContactForm(event) {
+            event.preventDefault();
+            alert('@(isArabic ? "شكراً لرسالتك! سنرد عليك قريباً." : "Thank you for your message! We'll reply soon.")');
+            event.target.reset();
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('inquiryModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+}
