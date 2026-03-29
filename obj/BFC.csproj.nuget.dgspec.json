@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bloow\\source\\repos\\BFC\\BFC\\BFC.csproj": {}
+    "C:\\Users\\bloow\\Desktop\\BFC (4)\\BFC\\BFC\\BFC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bloow\\source\\repos\\BFC\\BFC\\BFC.csproj": {
+    "C:\\Users\\bloow\\Desktop\\BFC (4)\\BFC\\BFC\\BFC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bloow\\source\\repos\\BFC\\BFC\\BFC.csproj",
+        "projectUniqueName": "C:\\Users\\bloow\\Desktop\\BFC (4)\\BFC\\BFC\\BFC.csproj",
         "projectName": "BFC",
-        "projectPath": "C:\\Users\\bloow\\source\\repos\\BFC\\BFC\\BFC.csproj",
+        "projectPath": "C:\\Users\\bloow\\Desktop\\BFC (4)\\BFC\\BFC\\BFC.csproj",
         "packagesPath": "C:\\Users\\bloow\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bloow\\source\\repos\\BFC\\BFC\\obj\\",
+        "outputPath": "C:\\Users\\bloow\\Desktop\\BFC (4)\\BFC\\BFC\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

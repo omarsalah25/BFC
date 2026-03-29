@@ -1,0 +1,18 @@
+﻿@model CarRentalPortfolio.Models.SiteSettings
+
+@if (Model != null)
+{
+    <style>
+        :root {
+            --primary: @Model.PrimaryColor;
+            --primary-dark: @Model.PrimaryDarkColor;
+            --primary-light: @Model.PrimaryLightColor;
+            --accent: @Model.AccentColor;
+            --accent-dark: @Model.AccentDarkColor;
+            --background: @Model.BackgroundColor;
+            --surface: @Model.SurfaceColor;
+            --text-dark: @Model.TextDarkColor;
+            --text-light: @Model.TextLightColor;
+        }
+    </style>
+}

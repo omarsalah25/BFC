@@ -1,0 +1,140 @@
+﻿@model CarRentalPortfolio.Models.Car
+@{
+    ViewData["Title"] = "Add Car";
+    var isArabic = Context.Request.Cookies["Language"] == "ar";
+}
+
+<div class="admin-form-page">
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <i class="fas fa-plus-circle"></i>
+                <h1>@(isArabic ? "إضافة سيارة جديدة" : "Add New Car")</h1>
+            </div>
+
+            <form asp-action="AddCar" method="post" enctype="multipart/form-data" class="admin-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label asp-for="Name">@(isArabic ? "اسم السيارة (إنجليزي)" : "Car Name (English)")</label>
+                        <input asp-for="Name" class="form-control" required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="NameAr">@(isArabic ? "اسم السيارة (عربي)" : "Car Name (Arabic)")</label>
+                        <input asp-for="NameAr" class="form-control" required />
+                        <span asp-validation-for="NameAr" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="PricePerDay">@(isArabic ? "السعر لليوم (جنيه)" : "Price Per Day (EGP)")</label>
+                        <input asp-for="PricePerDay" class="form-control" type="number" step="0.01" required />
+                        <span asp-validation-for="PricePerDay" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Year">@(isArabic ? "السنة" : "Year")</label>
+                        <input asp-for="Year" class="form-control" type="number" min="2000" max="2025" value="@DateTime.Now.Year" required />
+                        <span asp-validation-for="Year" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Transmission">@(isArabic ? "ناقل الحركة (إنجليزي)" : "Transmission (English)")</label>
+                        <select asp-for="Transmission" class="form-control" required>
+                            <option value="">Select...</option>
+                            <option value="Automatic">Automatic</option>
+                            <option value="Manual">Manual</option>
+                        </select>
+                        <span asp-validation-for="Transmission" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="TransmissionAr">@(isArabic ? "ناقل الحركة (عربي)" : "Transmission (Arabic)")</label>
+                        <select asp-for="TransmissionAr" class="form-control" required>
+                            <option value="">اختر...</option>
+                            <option value="أوتوماتيك">أوتوماتيك</option>
+                            <option value="يدوي">يدوي</option>
+                        </select>
+                        <span asp-validation-for="TransmissionAr" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="FuelType">@(isArabic ? "نوع الوقود (إنجليزي)" : "Fuel Type (English)")</label>
+                        <select asp-for="FuelType" class="form-control" required>
+                            <option value="">Select...</option>
+                            <option value="Petrol">Petrol</option>
+                            <option value="Diesel">Diesel</option>
+                            <option value="Hybrid">Hybrid</option>
+                            <option value="Electric">Electric</option>
+                        </select>
+                        <span asp-validation-for="FuelType" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="FuelTypeAr">@(isArabic ? "نوع الوقود (عربي)" : "Fuel Type (Arabic)")</label>
+                        <select asp-for="FuelTypeAr" class="form-control" required>
+                            <option value="">اختر...</option>
+                            <option value="بنزين">بنزين</option>
+                            <option value="ديزل">ديزل</option>
+                            <option value="هايبرد">هايبرد</option>
+                            <option value="كهرباء">كهرباء</option>
+                        </select>
+                        <span asp-validation-for="FuelTypeAr" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Seats">@(isArabic ? "عدد المقاعد" : "Number of Seats")</label>
+                        <input asp-for="Seats" class="form-control" type="number" min="2" max="9" value="5" required />
+                        <span asp-validation-for="Seats" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label asp-for="Description">@(isArabic ? "الوصف (إنجليزي)" : "Description (English)")</label>
+                        <textarea asp-for="Description" class="form-control" rows="3" required></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label asp-for="DescriptionAr">@(isArabic ? "الوصف (عربي)" : "Description (Arabic)")</label>
+                        <textarea asp-for="DescriptionAr" class="form-control" rows="3" required></textarea>
+                        <span asp-validation-for="DescriptionAr" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label asp-for="ImageUrl">@(isArabic ? "رابط الصورة (اختياري)" : "Image URL (Optional)")</label>
+                        <input asp-for="ImageUrl" class="form-control" placeholder="https://example.com/image.jpg" />
+                        <small class="form-text text-muted">@(isArabic ? "اترك هذا الحقل فارغاً إذا كنت ستقوم برفع صورة بالأسفل" : "Leave this empty if you're uploading an image below")</small>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>@(isArabic ? "أو رفع صورة من الجهاز" : "Or Upload Image")</label>
+                        <input type="file" name="imageFile" class="form-control" accept="image/*" />
+                        <small class="form-text text-muted">@(isArabic ? "الصيغ المدعومة: JPG, PNG, GIF" : "Supported formats: JPG, PNG, GIF")</small>
+                    </div>
+
+                    <div class="form-group full-width checkbox-group">
+                        <label>
+                            <input asp-for="IsAvailable" type="checkbox" checked />
+                            @(isArabic ? "السيارة متاحة للحجز" : "Car is Available for booking")
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-save">
+                        <i class="fas fa-save"></i>
+                        @(isArabic ? "إضافة السيارة" : "Add Car")
+                    </button>
+                    <a href="/Admin/Cars" class="btn-cancel">
+                        <i class="fas fa-times"></i>
+                        @(isArabic ? "إلغاء" : "Cancel")
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -2,14 +2,29 @@
 @{
     var currentLang = Context.Request.Cookies["Language"] ?? "en";
     var isArabic = currentLang == "ar";
+    var settings = Context.Items["SiteSettings"] as CarRentalPortfolio.Models.SiteSettings;
 }
 <html lang="@currentLang" dir="ltr">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Cars On Hands</title>
+    <title>@ViewData["Title"] - @(settings?.SiteName ?? "H-CAR")</title>
+
+    @await Component.InvokeAsync("SiteSettings")
+
+    @if (settings != null)
+    {
+        <link rel="icon" type="image/png" href="@settings.FaviconUrl">
+        <link rel="apple-touch-icon" href="@settings.LogoUrl">
+    }
+    else
+    {
+        <link rel="icon" type="image/png" href="/images/icon.png">
+        <link rel="apple-touch-icon" href="/images/icon.png">
+    }
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
@@ -18,8 +33,15 @@
             <div class="nav-container">
                 <div class="nav-logo">
                     <a href="/">
-                        <span class="logo-text">CARS ON HANDS</span>
-                        <span class="logo-sub">@(isArabic ? "سيارات بين يديك" : "Luxury Car Rental")</span>
+                        @if (settings != null && !string.IsNullOrEmpty(settings.LogoUrl))
+                        {
+                            <img src="@settings.LogoUrl" alt="@(isArabic? settings.SiteNameAr: settings.SiteName)" style="height: 50px;">
+                        }
+                        else
+                        {
+                            <span class="logo-text">@(isArabic? settings?.SiteNameAr ?? "H-CAR" : settings?.SiteName ?? "H-CAR")</span>
+                            <span class="logo-sub">@(isArabic? settings?.FooterTextAr ?? "تأجير سيارات فاخرة" : settings?.FooterTextEn ?? "Luxury Car Rental")</span>
+                        }
                     </a>
                 </div>
 
@@ -30,6 +52,7 @@
                     {
                         <a href="/Admin/Dashboard" class="nav-link">@(isArabic ? "لوحة التحكم" : "Dashboard")</a>
                         <a href="/Admin/Cars" class="nav-link">@(isArabic ? "السيارات" : "Cars")</a>
+                        <a href="/SiteSettings" class="nav-link">@(isArabic ? "الإعدادات" : "Settings")</a>
                         <a href="/Admin/Logout" class="nav-link">@(isArabic ? "تسجيل خروج" : "Logout")</a>
                     }
                 </div>
@@ -59,22 +82,30 @@
             <div class="footer-container">
                 <div class="footer-content">
                     <div class="footer-brand">
-                        <h3>CARS ON HANDS</h3>
-                        <p>@(isArabic ? "حيث عميلنا هو الأولوية القصوى" : "Where our customer is the top priority")</p>
+                        <h3 style="color: var(--accent);">@(isArabic? settings?.SiteNameAr ?? "H-CAR" : settings?.SiteName ?? "H-CAR")</h3>
+                        <p>@(isArabic? settings?.FooterTextAr ?? "تأجير سيارات فاخرة في مصر" : settings?.FooterTextEn ?? "Luxury Car Rental in Egypt")</p>
                     </div>
                     <div class="footer-philosophy">
                         <p class="philosophy-text">
-                            <i class="fas fa-heart"></i>
-                            @(isArabic ? "الأهم هو عميلنا، ليس السيارة ولا المال" : "The most important is our customer, not the car nor the money")
+                            <i class="fas fa-heart" style="color: var(--accent);"></i>
+                            @(isArabic? settings?.PhilosophyAr ?? "راحتك هي أولويتنا القصوى" : settings?.PhilosophyEn ?? "Your comfort is our top priority")
                         </p>
                     </div>
                 </div>
                 <div class="footer-bottom">
-                    <p>&copy; @DateTime.Now.Year - Cars On Hands. @(isArabic ? "جميع الحقوق محفوظة" : "All rights reserved")</p>
+                    <p>&copy; @DateTime.Now.Year - @(isArabic? settings?.SiteNameAr ?? "H-CAR" : settings?.SiteName ?? "H-CAR"). @(isArabic ? "جميع الحقوق محفوظة" : "All rights reserved")</p>
                 </div>
             </div>
         </footer>
     </div>
+
+    @if (settings != null)
+    {
+        <a href="https://wa.me/@settings.WhatsAppNumber" class="whatsapp-float" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span class="tooltip">@(isArabic ? "تواصل معنا عبر واتساب" : "Chat with us on WhatsApp")</span>
+        </a>
+    }
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

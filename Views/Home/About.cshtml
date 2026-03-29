@@ -1,28 +1,28 @@
 ﻿@{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = "About H-CAR";
     var isArabic = Context.Request.Cookies["Language"] == "ar";
 }
 
 <div class="about-page">
     <div class="container">
         <div class="about-header">
-            <h1 class="about-title">@(isArabic ? "عن CARS ON HANDS" : "About CARS ON HANDS")</h1>
+            <h1 class="about-title">@(isArabic ? "عن H-CAR" : "About H-CAR")</h1>
             <div class="title-underline"></div>
         </div>
 
         <div class="about-content">
             <div class="about-card philosophy-card">
                 <div class="card-icon">
-                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-gem"></i>
                 </div>
-                <h2>@(isArabic ? "فلسفتنا" : "Our Philosophy")</h2>
+                <h2>@(isArabic ? "رؤيتنا" : "Our Vision")</h2>
                 <p class="philosophy-main">
-                    @(isArabic ? "في CARS ON HANDS، نؤمن بأن العميل هو جوهر عملنا. ليست السيارة هي الأهم، وليس المال، بل أنت - عميلنا العزيز."
-                                        : "At CARS ON HANDS, we believe the customer is the heart of our business. It's not about the car, not about the money, but about you - our valued customer.")
+                    @(isArabic ? "نحن في H-CAR نؤمن بأن كل رحلة تستحق تجربة استثنائية. نقدم لك أسطولاً متنوعاً من السيارات الفاخرة مع خدمة توصيل واستلام في جميع أنحاء مصر، لتستمتع برحلتك دون قلق."
+                                        : "At H-CAR, we believe every journey deserves an exceptional experience. We offer you a diverse fleet of luxury cars with pick-up and drop-off service across Egypt, so you can enjoy your trip worry-free.")
                 </p>
                 <div class="philosophy-quote">
                     <i class="fas fa-quote-right"></i>
-                    <p>@(isArabic ? "راحتك وثقتك هما نجاحنا الحقيقي" : "Your comfort and trust are our true success")</p>
+                    <p>@(isArabic ? "اكتشف مصر بأناقة مع H-CAR" : "Discover Egypt in style with H-CAR")</p>
                 </div>
             </div>
 
@@ -31,10 +31,10 @@
                     <div class="card-icon">
                         <i class="fas fa-clock"></i>
                     </div>
-                    <h3>@(isArabic ? "سهولة وسرعة" : "Easy & Fast")</h3>
+                    <h3>@(isArabic ? "توصيل فوري" : "Instant Delivery")</h3>
                     <p>
-                        @(isArabic ? "لا أوراق معقدة، لا انتظار طويل. عملية تأجير سلسة وبسيطة."
-                                                : "No complicated paperwork, no long waiting. Smooth and simple rental process.")
+                        @(isArabic ? "نوصل سيارتك أينما كنت في مصر خلال ساعات. خدمة توصيل واستلام 24/7 في جميع المحافظات."
+                                                : "We deliver your car anywhere in Egypt within hours. 24/7 pick-up and drop-off service in all governorates.")
                     </p>
                 </div>
 
@@ -44,8 +44,8 @@
                     </div>
                     <h3>@(isArabic ? "سيارات مضمونة" : "Guaranteed Cars")</h3>
                     <p>
-                        @(isArabic ? "جميع سياراتنا مختارة بعناية وفي أفضل حالة لضمان تجربة قيادة آمنة وممتعة."
-                                                : "All our cars are carefully selected and in best condition for a safe and enjoyable drive.")
+                        @(isArabic ? "جميع سياراتنا حديثة ومفحوصة بالكامل. نضمن لك تجربة قيادة آمنة ومريحة مع كل رحلة."
+                                                : "All our cars are new and fully inspected. We guarantee a safe and comfortable driving experience with every trip.")
                     </p>
                 </div>
 
@@ -55,8 +55,8 @@
                     </div>
                     <h3>@(isArabic ? "خدمة مخصصة" : "Personalized Service")</h3>
                     <p>
-                        @(isArabic ? "نستمع لاحتياجاتك ونقدم لك السيارة التي تناسبك تماماً."
-                                                : "We listen to your needs and provide you with the car that perfectly fits you.")
+                        @(isArabic ? "نستمع لاحتياجاتك ونقدم لك السيارة التي تناسبك تماماً. فريقنا يسعد بمساعدتك في اختيار السيارة المثالية."
+                                                : "We listen to your needs and provide you with the perfect car. Our team is happy to help you choose the ideal vehicle.")
                     </p>
                 </div>
 
@@ -66,11 +66,559 @@
                     </div>
                     <h3>@(isArabic ? "تجربة فاخرة" : "Luxury Experience")</h3>
                     <p>
-                        @(isArabic ? "نقدم لك تجربة قيادة فاخرة بأسعار تنافسية تناسب الجميع."
-                                                : "We offer you a luxury driving experience at competitive prices for everyone.")
+                        @(isArabic ? "نقدم لك تجربة قيادة فاخرة بأسعار تنافسية. سياراتنا مختارة بعناية لتوفر لك أقصى درجات الراحة والرفاهية."
+                                                : "We offer you a luxury driving experience at competitive prices. Our cars are carefully selected to provide you with maximum comfort and luxury.")
                     </p>
+                </div>
+            </div>
+
+            <!-- Why Choose Us Section -->
+            <div class="why-choose-section">
+                <h2 class="section-title">@(isArabic ? "لماذا تختار H-CAR؟" : "Why Choose H-CAR?")</h2>
+                <div class="why-choose-grid">
+                    <div class="why-choose-item">
+                        <div class="why-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="why-content">
+                            <h3>@(isArabic ? "تغطية في جميع أنحاء مصر" : "Coverage Across Egypt")</h3>
+                            <p>@(isArabic ? "نقدم خدماتنا في جميع المحافظات المصرية. أينما كنت، سنوصل سيارتك إليك." : "We serve all Egyptian governorates. Wherever you are, we'll deliver your car to you.")</p>
+                        </div>
+                    </div>
+
+                    <div class="why-choose-item">
+                        <div class="why-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="why-content">
+                            <h3>@(isArabic ? "أسطول حديث ومتجدد" : "Modern & Updated Fleet")</h3>
+                            <p>@(isArabic ? "جميع سياراتنا من موديلات 2020 وما فوق، مع صيانة دورية شاملة." : "All our cars are 2020 models and above, with comprehensive regular maintenance.")</p>
+                        </div>
+                    </div>
+
+                    <div class="why-choose-item">
+                        <div class="why-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="why-content">
+                            <h3>@(isArabic ? "دعم فوري عبر واتساب" : "Instant WhatsApp Support")</h3>
+                            <p>@(isArabic ? "فريق دعم متاح 24/7 عبر واتساب للرد على استفساراتكم وحجوزاتكم." : "24/7 support team available on WhatsApp for your inquiries and bookings.")</p>
+                        </div>
+                    </div>
+
+                    <div class="why-choose-item">
+                        <div class="why-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="why-content">
+                            <h3>@(isArabic ? "أسعار شفافة وتنافسية" : "Transparent & Competitive Pricing")</h3>
+                            <p>@(isArabic ? "أسعار واضحة بدون رسوم خفية. أفضل قيمة مقابل أموالك." : "Clear prices with no hidden fees. Best value for your money.")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Our Process -->
+            <div class="process-section">
+                <h2 class="section-title">@(isArabic ? "كيف تعمل الخدمة" : "How It Works")</h2>
+                <div class="process-grid">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>@(isArabic ? "اختر سيارتك" : "Choose Your Car")</h3>
+                        <p>@(isArabic ? "تصفح مجموعتنا من السيارات الفاخرة واختر ما يناسبك." : "Browse our collection of luxury cars and choose what suits you.")</p>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h3>@(isArabic ? "تواصل معنا" : "Contact Us")</h3>
+                        <p>@(isArabic ? "راسلنا على واتساب مع اسم السيارة وتفاصيل الحجز." : "Message us on WhatsApp with the car name and booking details.")</p>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h3>@(isArabic ? "استلم سيارتك" : "Receive Your Car")</h3>
+                        <p>@(isArabic ? "نوصل السيارة إليك أينما كنت في الوقت المحدد." : "We deliver the car to you wherever you are at the scheduled time.")</p>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>@(isArabic ? "استمتع برحلتك" : "Enjoy Your Trip")</h3>
+                        <p>@(isArabic ? "استمتع بتجربة قيادة فاخرة ورحلة لا تُنسى." : "Enjoy a luxury driving experience and an unforgettable journey.")</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h2 class="section-title">@(isArabic ? "الأسئلة الشائعة" : "Frequently Asked Questions")</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h3>@(isArabic ? "ما هي المستندات المطلوبة للتأجير؟" : "What documents are required for rental?")</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>@(isArabic ? "تحتاج فقط إلى بطاقة هوية سارية ورخصة قيادة. لا أوراق معقدة ولا تعقيدات." : "You only need a valid ID and driver's license. No complicated paperwork.")</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h3>@(isArabic ? "هل يوجد حد أقصى للكيلومترات؟" : "Is there a mileage limit?")</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>@(isArabic ? "لا يوجد حد أقصى للكيلومترات. يمكنك القيادة بحرية أينما تريد." : "No mileage limit. You can drive freely wherever you want.")</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h3>@(isArabic ? "كم مدة الإيجار الأدنى؟" : "What's the minimum rental period?")</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>@(isArabic ? "يمكنك الإيجار ليوم واحد فقط. نوفر مرونة كاملة في مدة الإيجار." : "You can rent for just one day. We provide complete flexibility in rental duration.")</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h3>@(isArabic ? "هل يمكن توصيل السيارة خارج القاهرة؟" : "Can you deliver outside Cairo?")</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>@(isArabic ? "نعم، نوصل السيارات لجميع محافظات مصر. فقط أخبرنا بمكانك." : "Yes, we deliver to all Egyptian governorates. Just tell us your location.")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="cta-section">
+                <div class="cta-content">
+                    <h2>@(isArabic ? "جاهز لتجربة قيادة استثنائية؟" : "Ready for an exceptional driving experience?")</h2>
+                    <p>@(isArabic ? "تواصل معنا الآن عبر واتساب لاختيار سيارتك المثالية" : "Contact us now on WhatsApp to choose your perfect car")</p>
+                    <a href="https://wa.me/201065646972" class="cta-button" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        @(isArabic ? "راسلنا على واتساب" : "Message us on WhatsApp")
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Add this CSS to your site.css file -->
+<style>
+    .about-page {
+        padding: 4rem 0;
+        background-color: var(--surface);
+    }
+
+    .about-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .about-title {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+    }
+
+    .title-underline {
+        width: 80px;
+        height: 4px;
+        background: var(--accent);
+        margin: 0 auto;
+    }
+
+    .about-content {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .about-card {
+        background-color: var(--gray-100);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+    }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+    .philosophy-card {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+        text-align: center;
+    }
+
+        .philosophy-card .card-icon i {
+            color: var(--accent);
+        }
+
+    .card-icon {
+        width: 80px;
+        height: 80px;
+        background-color: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+    }
+
+        .card-icon i {
+            font-size: 2.5rem;
+            color: var(--accent);
+        }
+
+    .philosophy-card h2 {
+        color: white;
+        margin-bottom: 1rem;
+    }
+
+    .philosophy-main {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        margin-bottom: 2rem;
+    }
+
+    .philosophy-quote {
+        background-color: rgba(255,255,255,0.1);
+        padding: 1.5rem;
+        border-radius: 15px;
+        position: relative;
+    }
+
+        .philosophy-quote i {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            opacity: 0.3;
+            color: var(--accent);
+        }
+
+        .philosophy-quote p {
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+    .about-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+        .about-grid .about-card {
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        .about-grid h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .about-grid p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+    .why-choose-section {
+        margin: 4rem 0;
+    }
+
+    .why-choose-grid {
+        display: grid;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .why-choose-item {
+        display: flex;
+        gap: 1.5rem;
+        align-items: flex-start;
+        padding: 1.5rem;
+        background-color: var(--gray-100);
+        border-radius: 15px;
+        transition: var(--transition);
+    }
+
+        .why-choose-item:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-md);
+        }
+
+    .why-icon i {
+        font-size: 2rem;
+        color: var(--accent);
+    }
+
+    .why-content h3 {
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .why-content p {
+        color: var(--text-light);
+    }
+
+    .process-section {
+        margin: 4rem 0;
+    }
+
+    .process-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .process-step {
+        text-align: center;
+        position: relative;
+        padding: 2rem;
+        background-color: var(--gray-100);
+        border-radius: 15px;
+        transition: var(--transition);
+    }
+
+        .process-step:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+    .step-number {
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        width: 40px;
+        height: 40px;
+        background-color: var(--accent);
+        color: var(--text-dark);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.2rem;
+        box-shadow: var(--shadow-md);
+    }
+
+    .step-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+    }
+
+        .step-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+    .process-step h3 {
+        color: var(--primary);
+        margin-bottom: 1rem;
+    }
+
+    .process-step p {
+        color: var(--text-light);
+    }
+
+    .faq-section {
+        margin: 4rem 0;
+    }
+
+    .faq-grid {
+        margin-top: 2rem;
+    }
+
+    .faq-item {
+        background-color: var(--gray-100);
+        border-radius: 15px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+    }
+
+    .faq-question {
+        padding: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+        .faq-question:hover {
+            background-color: var(--gray-200);
+        }
+
+        .faq-question h3 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        .faq-question i {
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+    .faq-item.active .faq-question i {
+        transform: rotate(180deg);
+    }
+
+    .faq-answer {
+        max-height: 0;
+        padding: 0 1.5rem;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        background-color: white;
+    }
+
+    .faq-item.active .faq-answer {
+        max-height: 200px;
+        padding: 1.5rem;
+    }
+
+    .faq-answer p {
+        color: var(--text-light);
+        line-height: 1.6;
+    }
+
+    .cta-section {
+        margin-top: 4rem;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        border-radius: 30px;
+        padding: 4rem;
+        text-align: center;
+        color: white;
+    }
+
+    .cta-content h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .cta-content p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+    }
+
+    .cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 2.5rem;
+        background-color: var(--accent);
+        color: var(--text-dark);
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: var(--transition);
+    }
+
+        .cta-button:hover {
+            background-color: var(--accent-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+    @@media (max-width: 768px) {
+        .about-grid
+
+    {
+        grid-template-columns: 1fr;
+    }
+
+    .process-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cta-section {
+        padding: 2rem;
+    }
+
+    .cta-content h2 {
+        font-size: 1.5rem;
+    }
+
+    }
+
+    @@media (max-width: 480px) {
+        .process-grid
+
+    {
+        grid-template-columns: 1fr;
+    }
+
+    }
+</style>
+
+@section Scripts {
+    <script>
+        function toggleFAQ(element) {
+            const faqItem = element.closest('.faq-item');
+            faqItem.classList.toggle('active');
+
+            // Close other FAQs
+            const allFaqs = document.querySelectorAll('.faq-item');
+            allFaqs.forEach(item => {
+                if (item !== faqItem && item.classList.contains('active')) {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.about-card, .why-choose-item, .process-step, .faq-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+}

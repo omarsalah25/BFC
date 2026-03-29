@@ -8,17 +8,31 @@ namespace CarRentalPortfolio.Controllers
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _environment; 
 
-        public AdminController(ApplicationDbContext context)
+        public AdminController(ApplicationDbContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         public IActionResult Login()
         {
             return View();
         }
+        public async Task<IActionResult> Dashboard()
+        {
+            if (HttpContext.Session.GetString("AdminId") == null)
+                return RedirectToAction("Login");
 
+            // Get stats for dashboard
+            ViewBag.TotalCars = await _context.Cars.CountAsync();
+            ViewBag.AvailableCars = await _context.Cars.CountAsync(c => c.IsAvailable);
+            ViewBag.TotalHeroImages = await _context.HeroImages.CountAsync();
+            ViewBag.ActiveHeroImage = await _context.HeroImages.CountAsync(h => h.IsActive);
+
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> Login(AdminLoginViewModel model)
         {
@@ -39,14 +53,7 @@ namespace CarRentalPortfolio.Controllers
             return View(model);
         }
 
-        public IActionResult Dashboard()
-        {
-            if (HttpContext.Session.GetString("AdminId") == null)
-                return RedirectToAction("Login");
-
-            return View();
-        }
-
+       
         public async Task<IActionResult> Cars()
         {
             if (HttpContext.Session.GetString("AdminId") == null)
@@ -75,7 +82,7 @@ namespace CarRentalPortfolio.Controllers
                 if (imageFile != null && imageFile.Length > 0)
                 {
                     var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+                    var filePath = Path.Combine(_environment.WebRootPath, "images", fileName);
 
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
@@ -117,7 +124,7 @@ namespace CarRentalPortfolio.Controllers
                 if (imageFile != null && imageFile.Length > 0)
                 {
                     var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+                    var filePath = Path.Combine(_environment.WebRootPath, "images", fileName);
 
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
@@ -155,7 +162,7 @@ namespace CarRentalPortfolio.Controllers
 
         public IActionResult Logout()
         {
-            HttpContext.Session.Remove("AdminId");
+            HttpContext.Session.Clear(); // Clears everything securely
             return RedirectToAction("Login");
         }
         public async Task<IActionResult> HeroImages()
@@ -186,7 +193,7 @@ namespace CarRentalPortfolio.Controllers
                 if (imageFile != null && imageFile.Length > 0)
                 {
                     var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+                    var filePath = Path.Combine(_environment.WebRootPath, "images", fileName);
 
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
@@ -228,7 +235,7 @@ namespace CarRentalPortfolio.Controllers
                 if (imageFile != null && imageFile.Length > 0)
                 {
                     var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+                    var filePath = Path.Combine(_environment.WebRootPath, "images", fileName);
 
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {

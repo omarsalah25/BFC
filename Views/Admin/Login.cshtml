@@ -10,26 +10,33 @@
             <div class="login-header">
                 <i class="fas fa-user-shield"></i>
                 <h2>@(isArabic ? "تسجيل دخول المدير" : "Admin Login")</h2>
+                <p>@(isArabic ? "الرجاء إدخال بيانات الاعتماد الخاصة بك" : "Please enter your credentials")</p>
             </div>
 
             <form asp-action="Login" method="post" class="login-form">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="ModelOnly" class="text-danger error-summary"></div>
 
                 <div class="form-group">
                     <label asp-for="Username">@(isArabic ? "اسم المستخدم" : "Username")</label>
-                    <input asp-for="Username" class="form-control" />
+                    <div class="input-icon-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input asp-for="Username" class="form-control" placeholder="@(isArabic ? "أدخل اسم المستخدم" : "Enter username")" />
+                    </div>
                     <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="Password">@(isArabic ? "كلمة المرور" : "Password")</label>
-                    <input asp-for="Password" class="form-control" type="password" />
+                    <div class="input-icon-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input asp-for="Password" class="form-control" type="password" placeholder="••••••••" />
+                    </div>
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
 
                 <button type="submit" class="btn-login">
                     <i class="fas fa-sign-in-alt"></i>
-                    @(isArabic ? "دخول" : "Login")
+                    @(isArabic ? "تسجيل الدخول" : "Login")
                 </button>
             </form>
         </div>

@@ -13,6 +13,8 @@ namespace CarRentalPortfolio.Data
         public DbSet<Car> Cars { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<HeroImage> HeroImages { get; set; }
+        public DbSet<SiteSettings> SiteSettings { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,20 +30,56 @@ namespace CarRentalPortfolio.Data
                 }
             );
 
+
+            modelBuilder.Entity<SiteSettings>().HasData(
+              new SiteSettings
+              {
+                  Id = 1,
+                  SiteName = "H-CAR",
+                  SiteNameAr = "إتش-كار",
+                  WhatsAppNumber = "201065646972",
+                  WhatsAppMessageEn = "Hello, I'm interested in renting a car",
+                  WhatsAppMessageAr = "مرحباً، أود الاستفسار عن تأجير سيارة",
+                  PrimaryColor = "#6f9883",
+                  PrimaryDarkColor = "#5a7a69",
+                  PrimaryLightColor = "#8fb19e",
+                  AccentColor = "#f6bd2c",
+                  AccentDarkColor = "#e5a913",
+                  BackgroundColor = "#d0d7d1",
+                  SurfaceColor = "#ffffff",
+                  TextDarkColor = "#1e2b27",
+                  TextLightColor = "#5a6b64",
+                  LogoUrl = "/images/icon.png",
+                  FaviconUrl = "/images/icon.png",
+                  FooterTextEn = "Luxury Car Rental in Egypt",
+                  FooterTextAr = "تأجير سيارات فاخرة في مصر",
+                  PhilosophyEn = "Your comfort is our top priority",
+                  PhilosophyAr = "راحتك هي أولويتنا القصوى",
+                  UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Unspecified)
+              }
+          );
+
             // Seed default hero image
             modelBuilder.Entity<HeroImage>().HasData(
-                new HeroImage
-                {
-                    Id = 1,
-                    ImageUrl = "/images/hero-bg.jpg",
-                    Title = "Luxury Cars, Exceptional Experience",
-                    TitleAr = "سيارات فاخرة بتجربة استثنائية",
-                    Subtitle = "Discover our curated collection of premium vehicles",
-                    SubtitleAr = "اكتشف مجموعتنا المختارة من السيارات الراقية",
-                    IsActive = true,
-                    CreatedAt = DateTime.Now
-                }
-            );
+        new HeroImage
+        {
+            Id = 1,
+            ImageUrl = "/images/hero-bg.jpg",
+            Title = "Luxury Cars, Exceptional Experience",
+            TitleAr = "سيارات فاخرة بتجربة استثنائية",
+            Subtitle = "Discover our curated collection of premium vehicles",
+            SubtitleAr = "اكتشف مجموعتنا المختارة من السيارات الراقية",
+            IsActive = true,
+
+            // REPLACE THIS:
+            // CreatedAt = DateTime.Now
+
+            // WITH THIS:
+            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Unspecified)
+        }
+    );
+
+
 
             // Seed sample cars
             modelBuilder.Entity<Car>().HasData(

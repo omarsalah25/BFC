@@ -1,0 +1,132 @@
+﻿@model CarRentalPortfolio.Models.SiteSettings
+@{
+    ViewData["Title"] = "Site Settings";
+    var isArabic = Context.Request.Cookies["Language"] == "ar";
+}
+
+<div class="admin-form-page">
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <i class="fas fa-cog"></i>
+                <h1>@(isArabic ? "إعدادات الموقع" : "Site Settings")</h1>
+            </div>
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle"></i>
+                    @TempData["Success"]
+                </div>
+            }
+
+            <div class="settings-summary">
+                <div class="summary-item">
+                    <i class="fas fa-palette"></i>
+                    <div>
+                        <h3>@(isArabic ? "الألوان" : "Colors")</h3>
+                        <div class="color-preview">
+                            <span style="background-color: @Model.PrimaryColor"></span>
+                            <span style="background-color: @Model.AccentColor"></span>
+                            <span style="background-color: @Model.BackgroundColor"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <div>
+                        <h3>@(isArabic ? "رقم واتساب" : "WhatsApp")</h3>
+                        <p>+@Model.WhatsAppNumber</p>
+                    </div>
+                </div>
+
+                <div class="summary-item">
+                    <i class="fas fa-image"></i>
+                    <div>
+                        <h3>@(isArabic ? "الشعار" : "Logo")</h3>
+                        @if (!string.IsNullOrEmpty(Model.LogoUrl))
+                        {
+                            <img src="@Model.LogoUrl" alt="Logo" style="max-width: 100px; max-height: 50px;">
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a href="/SiteSettings/Edit" class="btn-save">
+                    <i class="fas fa-edit"></i>
+                    @(isArabic ? "تعديل الإعدادات" : "Edit Settings")
+                </a>
+                <a href="/Admin/Dashboard" class="btn-cancel">
+                    <i class="fas fa-arrow-left"></i>
+                    @(isArabic ? "العودة للوحة التحكم" : "Back to Dashboard")
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .settings-summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+
+    .summary-item {
+        background-color: var(--gray-100);
+        padding: 1.5rem;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+        .summary-item i {
+            font-size: 2rem;
+            color: var(--primary);
+            width: 50px;
+            text-align: center;
+        }
+
+        .summary-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .summary-item p {
+            color: var(--text-light);
+            margin: 0;
+        }
+
+    .color-preview {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+        .color-preview span {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            border: 2px solid var(--surface);
+            box-shadow: var(--shadow-sm);
+        }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+        .alert-success i {
+            font-size: 1.2rem;
+        }
+</style>

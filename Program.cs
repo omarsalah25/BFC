@@ -1,7 +1,8 @@
 using CarRentalPortfolio.Data;
-using Microsoft.EntityFrameworkCore;
 using CarRentalPortfolio.Data;
+using CarRentalPortfolio.Middleware;
 using CarRentalPortfolio.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +40,7 @@ app.UseRouting();
 app.UseSession();
 
 app.UseAuthorization();
+app.UseSiteSettings();
 
 // Language middleware
 app.Use(async (context, next) =>
@@ -58,7 +60,7 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    dbContext.Database.EnsureCreated();
+    dbContext.Database.Migrate(); // <--- ADD THIS
 }
 
 app.Run();

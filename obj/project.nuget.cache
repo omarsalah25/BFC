@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zhJuPaPlbUk=",
+  "dgSpecHash": "AIHCtzFcWSY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\bloow\\source\\repos\\BFC\\BFC\\BFC.csproj",
+  "projectFilePath": "C:\\Users\\bloow\\Desktop\\BFC (4)\\BFC\\BFC\\BFC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bloow\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\bloow\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
