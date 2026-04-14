@@ -4,67 +4,368 @@
     var isArabic = Context.Request.Cookies["Language"] == "ar";
 }
 
-<div class="admin-cars">
+<div class="admin-settings-page">
     <div class="container">
-        <div class="header-actions">
-            <h1>@(isArabic ? "إدارة السيارات" : "Manage Cars")</h1>
-            <a href="/Admin/AddCar" class="btn-add">
-                <i class="fas fa-plus"></i>
-                @(isArabic ? "إضافة سيارة" : "Add New Car")
-            </a>
+        <!-- HEADER -->
+        <div class="settings-header-box">
+            <div class="header-content">
+                <div class="icon-wrapper" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">
+                    <i class="fas fa-car-side"></i>
+                </div>
+                <div>
+                    <h1>@(isArabic ? "إدارة السيارات" : "Manage Cars")</h1>
+                    <p>@(isArabic ? "أضف، عدل، أو احذف السيارات من أسطولك" : "Add, edit, or remove cars from your fleet")</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <a href="/Admin/Dashboard" class="btn-outline-cancel">
+                    <i class="fas fa-arrow-left"></i> @(isArabic ? "عودة للوحة" : "Back to Dashboard")
+                </a>
+                <a href="/Admin/AddCar" class="btn-primary-save" style="text-decoration: none;">
+                    <i class="fas fa-plus"></i> @(isArabic ? "إضافة سيارة جديدة" : "Add New Car")
+                </a>
+            </div>
         </div>
 
-        <div class="cars-table-container">
-            <table class="cars-table">
-                <thead>
-                    <tr>
-                        <th>@(isArabic ? "الصورة" : "Image")</th>
-                        <th>@(isArabic ? "الاسم" : "Name")</th>
-                        <th>@(isArabic ? "السعر/اليوم" : "Price/Day")</th>
-                        <th>@(isArabic ? "الحالة" : "Status")</th>
-                        <th>@(isArabic ? "السنة" : "Year")</th>
-                        <th>@(isArabic ? "الإجراءات" : "Actions")</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var car in Model)
-                    {
-                        <tr id="car-row-@car.Id">
-                            <td>
-                                @if (!string.IsNullOrEmpty(car.ImageUrl))
-                                {
-                                    <img src="@car.ImageUrl" alt="@car.Name" class="table-car-image">
-                                }
-                                else
-                                {
-                                    <div class="table-image-placeholder">
-                                        <i class="fas fa-car"></i>
-                                    </div>
-                                }
-                            </td>
-                            <td>@(isArabic? car.NameAr: car.Name)</td>
-                            <td>@car.PricePerDay.ToString("N0") EGP</td>
-                            <td>
-                                <span class="status-badge @(car.IsAvailable ? "available" : "unavailable")">
-                                    @(car.IsAvailable ? (isArabic ? "متاحة" : "Available") : (isArabic ? "غير متاحة" : "Unavailable"))
-                                </span>
-                            </td>
-                            <td>@car.Year</td>
-                            <td class="actions">
-                                <a href="/Admin/EditCar/@car.Id" class="btn-edit">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <button onclick="deleteCar(@car.Id)" class="btn-delete">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
+        <!-- CONTENT -->
+        <div class="settings-content" style="padding: 0; overflow: hidden;">
+            <div class="table-responsive">
+                <table class="premium-table">
+                    <thead>
+                        <tr>
+                            <th>@(isArabic ? "السيارة" : "Car")</th>
+                            <th>@(isArabic ? "التفاصيل" : "Details")</th>
+                            <th>@(isArabic ? "السعر/اليوم" : "Price/Day")</th>
+                            <th>@(isArabic ? "الحالة" : "Status")</th>
+                            <th class="text-center">@(isArabic ? "الإجراءات" : "Actions")</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center py-5">
+                                    <div class="empty-state">
+                                        <i class="fas fa-box-open"></i>
+                                        <p>@(isArabic ? "لا توجد سيارات حالياً" : "No cars available")</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                        @foreach (var car in Model)
+                        {
+                            <tr id="car-row-@car.Id">
+                                <td>
+                                    <div class="table-car-info">
+                                        <div class="car-img-thumb">
+                                            @if (!string.IsNullOrEmpty(car.ImageUrl))
+                                            {
+                                                <img src="@car.ImageUrl" alt="@car.Name">
+                                            }
+                                            else
+                                            {
+                                                <i class="fas fa-car"></i>
+                                            }
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-dark">@(isArabic? car.NameAr: car.Name)</div>
+                                            <div class="text-muted small">@car.Year</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="car-specs-mini">
+                                        <span><i class="fas fa-gas-pump"></i> @(isArabic? car.FuelTypeAr: car.FuelType)</span>
+                                        <span><i class="fas fa-cog"></i> @(isArabic? car.TransmissionAr: car.Transmission)</span>
+                                    </div>
+                                </td>
+                                <td class="fw-bold" style="color: var(--primary);">
+                                    @car.PricePerDay.ToString("N0") <span class="text-muted small">EGP</span>
+                                </td>
+                                <td>
+                                    @if (car.IsAvailable)
+                                    {
+                                        <span class="status-pill active"><i class="fas fa-check-circle"></i> @(isArabic ? "متاحة" : "Available")</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-pill inactive"><i class="fas fa-times-circle"></i> @(isArabic ? "غير متاحة" : "Unavailable")</span>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    <div class="action-buttons">
+                                        <a href="/Admin/EditCar/@car.Id" class="btn-action edit" title="@(isArabic ? "تعديل" : "Edit")">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button onclick="deleteCar(@car.Id)" class="btn-action delete" title="@(isArabic ? "حذف" : "Delete")">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+
+<style>
+    /* Premium Base UI reused from Settings */
+    .admin-settings-page {
+        padding: 30px 0;
+        background-color: var(--background);
+        min-height: calc(100vh - 80px);
+    }
+
+    .settings-header-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--surface);
+        padding: 25px 30px;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .header-content {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.8rem;
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+
+    .header-content h1 {
+        margin: 0 0 5px;
+        font-size: 1.6rem;
+        color: var(--text-dark);
+    }
+
+    .header-content p {
+        margin: 0;
+        color: var(--text-light);
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 15px;
+    }
+
+    .btn-primary-save {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+        .btn-primary-save:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+    .btn-outline-cancel {
+        background: transparent;
+        color: var(--text-dark);
+        border: 1px solid var(--gray-300);
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.3s;
+    }
+
+        .btn-outline-cancel:hover {
+            background: var(--gray-200);
+            color: var(--text-dark);
+        }
+
+    .settings-content {
+        background: var(--surface);
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    }
+
+    /* Premium Table */
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .premium-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .premium-table th {
+            background: #f8fafc;
+            padding: 18px 25px;
+            text-align: left;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            font-weight: 600;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+    [dir="rtl"] .premium-table th {
+        text-align: right;
+    }
+
+    .premium-table td {
+        padding: 20px 25px;
+        border-bottom: 1px solid var(--gray-100);
+        vertical-align: middle;
+        transition: 0.2s;
+    }
+
+    .premium-table tr:hover td {
+        background-color: #f8fafc;
+    }
+
+    .premium-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    /* Car Info Cell */
+    .table-car-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .car-img-thumb {
+        width: 80px;
+        height: 50px;
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--gray-100);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--gray-300);
+        font-size: 1.5rem;
+        flex-shrink: 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+        .car-img-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .car-specs-mini {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+
+        .car-specs-mini i {
+            width: 16px;
+            color: var(--gray-400);
+        }
+
+    /* Status Pills */
+    .status-pill {
+        padding: 6px 12px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+        .status-pill.active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-pill.inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn-action {
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        cursor: pointer;
+        transition: 0.2s;
+        background: transparent;
+    }
+
+        .btn-action.edit {
+            color: #3b82f6;
+            background: #eff6ff;
+        }
+
+            .btn-action.edit:hover {
+                background: #3b82f6;
+                color: white;
+            }
+
+        .btn-action.delete {
+            color: #ef4444;
+            background: #fef2f2;
+        }
+
+            .btn-action.delete:hover {
+                background: #ef4444;
+                color: white;
+            }
+
+    .empty-state {
+        padding: 40px;
+        color: var(--text-light);
+    }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--gray-300);
+        }
+</style>
 
 @section Scripts {
     <script>
@@ -73,7 +374,7 @@
                 $.post('/Admin/DeleteCar', { id: id })
                     .done(function(response) {
                         if (response.success) {
-                            $('#car-row-' + id).fadeOut();
+                            $('#car-row-' + id).fadeOut(300, function() { $(this).remove(); });
                         } else {
                             alert(response.message);
                         }

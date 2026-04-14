@@ -24,7 +24,7 @@
                 <p>@(isArabic ? "تغيير صور وخلفيات الصفحة الرئيسية" : "Change homepage images and backgrounds")</p>
             </a>
 
-            <div class="dashboard-card">
+@*             <div class="dashboard-card">
                 <div class="card-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
@@ -41,16 +41,33 @@
                     </div>
                 </div>
             </div>
+ *@
+            <!-- Add these two new cards anywhere inside the <div class="dashboard-grid"> -->
 
+            <a href="/Admin/Messages" class="dashboard-card">
+                <div class="card-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3>@(isArabic ? "رسائل العملاء" : "Customer Messages")</h3>
+                <p>@(isArabic ? "عرض رسائل نموذج اتصل بنا" : "View Contact Us messages")</p>
+            </a>
 
-            <div class="dashboard-card">
+            <a href="/Admin/Profile" class="dashboard-card">
+                <div class="card-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h3>@(isArabic ? "بيانات الدخول" : "Admin Credentials")</h3>
+                <p>@(isArabic ? "تغيير اسم المستخدم وكلمة المرور" : "Change username and password")</p>
+            </a>
+
+@*             <div class="dashboard-card">
                 <div class="card-icon">
                     <i class="fas fa-cog"></i>
                 </div>
                 <h3>@(isArabic ? "الإعدادات" : "Settings")</h3>
                 <p>@(isArabic ? "تعديل إعدادات الموقع والمعلومات" : "Modify site settings and information")</p>
             </div>
-
+ *@
 
             <a href="/SiteSettings" class="dashboard-card">
                 <div class="card-icon">

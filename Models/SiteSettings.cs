@@ -79,6 +79,52 @@ namespace CarRentalPortfolio.Models
 
         [Display(Name = "Company Philosophy (Arabic)")]
         public string? PhilosophyAr { get; set; } = "راحتك هي أولويتنا القصوى";
+        [Display(Name = "Features Title (English)")]
+        public string FeaturesTitleEn { get; set; } = "Our Advantages";
+
+        [Display(Name = "Features Title (Arabic)")]
+        public string FeaturesTitleAr { get; set; } = "مميزاتنا";
+
+        [Display(Name = "Cars Section Title (English)")]
+        public string CarsTitleEn { get; set; } = "Our Luxury Fleet";
+        [Display(Name = "Philosophy Image URL")]
+        public string? PhilosophyImageUrl { get; set; }
+        // --- SOCIAL MEDIA ---
+        [Display(Name = "Facebook URL")]
+        public string? FacebookUrl { get; set; }
+
+        [Display(Name = "Twitter/X URL")]
+        public string? TwitterUrl { get; set; }
+
+        [Display(Name = "Instagram URL")]
+        public string? InstagramUrl { get; set; }
+
+        [Display(Name = "Cars Section Title (Arabic)")]
+        public string CarsTitleAr { get; set; } = "سياراتنا الفاخرة";
+
+        [Display(Name = "Cars Section Subtitle (English)")]
+        public string CarsSubtitleEn { get; set; } = "Choose your perfect car and enjoy an unforgettable driving experience";
+
+        [Display(Name = "Cars Section Subtitle (Arabic)")]
+        public string CarsSubtitleAr { get; set; } = "اختر سيارتك المثالية واستمتع بتجربة قيادة لا تُنسى";
+
+        [Display(Name = "Testimonials Title (English)")]
+        public string TestimonialsTitleEn { get; set; } = "What Our Clients Say";
+
+        [Display(Name = "Testimonials Title (Arabic)")]
+        public string TestimonialsTitleAr { get; set; } = "ماذا يقول عملاؤنا";
+
+        [Display(Name = "Contact Title (English)")]
+        public string ContactTitleEn { get; set; } = "Contact Us";
+
+        [Display(Name = "Contact Title (Arabic)")]
+        public string ContactTitleAr { get; set; } = "تواصل معنا";
+
+        [Display(Name = "Contact Subtitle (English)")]
+        public string ContactSubtitleEn { get; set; } = "We're here to help you 24/7 via WhatsApp";
+
+        [Display(Name = "Contact Subtitle (Arabic)")]
+        public string ContactSubtitleAr { get; set; } = "نحن هنا لمساعدتك 24 ساعة طوال أيام الأسبوع عبر واتساب";
 
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
       

@@ -24,8 +24,19 @@
             {
                 return View();
             }
+        [HttpPost]
+        public async Task<IActionResult> SubmitContactMessage([FromBody] ContactMessage model)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.ContactMessages.Add(model);
+                await _context.SaveChangesAsync();
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
+        }
 
-            public IActionResult ChangeLanguage(string lang)
+        public IActionResult ChangeLanguage(string lang)
             {
                 if (lang == "ar" || lang == "en")
                 {

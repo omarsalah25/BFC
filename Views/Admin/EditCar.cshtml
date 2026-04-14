@@ -4,147 +4,488 @@
     var isArabic = Context.Request.Cookies["Language"] == "ar";
 }
 
-<div class="admin-form-page">
+<div class="admin-settings-page">
     <div class="container">
-        <div class="form-container">
-            <div class="form-header">
-                <i class="fas fa-edit"></i>
-                <h1>@(isArabic ? "تعديل السيارة" : "Edit Car")</h1>
+
+        <div class="settings-header-box">
+            <div class="header-content">
+                <div class="icon-wrapper" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <div>
+                    <h1>@(isArabic ? "تعديل بيانات السيارة" : "Edit Car Details")</h1>
+                    <p>@(isArabic ? "تحديث بيانات السيارة، المواصفات، أو السعر" : "Update the car information, specs, or pricing")</p>
+                </div>
             </div>
+            <div class="header-actions">
+                <a href="/Admin/Cars" class="btn-outline-cancel">
+                    <i class="fas fa-times"></i> @(isArabic ? "إلغاء" : "Cancel")
+                </a>
+                <button type="button" onclick="document.getElementById('editCarForm').submit();" class="btn-primary-save" style="background: #f59e0b;">
+                    <i class="fas fa-save"></i> @(isArabic ? "حفظ التعديلات" : "Save Changes")
+                </button>
+            </div>
+        </div>
 
-            <form asp-action="EditCar" method="post" enctype="multipart/form-data" class="admin-form">
-                <input type="hidden" asp-for="Id" />
+        <form id="editCarForm" asp-action="EditCar" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
 
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label asp-for="Name">@(isArabic ? "اسم السيارة (إنجليزي)" : "Car Name (English)")</label>
-                        <input asp-for="Name" class="form-control" required />
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 25px;">
 
-                    <div class="form-group">
-                        <label asp-for="NameAr">@(isArabic ? "اسم السيارة (عربي)" : "Car Name (Arabic)")</label>
-                        <input asp-for="NameAr" class="form-control" required />
-                        <span asp-validation-for="NameAr" class="text-danger"></span>
-                    </div>
+                <!-- LEFT COLUMN: Main Info & Specs -->
+                <div style="display: flex; flex-direction: column; gap: 25px;">
 
-                    <div class="form-group">
-                        <label asp-for="PricePerDay">@(isArabic ? "السعر لليوم (جنيه)" : "Price Per Day (EGP)")</label>
-                        <input asp-for="PricePerDay" class="form-control" type="number" step="0.01" required />
-                        <span asp-validation-for="PricePerDay" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Year">@(isArabic ? "السنة" : "Year")</label>
-                        <input asp-for="Year" class="form-control" type="number" min="2000" max="2025" required />
-                        <span asp-validation-for="Year" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Transmission">@(isArabic ? "ناقل الحركة (إنجليزي)" : "Transmission (English)")</label>
-                        <select asp-for="Transmission" class="form-control" required>
-                            <option value="Automatic">Automatic</option>
-                            <option value="Manual">Manual</option>
-                        </select>
-                        <span asp-validation-for="Transmission" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="TransmissionAr">@(isArabic ? "ناقل الحركة (عربي)" : "Transmission (Arabic)")</label>
-                        <select asp-for="TransmissionAr" class="form-control" required>
-                            <option value="أوتوماتيك">أوتوماتيك</option>
-                            <option value="يدوي">يدوي</option>
-                        </select>
-                        <span asp-validation-for="TransmissionAr" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="FuelType">@(isArabic ? "نوع الوقود (إنجليزي)" : "Fuel Type (English)")</label>
-                        <select asp-for="FuelType" class="form-control" required>
-                            <option value="Petrol">Petrol</option>
-                            <option value="Diesel">Diesel</option>
-                            <option value="Hybrid">Hybrid</option>
-                            <option value="Electric">Electric</option>
-                        </select>
-                        <span asp-validation-for="FuelType" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="FuelTypeAr">@(isArabic ? "نوع الوقود (عربي)" : "Fuel Type (Arabic)")</label>
-                        <select asp-for="FuelTypeAr" class="form-control" required>
-                            <option value="بنزين">بنزين</option>
-                            <option value="ديزل">ديزل</option>
-                            <option value="هايبرد">هايبرد</option>
-                            <option value="كهرباء">كهرباء</option>
-                        </select>
-                        <span asp-validation-for="FuelTypeAr" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Seats">@(isArabic ? "عدد المقاعد" : "Number of Seats")</label>
-                        <input asp-for="Seats" class="form-control" type="number" min="2" max="9" required />
-                        <span asp-validation-for="Seats" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label asp-for="Description">@(isArabic ? "الوصف (إنجليزي)" : "Description (English)")</label>
-                        <textarea asp-for="Description" class="form-control" rows="3" required></textarea>
-                        <span asp-validation-for="Description" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label asp-for="DescriptionAr">@(isArabic ? "الوصف (عربي)" : "Description (Arabic)")</label>
-                        <textarea asp-for="DescriptionAr" class="form-control" rows="3" required></textarea>
-                        <span asp-validation-for="DescriptionAr" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label>@(isArabic ? "الصورة الحالية" : "Current Image")</label>
-                        <div class="current-image">
-                            @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                            {
-                                <img src="@Model.ImageUrl" alt="@Model.Name" class="preview-image">
-                            }
-                            else
-                            {
-                                <div class="no-image">@(isArabic ? "لا توجد صورة" : "No image")</div>
-                            }
+                    <div class="settings-content">
+                        <div class="pane-header">
+                            <h2><i class="fas fa-info-circle text-warning"></i> @(isArabic ? "البيانات الأساسية" : "Basic Information")</h2>
+                        </div>
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label asp-for="Name">@(isArabic ? "اسم السيارة (إنجليزي)" : "Car Name (En)")</label>
+                                <input asp-for="Name" class="modern-input" required />
+                                <span asp-validation-for="Name" class="text-danger small"></span>
+                            </div>
+                            <div class="input-group">
+                                <label asp-for="NameAr">@(isArabic ? "اسم السيارة (عربي)" : "Car Name (Ar)")</label>
+                                <input asp-for="NameAr" class="modern-input" required />
+                                <span asp-validation-for="NameAr" class="text-danger small"></span>
+                            </div>
+                            <div class="input-group full-width">
+                                <label asp-for="Description">@(isArabic ? "الوصف (إنجليزي)" : "Description (En)")</label>
+                                <textarea asp-for="Description" class="modern-textarea" rows="3" required></textarea>
+                                <span asp-validation-for="Description" class="text-danger small"></span>
+                            </div>
+                            <div class="input-group full-width">
+                                <label asp-for="DescriptionAr">@(isArabic ? "الوصف (عربي)" : "Description (Ar)")</label>
+                                <textarea asp-for="DescriptionAr" class="modern-textarea" rows="3" required></textarea>
+                                <span asp-validation-for="DescriptionAr" class="text-danger small"></span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-group full-width">
-                        <label asp-for="ImageUrl">@(isArabic ? "رابط الصورة (اختياري)" : "Image URL (Optional)")</label>
-                        <input asp-for="ImageUrl" class="form-control" placeholder="https://example.com/image.jpg" />
-                    </div>
-
-                    <div class="form-group full-width">
-                        <label>@(isArabic ? "أو رفع صورة جديدة" : "Or Upload New Image")</label>
-                        <input type="file" name="imageFile" class="form-control" accept="image/*" />
-                    </div>
-
-                    <div class="form-group full-width checkbox-group">
-                        <label>
-                            <input asp-for="IsAvailable" type="checkbox" />
-                            @(isArabic ? "السيارة متاحة" : "Car is Available")
-                        </label>
+                    <div class="settings-content">
+                        <div class="pane-header">
+                            <h2><i class="fas fa-cogs text-warning"></i> @(isArabic ? "المواصفات الفنية" : "Technical Specifications")</h2>
+                        </div>
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label asp-for="Transmission">@(isArabic ? "ناقل الحركة (En)" : "Transmission (En)")</label>
+                                <select asp-for="Transmission" class="modern-input" required>
+                                    <option value="Automatic">Automatic</option>
+                                    <option value="Manual">Manual</option>
+                                </select>
+                                <span asp-validation-for="Transmission" class="text-danger small"></span>
+                            </div>
+                            <div class="input-group">
+                                <label asp-for="TransmissionAr">@(isArabic ? "ناقل الحركة (Ar)" : "Transmission (Ar)")</label>
+                                <select asp-for="TransmissionAr" class="modern-input" required>
+                                    <option value="أوتوماتيك">أوتوماتيك</option>
+                                    <option value="يدوي">يدوي</option>
+                                </select>
+                                <span asp-validation-for="TransmissionAr" class="text-danger small"></span>
+                            </div>
+                            <div class="input-group">
+                                <label asp-for="FuelType">@(isArabic ? "نوع الوقود (En)" : "Fuel Type (En)")</label>
+                                <select asp-for="FuelType" class="modern-input" required>
+                                    <option value="Petrol">Petrol</option>
+                                    <option value="Diesel">Diesel</option>
+                                    <option value="Hybrid">Hybrid</option>
+                                    <option value="Electric">Electric</option>
+                                </select>
+                                <span asp-validation-for="FuelType" class="text-danger small"></span>
+                            </div>
+                            <div class="input-group">
+                                <label asp-for="FuelTypeAr">@(isArabic ? "نوع الوقود (Ar)" : "Fuel Type (Ar)")</label>
+                                <select asp-for="FuelTypeAr" class="modern-input" required>
+                                    <option value="بنزين">بنزين</option>
+                                    <option value="ديزل">ديزل</option>
+                                    <option value="هايبرد">هايبرد</option>
+                                    <option value="كهرباء">كهرباء</option>
+                                </select>
+                                <span asp-validation-for="FuelTypeAr" class="text-danger small"></span>
+                            </div>
+                            <div class="input-group">
+                                <label asp-for="Seats">@(isArabic ? "عدد المقاعد" : "Seats")</label>
+                                <input asp-for="Seats" class="modern-input" type="number" min="2" max="9" required />
+                                <span asp-validation-for="Seats" class="text-danger small"></span>
+                            </div>
+                            <div class="input-group">
+                                <label asp-for="Year">@(isArabic ? "سنة الصنع" : "Year")</label>
+                                <input asp-for="Year" class="modern-input" type="number" min="1950" max="2050" required />
+                                <span asp-validation-for="Year" class="text-danger small"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-actions">
-                    <button type="submit" class="btn-save">
-                        <i class="fas fa-save"></i>
-                        @(isArabic ? "حفظ التغييرات" : "Save Changes")
-                    </button>
-                    <a href="/Admin/Cars" class="btn-cancel">
-                        <i class="fas fa-times"></i>
-                        @(isArabic ? "إلغاء" : "Cancel")
-                    </a>
+                <!-- RIGHT COLUMN: Image, Price & Status -->
+                <div style="display: flex; flex-direction: column; gap: 25px;">
+
+                    <div class="settings-content">
+                        <div class="pane-header">
+                            <h2><i class="fas fa-image text-warning"></i> @(isArabic ? "صورة السيارة" : "Car Image")</h2>
+                        </div>
+                        <div class="upload-zone full-width" style="margin-top: 0;">
+                            <div class="preview-box large-box" id="preview-car">
+                                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                                {
+                                    <img src="@Model.ImageUrl" alt="@Model.Name">
+                                }
+                                else
+                                {
+                                    <i class="fas fa-car placeholder-icon"></i>
+                                }
+                            </div>
+                            <div class="file-btn-wrapper">
+                                <input type="file" name="imageFile" accept="image/*" onchange="previewImage(this, 'preview-car')" />
+                                <button type="button" class="btn-upload"><i class="fas fa-upload"></i> @(isArabic ? "تغيير الصورة" : "Change Image")</button>
+                            </div>
+                            <p class="text-muted small mt-3" style="margin-bottom:0;">@(isArabic ? "أو قم بوضع رابط للصورة مباشرة:" : "Or use an external Image URL:")</p>
+                            <input asp-for="ImageUrl" class="modern-input mt-2" placeholder="https://..." style="font-size: 0.85rem; padding: 8px 12px;" />
+                        </div>
+                    </div>
+
+                    <div class="settings-content">
+                        <div class="pane-header">
+                            <h2><i class="fas fa-tag text-warning"></i> @(isArabic ? "السعر والحالة" : "Price & Status")</h2>
+                        </div>
+
+                        <div class="input-group mb-4">
+                            <label asp-for="PricePerDay">@(isArabic ? "السعر لليوم (جنيه)" : "Price Per Day (EGP)")</label>
+                            <div style="position:relative;">
+                                <span style="position:absolute; top:12px; left:15px; color:var(--gray-400); font-weight:bold;">EGP</span>
+                                <input asp-for="PricePerDay" class="modern-input" type="number" step="0.01" style="padding-left: 55px;" required />
+                            </div>
+                            <span asp-validation-for="PricePerDay" class="text-danger small"></span>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div>
+                                <label style="margin:0; font-weight:600; color:var(--text-dark);">@(isArabic ? "السيارة متاحة للحجز" : "Available for Booking")</label>
+                                <p class="text-muted small" style="margin:0;">@(isArabic ? "إظهار السيارة للعملاء في الموقع" : "Show this car to customers on the site")</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input asp-for="IsAvailable" type="checkbox" />
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
-            </form>
-        </div>
+
+            </div>
+        </form>
     </div>
 </div>
 
+<style>
+    /* Premium Base UI - EXACTLY SAME AS ADDCAR */
+    .admin-settings-page {
+        padding: 30px 0;
+        background-color: var(--background);
+        min-height: calc(100vh - 80px);
+    }
+
+    .settings-header-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--surface);
+        padding: 25px 30px;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .header-content {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.8rem;
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+
+    .header-content h1 {
+        margin: 0 0 5px;
+        font-size: 1.6rem;
+        color: var(--text-dark);
+    }
+
+    .header-content p {
+        margin: 0;
+        color: var(--text-light);
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 15px;
+    }
+
+    .btn-primary-save {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+        .btn-primary-save:hover {
+            filter: brightness(0.9);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+    .btn-outline-cancel {
+        background: transparent;
+        color: var(--text-dark);
+        border: 1px solid var(--gray-300);
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.3s;
+    }
+
+        .btn-outline-cancel:hover {
+            background: var(--gray-200);
+            color: var(--text-dark);
+        }
+
+    /* Content Boxes */
+    .settings-content {
+        background: var(--surface);
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    }
+
+    .pane-header {
+        margin-bottom: 25px;
+        border-bottom: 1px solid var(--gray-100);
+        padding-bottom: 15px;
+    }
+
+        .pane-header h2 {
+            margin: 0;
+            color: var(--text-dark);
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+    /* Inputs */
+    .input-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .full-width {
+        grid-column: 1 / -1;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--text-dark);
+        font-size: 0.95rem;
+    }
+
+    .modern-input, .modern-textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1.5px solid var(--gray-300);
+        border-radius: 10px;
+        font-size: 1rem;
+        color: var(--text-dark);
+        background: var(--background);
+        transition: 0.3s;
+        font-family: inherit;
+    }
+
+        .modern-input:focus, .modern-textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(0,0,0,0.05);
+            background: var(--surface);
+        }
+
+    /* Upload Zone */
+    .upload-zone {
+        background: var(--gray-100);
+        border: 2px dashed var(--gray-300);
+        border-radius: 16px;
+        padding: 25px;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    .preview-box {
+        width: 100%;
+        background: var(--surface);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+        .preview-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+    .large-box {
+        height: 180px;
+    }
+
+    .placeholder-icon {
+        font-size: 3rem;
+        color: var(--gray-300);
+    }
+
+    .file-btn-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+
+        .file-btn-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+    .btn-upload {
+        background: white;
+        border: 1px solid var(--gray-300);
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        pointer-events: none;
+        color: var(--text-dark);
+    }
+
+    /* Custom Toggle Switch */
+    .toggle-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        background: var(--gray-100);
+        border-radius: 10px;
+        border: 1px solid var(--gray-200);
+    }
+
+    .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 28px;
+        flex-shrink: 0;
+    }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+        }
+
+    input:checked + .slider {
+        background-color: #10b981;
+    }
+        /* Always use green for Active here */
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+
+    .slider.round {
+        border-radius: 34px;
+    }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+    @@media (max-width: 900px) {
+        div[style*="grid-template-columns: 2fr 1fr"] {
+            grid-template-columns: 1fr !important;
+        }
+
+        .input-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Override Bootstrap text colors if they clash */
+    .text-warning {
+        color: #f59e0b !important;
+    }
+</style>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        function previewImage(input, previewId) {
+            const previewBox = document.getElementById(previewId);
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewBox.innerHTML = `<img src="${e.target.result}" style="animation: fadeIn 0.3s;" />`;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 }

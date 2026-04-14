@@ -26,9 +26,9 @@
                     <div>
                         <h3>@(isArabic ? "الألوان" : "Colors")</h3>
                         <div class="color-preview">
-                            <span style="background-color: @Model.PrimaryColor"></span>
-                            <span style="background-color: @Model.AccentColor"></span>
-                            <span style="background-color: @Model.BackgroundColor"></span>
+                            <span style="background-color: @Model.PrimaryColor" title="Primary"></span>
+                            <span style="background-color: @Model.AccentColor" title="Accent"></span>
+                            <span style="background-color: @Model.BackgroundColor" title="Background"></span>
                         </div>
                     </div>
                 </div>
@@ -42,18 +42,43 @@
                 </div>
 
                 <div class="summary-item">
+                    <i class="fas fa-share-alt"></i>
+                    <div>
+                        <h3>@(isArabic ? "السوشيال ميديا" : "Social Media")</h3>
+                        <p style="font-size: 1.5rem; color: var(--primary);">
+                            @if (!string.IsNullOrEmpty(Model.FacebookUrl))
+                            {
+                                <i class="fab fa-facebook" style="width:auto; font-size: 1.5rem; color: inherit;"></i>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.TwitterUrl))
+                            {
+                                <i class="fab fa-twitter" style="width:auto; font-size: 1.5rem; color: inherit; margin: 0 10px;"></i>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.InstagramUrl))
+                            {
+                                <i class="fab fa-instagram" style="width:auto; font-size: 1.5rem; color: inherit;"></i>
+                            }
+                            @if (string.IsNullOrEmpty(Model.FacebookUrl) && string.IsNullOrEmpty(Model.TwitterUrl) && string.IsNullOrEmpty(Model.InstagramUrl))
+                            {
+                                <span style="font-size: 0.9rem; color: var(--text-light);">@(isArabic ? "لم يتم الإعداد" : "Not Set")</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+
+                <div class="summary-item">
                     <i class="fas fa-image"></i>
                     <div>
-                        <h3>@(isArabic ? "الشعار" : "Logo")</h3>
+                        <h3>@(isArabic ? "الشعار الأساسي" : "Logo")</h3>
                         @if (!string.IsNullOrEmpty(Model.LogoUrl))
                         {
-                            <img src="@Model.LogoUrl" alt="Logo" style="max-width: 100px; max-height: 50px;">
+                            <img src="@Model.LogoUrl" alt="Logo" style="max-width: 100px; max-height: 50px; border-radius: 4px;">
                         }
                     </div>
                 </div>
             </div>
 
-            <div class="form-actions">
+            <div class="form-actions" style="margin-top: 30px; border-top: 1px solid var(--gray-200); padding-top: 20px;">
                 <a href="/SiteSettings/Edit" class="btn-save">
                     <i class="fas fa-edit"></i>
                     @(isArabic ? "تعديل الإعدادات" : "Edit Settings")

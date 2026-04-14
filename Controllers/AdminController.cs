@@ -270,7 +270,65 @@ namespace CarRentalPortfolio.Controllers
 
             return Json(new { success = false, message = "Image not found" });
         }
+        public async Task<IActionResult> Profile()
+        {
+            var adminId = HttpContext.Session.GetString("AdminId");
+            if (adminId == null) return RedirectToAction("Login");
 
+            var admin = await _context.Admins.FindAsync(int.Parse(adminId));
+            return View(new AdminProfileViewModel { Username = admin.Username });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Profile(AdminProfileViewModel model)
+        {
+            var adminId = HttpContext.Session.GetString("AdminId");
+            if (adminId == null) return RedirectToAction("Login");
+
+            if (ModelState.IsValid)
+            {
+                var admin = await _context.Admins.FindAsync(int.Parse(adminId));
+                admin.Username = model.Username;
+
+                // Only update password if a new one is typed
+                if (!string.IsNullOrWhiteSpace(model.NewPassword))
+                {
+                    admin.Password = model.NewPassword;
+                }
+
+                await _context.SaveChangesAsync();
+                TempData["Success"] = "Profile updated successfully!";
+                return RedirectToAction("Dashboard");
+            }
+            return View(model);
+        }
+        public async Task<IActionResult> Messages()
+        {
+            if (HttpContext.Session.GetString("AdminId") == null) return RedirectToAction("Login");
+
+            var messages = await _context.ContactMessages.OrderByDescending(m => m.CreatedAt).ToListAsync();
+
+            // Mark all as read when visited
+            foreach (var msg in messages.Where(m => !m.IsRead)) { msg.IsRead = true; }
+            await _context.SaveChangesAsync();
+
+            return View(messages);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteMessage(int id)
+        {
+            if (HttpContext.Session.GetString("AdminId") == null) return Json(new { success = false });
+
+            var msg = await _context.ContactMessages.FindAsync(id);
+            if (msg != null)
+            {
+                _context.ContactMessages.Remove(msg);
+                await _context.SaveChangesAsync();
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
+        }
         [HttpPost]
         public async Task<IActionResult> SetActiveHeroImage(int id)
         {

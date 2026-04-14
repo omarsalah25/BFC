@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bloow\\Desktop\\BFC (4)\\BFC\\BFC\\BFC.csproj": {}
+    "D:\\BFC (3)\\BFC\\BFC\\BFC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bloow\\Desktop\\BFC (4)\\BFC\\BFC\\BFC.csproj": {
+    "D:\\BFC (3)\\BFC\\BFC\\BFC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bloow\\Desktop\\BFC (4)\\BFC\\BFC\\BFC.csproj",
+        "projectUniqueName": "D:\\BFC (3)\\BFC\\BFC\\BFC.csproj",
         "projectName": "BFC",
-        "projectPath": "C:\\Users\\bloow\\Desktop\\BFC (4)\\BFC\\BFC\\BFC.csproj",
-        "packagesPath": "C:\\Users\\bloow\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bloow\\Desktop\\BFC (4)\\BFC\\BFC\\obj\\",
+        "projectPath": "D:\\BFC (3)\\BFC\\BFC\\BFC.csproj",
+        "packagesPath": "C:\\Users\\mahmoud.hasaballa\\.nuget\\packages\\",
+        "outputPath": "D:\\BFC (3)\\BFC\\BFC\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\bloow\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mahmoud.hasaballa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -27,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -91,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

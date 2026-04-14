@@ -206,6 +206,39 @@ namespace BFC.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CarRentalPortfolio.Models.ContactMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContactMessages");
+                });
+
             modelBuilder.Entity("CarRentalPortfolio.Models.HeroImage", b =>
                 {
                     b.Property<int>("Id")
@@ -270,13 +303,59 @@ namespace BFC.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CarsSubtitleAr")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CarsSubtitleEn")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CarsTitleAr")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CarsTitleEn")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ContactSubtitleAr")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ContactSubtitleEn")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ContactTitleAr")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ContactTitleEn")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FacebookUrl")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("FaviconUrl")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FeaturesTitleAr")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FeaturesTitleEn")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FooterTextAr")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FooterTextEn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("InstagramUrl")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LogoUrl")
@@ -286,6 +365,9 @@ namespace BFC.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PhilosophyEn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhilosophyImageUrl")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PrimaryColor")
@@ -312,12 +394,23 @@ namespace BFC.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("TestimonialsTitleAr")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TestimonialsTitleEn")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("TextDarkColor")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TextLightColor")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TwitterUrl")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -346,7 +439,17 @@ namespace BFC.Migrations
                             AccentColor = "#f6bd2c",
                             AccentDarkColor = "#e5a913",
                             BackgroundColor = "#d0d7d1",
+                            CarsSubtitleAr = "اختر سيارتك المثالية واستمتع بتجربة قيادة لا تُنسى",
+                            CarsSubtitleEn = "Choose your perfect car and enjoy an unforgettable driving experience",
+                            CarsTitleAr = "سياراتنا الفاخرة",
+                            CarsTitleEn = "Our Luxury Fleet",
+                            ContactSubtitleAr = "نحن هنا لمساعدتك 24 ساعة طوال أيام الأسبوع عبر واتساب",
+                            ContactSubtitleEn = "We're here to help you 24/7 via WhatsApp",
+                            ContactTitleAr = "تواصل معنا",
+                            ContactTitleEn = "Contact Us",
                             FaviconUrl = "/images/icon.png",
+                            FeaturesTitleAr = "مميزاتنا",
+                            FeaturesTitleEn = "Our Advantages",
                             FooterTextAr = "تأجير سيارات فاخرة في مصر",
                             FooterTextEn = "Luxury Car Rental in Egypt",
                             LogoUrl = "/images/icon.png",
@@ -358,6 +461,8 @@ namespace BFC.Migrations
                             SiteName = "H-CAR",
                             SiteNameAr = "إتش-كار",
                             SurfaceColor = "#ffffff",
+                            TestimonialsTitleAr = "ماذا يقول عملاؤنا",
+                            TestimonialsTitleEn = "What Our Clients Say",
                             TextDarkColor = "#1e2b27",
                             TextLightColor = "#5a6b64",
                             UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),

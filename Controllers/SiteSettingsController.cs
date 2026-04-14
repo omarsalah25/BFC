@@ -51,7 +51,7 @@ namespace CarRentalPortfolio.Controllers
         // POST: SiteSettings/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(SiteSettings settings, IFormFile? logoFile, IFormFile? faviconFile)
+        public async Task<IActionResult> Edit(SiteSettings settings, IFormFile? logoFile, IFormFile? faviconFile, IFormFile? philosophyImageFile)
         {
             if (HttpContext.Session.GetString("AdminId") == null)
                 return RedirectToAction("Login", "Admin");
@@ -101,7 +101,22 @@ namespace CarRentalPortfolio.Controllers
                     {
                         settings.FaviconUrl = existingSettings.FaviconUrl;
                     }
+                    // Handle Philosophy Image upload
+                    if (philosophyImageFile != null && philosophyImageFile.Length > 0)
+                    {
+                        var philFileName = Guid.NewGuid().ToString() + Path.GetExtension(philosophyImageFile.FileName);
+                        var philFilePath = Path.Combine(_environment.WebRootPath, "images", philFileName);
 
+                        using (var stream = new FileStream(philFilePath, FileMode.Create))
+                        {
+                            await philosophyImageFile.CopyToAsync(stream);
+                        }
+                        settings.PhilosophyImageUrl = "/images/" + philFileName;
+                    }
+                    else
+                    {
+                        settings.PhilosophyImageUrl = existingSettings.PhilosophyImageUrl;
+                    }
                     settings.UpdatedAt = DateTime.Now;
 
                     _context.Entry(existingSettings).CurrentValues.SetValues(settings);

@@ -18,6 +18,14 @@
         }
     }
 
+    .hero-section {
+        min-height: 85vh; /* Makes the hero image take up 85% of the screen height */
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     .philosophy-message-box {
         background: var(--gray-100, #f8f9fa);
         padding: 2rem;
@@ -45,7 +53,7 @@
     }
 </style>
 <!-- Floating WhatsApp Button -->
-<a href="https://wa.me/201065646972" class="whatsapp-float" target="_blank">
+<a href="https://wa.me/@ViewBag.Settings.WhatsAppNumber" class="whatsapp-float" target="_blank">
     <i class="fab fa-whatsapp"></i>
     <span class="tooltip">@(isArabic ? "تواصل معنا عبر واتساب" : "Chat with us on WhatsApp")</span>
 </a>
@@ -62,7 +70,7 @@
 <!-- Hero Section with Dynamic Image -->
 @if (heroImage != null)
 {
-    <div class="hero-section" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('@heroImage.ImageUrl');">
+    <div class="hero-section" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), url('@heroImage.ImageUrl');">
         <div class="hero-content">
             <span class="hero-welcome">@(isArabic ? "اكتشف مصر بأناقة" : "Explore Egypt in Style")</span>
             <h1 class="hero-title">H-CAR</h1>
@@ -128,7 +136,7 @@
                 </div>
             </div>
             <div class="philosophy-image">
-                <img src="/images/philosophy-image.jpg" alt="Luxury Car Rental Egypt" class="philosophy-img" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                <img src="@(ViewBag.Settings.PhilosophyImageUrl ?? "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80")" alt="Luxury Car Rental Egypt" class="philosophy-img">
                 <div class="experience-badge">
                     <i class="fas fa-star"></i>
                     <span>@(isArabic ? "خدمة متميزة" : "Premium Service")</span>
@@ -141,7 +149,7 @@
 <!-- Features Section -->
 <section class="features-section">
     <div class="container">
-        <h2 class="section-title">@(isArabic ? "مميزاتنا" : "Our Advantages")</h2>
+        <h2 class="section-title">@(isArabic? ViewBag.Settings.FeaturesTitleAr : ViewBag.Settings.FeaturesTitleEn)</h2>
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">
@@ -225,8 +233,8 @@
 <!-- Cars Section -->
 <section id="cars" class="cars-section">
     <div class="container">
-        <h2 class="section-title">@(isArabic ? "سياراتنا الفاخرة" : "Our Luxury Fleet")</h2>
-        <p class="section-subtitle">@(isArabic ? "اختر سيارتك المثالية واستمتع بتجربة قيادة لا تُنسى" : "Choose your perfect car and enjoy an unforgettable driving experience")</p>
+        <h2 class="section-title">@(isArabic? ViewBag.Settings.CarsTitleAr : ViewBag.Settings.CarsTitleEn)</h2>
+        <p class="section-subtitle">@(isArabic? ViewBag.Settings.CarsSubtitleAr : ViewBag.Settings.CarsSubtitleEn)</p>
 
         @if (!Model.Any())
         {
@@ -244,7 +252,7 @@
                     var message = isArabic ?
                     $"مرحباً، أود الاستعلام عن سيارة {carName} للتأجير" :
                     $"Hello, I'm interested in renting the {carName}";
-                    var whatsappUrl = $"https://wa.me/201065646972?text={Uri.EscapeDataString(message)}";
+                    var whatsappUrl = $"https://wa.me/{ViewBag.Settings.WhatsAppNumber}?text={Uri.EscapeDataString(message)}";
 
                     <div class="car-card" onclick="window.open('@whatsappUrl', '_blank')">
                         <div class="car-image">
@@ -289,8 +297,14 @@
 
                             <div class="car-footer">
                                 <div class="car-price">
-                                    <span class="price">@car.PricePerDay.ToString("N0")</span>
-                                    <span class="currency">EGP @(isArabic ? "لليوم" : "/day")</span>
+                                    @if (car.PricePerDay > 0)
+                                    {
+                                        <div class="car-price">
+                                            <span class="price">@car.PricePerDay.ToString("N0")</span>
+                                            <span class="currency">EGP @(isArabic ? "لليوم" : "/day")</span>
+                                        </div>
+                                    }
+                                            <span class="currency">EGP @(isArabic ? "لليوم" : "/day")</span>
                                 </div>
 
                                 <button class="btn-rent" onclick="event.stopPropagation(); window.open('@whatsappUrl', '_blank')">
@@ -309,7 +323,7 @@
 <!-- Why Choose Us Section -->
 <section class="testimonials-section">
     <div class="container">
-        <h2 class="section-title">@(isArabic ? "ماذا يقول عملاؤنا" : "What Our Clients Say")</h2>
+        <h2 class="section-title">@(isArabic? ViewBag.Settings.TestimonialsTitleAr : ViewBag.Settings.TestimonialsTitleEn)</h2>
         <div class="testimonials-grid">
             <div class="testimonial-card">
                 <div class="testimonial-rating">
@@ -382,15 +396,15 @@
     <div class="container">
         <div class="contact-grid">
             <div class="contact-info">
-                <h2>@(isArabic ? "تواصل معنا" : "Contact Us")</h2>
-                <p>@(isArabic ? "نحن هنا لمساعدتك 24 ساعة طوال أيام الأسبوع عبر واتساب" : "We're here to help you 24/7 via WhatsApp")</p>
+                <h2>@(isArabic? ViewBag.Settings.ContactTitleAr : ViewBag.Settings.ContactTitleEn)</h2>
+                <p>@(isArabic? ViewBag.Settings.ContactSubtitleAr : ViewBag.Settings.ContactSubtitleEn)</p>
 
                 <div class="contact-details">
                     <div class="contact-item">
                         <i class="fab fa-whatsapp"></i>
                         <div>
                             <h4>@(isArabic ? "واتساب" : "WhatsApp")</h4>
-                            <p><a href="https://wa.me/201065646972" style="color: inherit; text-decoration: none;">+20 106 564 6972</a></p>
+                            <p><a href="https://wa.me/@ViewBag.Settings.WhatsAppNumber" style="color: inherit; text-decoration: none;">+@ViewBag.Settings.WhatsAppNumber</a></p>
                         </div>
                     </div>
 
@@ -398,7 +412,7 @@
                         <i class="fas fa-phone-alt"></i>
                         <div>
                             <h4>@(isArabic ? "الهاتف" : "Phone")</h4>
-                            <p>+20 106 564 6972</p>
+                            <p>+@ViewBag.Settings.WhatsAppNumber</p>
                         </div>
                     </div>
 
@@ -420,10 +434,19 @@
                 </div>
 
                 <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    <a href="https://wa.me/201065646972" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    @if (!string.IsNullOrEmpty(ViewBag.Settings.FacebookUrl))
+                    {
+                        <a href="@ViewBag.Settings.FacebookUrl" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    }
+                    @if (!string.IsNullOrEmpty(ViewBag.Settings.TwitterUrl))
+                    {
+                        <a href="@ViewBag.Settings.TwitterUrl" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
+                    }
+                    @if (!string.IsNullOrEmpty(ViewBag.Settings.InstagramUrl))
+                    {
+                        <a href="@ViewBag.Settings.InstagramUrl" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+                    }
+                    <a href="https://wa.me/@ViewBag.Settings.WhatsAppNumber" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
 
@@ -491,18 +514,40 @@
             observer.observe(statsBanner);
         }
 
-        function submitContactForm(event) {
+        async function submitContactForm(event) {
             event.preventDefault();
-            const name = event.target.querySelector('input[type="text"]').value;
-            const phone = event.target.querySelector('input[type="tel"]').value;
-            const message = event.target.querySelector('textarea').value;
+            const btn = event.target.querySelector('.btn-submit');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            btn.disabled = true;
 
-            const whatsappMessage = `Name: ${name}%0APhone: ${phone}%0AMessage: ${message}`;
-            const whatsappUrl = `https://wa.me/201065646972?text=${encodeURIComponent(whatsappMessage)}`;
+            const data = {
+                name: event.target.querySelector('input[type="text"]').value,
+                email: event.target.querySelector('input[type="email"]').value,
+                phone: event.target.querySelector('input[type="tel"]').value,
+                message: event.target.querySelector('textarea').value
+            };
 
-            window.open(whatsappUrl, '_blank');
+            try {
+                const response = await fetch('/Home/SubmitContactMessage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    alert('@(isArabic ? "تم إرسال رسالتك بنجاح! سنتواصل معك قريباً." : "Message sent successfully! We will contact you soon.")');
+                    event.target.reset();
+                } else {
+                    alert('@(isArabic ? "حدث خطأ. يرجى المحاولة مرة أخرى." : "An error occurred. Please try again.")');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            } finally {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+            }
         }
-
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {

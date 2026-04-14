@@ -4,508 +4,818 @@
     var isArabic = Context.Request.Cookies["Language"] == "ar";
 }
 
-<div class="admin-form-page">
+<div class="admin-settings-page">
     <div class="container">
-        <div class="form-container">
-            <div class="form-header">
-                <i class="fas fa-edit"></i>
-                <h1>@(isArabic ? "تعديل إعدادات الموقع" : "Edit Site Settings")</h1>
+        <div class="settings-header-box">
+            <div class="header-content">
+                <div class="icon-wrapper">
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+                <div>
+                    <h1>@(isArabic ? "تخصيص إعدادات الموقع" : "Customize Site Settings")</h1>
+                    <p>@(isArabic ? "تحكم في كل تفاصيل موقعك من مكان واحد" : "Control every detail of your website from one place")</p>
+                </div>
             </div>
-
-            <form asp-action="Edit" method="post" enctype="multipart/form-data" class="admin-form">
-                <input type="hidden" asp-for="Id" />
-
-                <div class="form-tabs">
-                    <button type="button" class="tab-btn active" onclick="showTab('general')">
-                        <i class="fas fa-globe"></i> @(isArabic ? "عام" : "General")
-                    </button>
-                    <button type="button" class="tab-btn" onclick="showTab('colors')">
-                        <i class="fas fa-palette"></i> @(isArabic ? "الألوان" : "Colors")
-                    </button>
-                    <button type="button" class="tab-btn" onclick="showTab('whatsapp')">
-                        <i class="fab fa-whatsapp"></i> @(isArabic ? "واتساب" : "WhatsApp")
-                    </button>
-                    <button type="button" class="tab-btn" onclick="showTab('logos')">
-                        <i class="fas fa-image"></i> @(isArabic ? "الشعارات" : "Logos")
-                    </button>
-                </div>
-
-                <!-- General Tab -->
-                <div id="tab-general" class="tab-content active">
-                    <h3 class="tab-title">@(isArabic ? "الإعدادات العامة" : "General Settings")</h3>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label asp-for="SiteName">@(isArabic ? "اسم الموقع (إنجليزي)" : "Site Name (English)")</label>
-                            <input asp-for="SiteName" class="form-control" required />
-                            <span asp-validation-for="SiteName" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="SiteNameAr">@(isArabic ? "اسم الموقع (عربي)" : "Site Name (Arabic)")</label>
-                            <input asp-for="SiteNameAr" class="form-control" required />
-                            <span asp-validation-for="SiteNameAr" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label asp-for="PhilosophyEn">@(isArabic ? "الشعار (إنجليزي)" : "Philosophy (English)")</label>
-                            <input asp-for="PhilosophyEn" class="form-control" />
-                            <span asp-validation-for="PhilosophyEn" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label asp-for="PhilosophyAr">@(isArabic ? "الشعار (عربي)" : "Philosophy (Arabic)")</label>
-                            <input asp-for="PhilosophyAr" class="form-control" />
-                            <span asp-validation-for="PhilosophyAr" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label asp-for="FooterTextEn">@(isArabic ? "نص التذييل (إنجليزي)" : "Footer Text (English)")</label>
-                            <input asp-for="FooterTextEn" class="form-control" />
-                            <span asp-validation-for="FooterTextEn" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label asp-for="FooterTextAr">@(isArabic ? "نص التذييل (عربي)" : "Footer Text (Arabic)")</label>
-                            <input asp-for="FooterTextAr" class="form-control" />
-                            <span asp-validation-for="FooterTextAr" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Colors Tab -->
-                <div id="tab-colors" class="tab-content">
-                    <h3 class="tab-title">@(isArabic ? "إعدادات الألوان" : "Color Settings")</h3>
-                    <p class="tab-description">@(isArabic ? "اختر الألوان المناسبة لموقعك" : "Choose the colors for your site")</p>
-
-                    <div class="color-picker-grid">
-                        <div class="color-item">
-                            <label asp-for="PrimaryColor">@(isArabic ? "اللون الأساسي" : "Primary Color")</label>
-                            <div class="color-input-group">
-                                <input type="color" asp-for="PrimaryColor" class="color-picker" />
-                                <input type="text" asp-for="PrimaryColor" class="color-value" />
-                            </div>
-                            <span asp-validation-for="PrimaryColor" class="text-danger"></span>
-                        </div>
-
-                        <div class="color-item">
-                            <label asp-for="PrimaryDarkColor">@(isArabic ? "اللون الأساسي الداكن" : "Primary Dark")</label>
-                            <div class="color-input-group">
-                                <input type="color" asp-for="PrimaryDarkColor" class="color-picker" />
-                                <input type="text" asp-for="PrimaryDarkColor" class="color-value" />
-                            </div>
-                            <span asp-validation-for="PrimaryDarkColor" class="text-danger"></span>
-                        </div>
-
-                        <div class="color-item">
-                            <label asp-for="PrimaryLightColor">@(isArabic ? "اللون الأساسي الفاتح" : "Primary Light")</label>
-                            <div class="color-input-group">
-                                <input type="color" asp-for="PrimaryLightColor" class="color-picker" />
-                                <input type="text" asp-for="PrimaryLightColor" class="color-value" />
-                            </div>
-                            <span asp-validation-for="PrimaryLightColor" class="text-danger"></span>
-                        </div>
-
-                        <div class="color-item">
-                            <label asp-for="AccentColor">@(isArabic ? "لون التمييز" : "Accent Color")</label>
-                            <div class="color-input-group">
-                                <input type="color" asp-for="AccentColor" class="color-picker" />
-                                <input type="text" asp-for="AccentColor" class="color-value" />
-                            </div>
-                            <span asp-validation-for="AccentColor" class="text-danger"></span>
-                        </div>
-
-                        <div class="color-item">
-                            <label asp-for="AccentDarkColor">@(isArabic ? "لون التمييز الداكن" : "Accent Dark")</label>
-                            <div class="color-input-group">
-                                <input type="color" asp-for="AccentDarkColor" class="color-picker" />
-                                <input type="text" asp-for="AccentDarkColor" class="color-value" />
-                            </div>
-                            <span asp-validation-for="AccentDarkColor" class="text-danger"></span>
-                        </div>
-
-                        <div class="color-item">
-                            <label asp-for="BackgroundColor">@(isArabic ? "لون الخلفية" : "Background Color")</label>
-                            <div class="color-input-group">
-                                <input type="color" asp-for="BackgroundColor" class="color-picker" />
-                                <input type="text" asp-for="BackgroundColor" class="color-value" />
-                            </div>
-                            <span asp-validation-for="BackgroundColor" class="text-danger"></span>
-                        </div>
-
-                        <div class="color-item">
-                            <label asp-for="SurfaceColor">@(isArabic ? "لون السطح" : "Surface Color")</label>
-                            <div class="color-input-group">
-                                <input type="color" asp-for="SurfaceColor" class="color-picker" />
-                                <input type="text" asp-for="SurfaceColor" class="color-value" />
-                            </div>
-                            <span asp-validation-for="SurfaceColor" class="text-danger"></span>
-                        </div>
-
-                        <div class="color-item">
-                            <label asp-for="TextDarkColor">@(isArabic ? "لون النص الداكن" : "Text Dark Color")</label>
-                            <div class="color-input-group">
-                                <input type="color" asp-for="TextDarkColor" class="color-picker" />
-                                <input type="text" asp-for="TextDarkColor" class="color-value" />
-                            </div>
-                            <span asp-validation-for="TextDarkColor" class="text-danger"></span>
-                        </div>
-
-                        <div class="color-item">
-                            <label asp-for="TextLightColor">@(isArabic ? "لون النص الفاتح" : "Text Light Color")</label>
-                            <div class="color-input-group">
-                                <input type="color" asp-for="TextLightColor" class="color-picker" />
-                                <input type="text" asp-for="TextLightColor" class="color-value" />
-                            </div>
-                            <span asp-validation-for="TextLightColor" class="text-danger"></span>
-                        </div>
-                    </div>
-
-                    <div class="color-preview-box">
-                        <h4>@(isArabic ? "معاينة الألوان" : "Color Preview")</h4>
-                        <div class="preview-box">
-                            <div class="preview-item" style="background-color: @Model.PrimaryColor">
-                                <span>@(isArabic ? "أساسي" : "Primary")</span>
-                            </div>
-                            <div class="preview-item" style="background-color: @Model.AccentColor">
-                                <span>@(isArabic ? "تمييز" : "Accent")</span>
-                            </div>
-                            <div class="preview-item" style="background-color: @Model.BackgroundColor">
-                                <span>@(isArabic ? "خلفية" : "Background")</span>
-                            </div>
-                            <div class="preview-item" style="background-color: @Model.SurfaceColor">
-                                <span>@(isArabic ? "سطح" : "Surface")</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- WhatsApp Tab -->
-                <div id="tab-whatsapp" class="tab-content">
-                    <h3 class="tab-title">@(isArabic ? "إعدادات واتساب" : "WhatsApp Settings")</h3>
-
-                    <div class="form-grid">
-                        <div class="form-group full-width">
-                            <label asp-for="WhatsAppNumber">@(isArabic ? "رقم واتساب" : "WhatsApp Number")</label>
-                            <input asp-for="WhatsAppNumber" class="form-control" placeholder="201065646972" required />
-                            <small class="form-text text-muted">@(isArabic ? "أدخل الرقم بدون + أو صفر" : "Enter number without + or zero")</small>
-                            <span asp-validation-for="WhatsAppNumber" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label asp-for="WhatsAppMessageEn">@(isArabic ? "رسالة واتساب الافتراضية (إنجليزي)" : "Default WhatsApp Message (English)")</label>
-                            <textarea asp-for="WhatsAppMessageEn" class="form-control" rows="3"></textarea>
-                            <span asp-validation-for="WhatsAppMessageEn" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label asp-for="WhatsAppMessageAr">@(isArabic ? "رسالة واتساب الافتراضية (عربي)" : "Default WhatsApp Message (Arabic)")</label>
-                            <textarea asp-for="WhatsAppMessageAr" class="form-control" rows="3" dir="rtl"></textarea>
-                            <span asp-validation-for="WhatsAppMessageAr" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Logos Tab -->
-                <div id="tab-logos" class="tab-content">
-                    <h3 class="tab-title">@(isArabic ? "إعدادات الشعارات" : "Logo Settings")</h3>
-
-                    <div class="logo-upload-section">
-                        <div class="current-logo">
-                            <h4>@(isArabic ? "الشعار الحالي" : "Current Logo")</h4>
-                            @if (!string.IsNullOrEmpty(Model.LogoUrl))
-                            {
-                                <img src="@Model.LogoUrl" alt="Logo" class="current-logo-img">
-                            }
-                            else
-                            {
-                                <div class="no-logo">@(isArabic ? "لا يوجد شعار" : "No logo")</div>
-                            }
-                        </div>
-
-                        <div class="form-group">
-                            <label>@(isArabic ? "رفع شعار جديد" : "Upload New Logo")</label>
-                            <div class="file-upload-wrapper">
-                                <input type="file" name="logoFile" class="file-upload-input" id="logoFile" accept="image/*" />
-                                <label for="logoFile" class="file-upload-label">
-                                    <i class="fas fa-cloud-upload-alt"></i>
-                                    @(isArabic ? "اختر شعار" : "Choose Logo")
-                                </label>
-                                <span class="file-name" id="logo-file-name">@(isArabic ? "لم يتم اختيار ملف" : "No file chosen")</span>
-                            </div>
-                            <small class="form-text text-muted">@(isArabic ? "الصيغ المدعومة: PNG, JPG, SVG (الحد الأقصى 2 ميجابايت)" : "Supported formats: PNG, JPG, SVG (Max 2MB)")</small>
-                        </div>
-
-                        <div class="current-favicon">
-                            <h4>@(isArabic ? "الأيقونة الحالية" : "Current Favicon")</h4>
-                            @if (!string.IsNullOrEmpty(Model.FaviconUrl))
-                            {
-                                <img src="@Model.FaviconUrl" alt="Favicon" class="current-favicon-img">
-                            }
-                            else
-                            {
-                                <div class="no-favicon">@(isArabic ? "لا توجد أيقونة" : "No favicon")</div>
-                            }
-                        </div>
-
-                        <div class="form-group">
-                            <label>@(isArabic ? "رفع أيقونة جديدة" : "Upload New Favicon")</label>
-                            <div class="file-upload-wrapper">
-                                <input type="file" name="faviconFile" class="file-upload-input" id="faviconFile" accept="image/*" />
-                                <label for="faviconFile" class="file-upload-label">
-                                    <i class="fas fa-cloud-upload-alt"></i>
-                                    @(isArabic ? "اختر أيقونة" : "Choose Favicon")
-                                </label>
-                                <span class="file-name" id="favicon-file-name">@(isArabic ? "لم يتم اختيار ملف" : "No file chosen")</span>
-                            </div>
-                            <small class="form-text text-muted">@(isArabic ? "الصيغ المدعومة: PNG, ICO (الحد الأقصى 1 ميجابايت)" : "Supported formats: PNG, ICO (Max 1MB)")</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="LogoUrl">@(isArabic ? "رابط الشعار (اختياري)" : "Logo URL (Optional)")</label>
-                            <input asp-for="LogoUrl" class="form-control" placeholder="https://example.com/logo.png" />
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="FaviconUrl">@(isArabic ? "رابط الأيقونة (اختياري)" : "Favicon URL (Optional)")</label>
-                            <input asp-for="FaviconUrl" class="form-control" placeholder="https://example.com/favicon.ico" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn-save">
-                        <i class="fas fa-save"></i>
-                        @(isArabic ? "حفظ التغييرات" : "Save Changes")
-                    </button>
-                    <a href="/SiteSettings" class="btn-cancel">
-                        <i class="fas fa-times"></i>
-                        @(isArabic ? "إلغاء" : "Cancel")
-                    </a>
-                </div>
-            </form>
+            <div class="header-actions">
+                <a href="/SiteSettings" class="btn-outline-cancel">
+                    <i class="fas fa-arrow-left"></i> @(isArabic ? "عودة" : "Back")
+                </a>
+                <button type="button" onclick="document.getElementById('settingsForm').submit();" class="btn-primary-save">
+                    <i class="fas fa-save"></i> @(isArabic ? "حفظ التغييرات" : "Save Changes")
+                </button>
+            </div>
         </div>
+
+        <form id="settingsForm" asp-action="Edit" method="post" enctype="multipart/form-data" class="settings-form">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="PhilosophyImageUrl" />
+            <input type="hidden" asp-for="LogoUrl" />
+            <input type="hidden" asp-for="FaviconUrl" />
+
+            <div class="settings-layout">
+                <!-- SIDEBAR TABS -->
+                <div class="settings-sidebar">
+                    <nav class="tab-nav">
+                        <button type="button" class="tab-link active" onclick="switchTab('general', this)">
+                            <i class="fas fa-globe"></i> <span>@(isArabic ? "عام" : "General")</span>
+                        </button>
+                        <button type="button" class="tab-link" onclick="switchTab('colors', this)">
+                            <i class="fas fa-palette"></i> <span>@(isArabic ? "الألوان" : "Colors")</span>
+                        </button>
+                        <button type="button" class="tab-link" onclick="switchTab('media', this)">
+                            <i class="fas fa-images"></i> <span>@(isArabic ? "الصور والشعارات" : "Media & Logos")</span>
+                        </button>
+                        <button type="button" class="tab-link" onclick="switchTab('labels', this)">
+                            <i class="fas fa-language"></i> <span>@(isArabic ? "نصوص الرئيسية" : "Home Labels")</span>
+                        </button>
+                        <button type="button" class="tab-link" onclick="switchTab('social', this)">
+                            <i class="fas fa-share-alt"></i> <span>@(isArabic ? "السوشيال ميديا" : "Social Media")</span>
+                        </button>
+                        <button type="button" class="tab-link" onclick="switchTab('whatsapp', this)">
+                            <i class="fab fa-whatsapp"></i> <span>@(isArabic ? "واتساب" : "WhatsApp")</span>
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- MAIN CONTENT AREA -->
+                <div class="settings-content">
+
+                    <!-- 1. GENERAL TAB -->
+                    <div id="tab-general" class="tab-pane active">
+                        <div class="pane-header">
+                            <h2>@(isArabic ? "الإعدادات العامة" : "General Settings")</h2>
+                            <p>@(isArabic ? "المعلومات الأساسية الخاصة بهوية الموقع" : "Basic information for your website identity")</p>
+                        </div>
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label asp-for="SiteName">Site Name (En)</label>
+                                <input asp-for="SiteName" class="modern-input" required />
+                            </div>
+                            <div class="input-group">
+                                <label asp-for="SiteNameAr">Site Name (Ar)</label>
+                                <input asp-for="SiteNameAr" class="modern-input" required />
+                            </div>
+                            <div class="input-group full-width">
+                                <label asp-for="PhilosophyEn">Philosophy Slogan (En)</label>
+                                <input asp-for="PhilosophyEn" class="modern-input" />
+                            </div>
+                            <div class="input-group full-width">
+                                <label asp-for="PhilosophyAr">Philosophy Slogan (Ar)</label>
+                                <input asp-for="PhilosophyAr" class="modern-input" />
+                            </div>
+                            <div class="input-group full-width">
+                                <label asp-for="FooterTextEn">Footer Text (En)</label>
+                                <input asp-for="FooterTextEn" class="modern-input" />
+                            </div>
+                            <div class="input-group full-width">
+                                <label asp-for="FooterTextAr">Footer Text (Ar)</label>
+                                <input asp-for="FooterTextAr" class="modern-input" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. COLORS TAB -->
+                    <div id="tab-colors" class="tab-pane">
+                        <div class="pane-header">
+                            <h2>@(isArabic ? "تخصيص الألوان" : "Color Customization")</h2>
+                            <p>@(isArabic ? "اختر الألوان التي تتناسب مع علامتك التجارية" : "Choose colors that match your brand identity")</p>
+                        </div>
+                        <div class="color-grid">
+                            @{
+                                var colors = new[] {
+                                                        ("PrimaryColor", "الأساسي", "Primary"), ("PrimaryDarkColor", "الأساسي الداكن", "Primary Dark"), ("PrimaryLightColor", "الأساسي الفاتح", "Primary Light"),
+                                                        ("AccentColor", "التمييز (Accent)", "Accent"), ("AccentDarkColor", "التمييز الداكن", "Accent Dark"),
+                                                        ("BackgroundColor", "لون الخلفية", "Background"), ("SurfaceColor", "لون السطح (الكروت)", "Surface"),
+                                                        ("TextDarkColor", "النص الداكن", "Text Dark"), ("TextLightColor", "النص الفاتح", "Text Light")
+                                                        };
+                            }
+                            @foreach (var c in colors)
+                            {
+                                <div class="color-card">
+                                    <label>@(isArabic? c.Item2: c.Item3)</label>
+                                    <div class="color-control">
+                                        <div class="color-swatch-wrapper">
+                                            <input type="color" name="@c.Item1" id="@c.Item1" value="@Model.GetType().GetProperty(c.Item1)?.GetValue(Model)" class="color-swatch" />
+                                        </div>
+                                        <input type="text" value="@Model.GetType().GetProperty(c.Item1)?.GetValue(Model)" class="color-hex" oninput="document.getElementById('@c.Item1').value = this.value" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- 3. MEDIA & LOGOS TAB -->
+                    <div id="tab-media" class="tab-pane">
+                        <div class="pane-header">
+                            <h2>@(isArabic ? "الصور والشعارات" : "Media & Logos")</h2>
+                            <p>@(isArabic ? "ارفع شعارات وصور موقعك" : "Upload your website logos and images")</p>
+                        </div>
+
+                        <div class="upload-grid">
+                            <!-- Main Logo -->
+                            <div class="upload-zone">
+                                <label class="zone-label">@(isArabic ? "الشعار الأساسي (Logo)" : "Main Logo")</label>
+                                <div class="preview-box" id="preview-logo">
+                                    @if (!string.IsNullOrEmpty(Model.LogoUrl))
+                                    {
+                                        <img src="@Model.LogoUrl" />
+                                    }
+                                    else
+                                    {
+
+                                        <i class="fas fa-image placeholder-icon"></i>
+                                    }
+                                </div>
+                                <div class="file-btn-wrapper">
+                                    <input type="file" name="logoFile" accept="image/*" onchange="previewImage(this, 'preview-logo')" />
+                                    <button type="button" class="btn-upload"><i class="fas fa-upload"></i> @(isArabic ? "اختر صورة" : "Browse")</button>
+                                </div>
+                            </div>
+
+                            <!-- Favicon -->
+                            <div class="upload-zone">
+                                <label class="zone-label">@(isArabic ? "أيقونة المتصفح (Favicon)" : "Browser Favicon")</label>
+                                <div class="preview-box favicon-box" id="preview-favicon">
+                                    @if (!string.IsNullOrEmpty(Model.FaviconUrl))
+                                    {
+                                        <img src="@Model.FaviconUrl" />
+                                    }
+                                    else
+                                    {
+
+                                        <i class="fas fa-globe placeholder-icon"></i>
+                                    }
+                                </div>
+                                <div class="file-btn-wrapper">
+                                    <input type="file" name="faviconFile" accept="image/*" onchange="previewImage(this, 'preview-favicon')" />
+                                    <button type="button" class="btn-upload"><i class="fas fa-upload"></i> @(isArabic ? "اختر صورة" : "Browse")</button>
+                                </div>
+                            </div>
+
+                            <!-- Philosophy Image -->
+                            <div class="upload-zone full-width">
+                                <label class="zone-label">@(isArabic ? "صورة قسم (لماذا تختارنا؟)" : "Why Choose Us Section Image")</label>
+                                <div class="preview-box large-box" id="preview-phil">
+                                    @if (!string.IsNullOrEmpty(Model.PhilosophyImageUrl))
+                                    {
+                                        <img src="@Model.PhilosophyImageUrl" />
+                                    }
+                                    else
+                                    {
+
+                                        <i class="fas fa-camera placeholder-icon"></i>
+                                    }
+                                </div>
+                                <div class="file-btn-wrapper">
+                                    <input type="file" name="philosophyImageFile" accept="image/*" onchange="previewImage(this, 'preview-phil')" />
+                                    <button type="button" class="btn-upload"><i class="fas fa-upload"></i> @(isArabic ? "اختر صورة" : "Browse")</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. HOME LABELS TAB -->
+                    <div id="tab-labels" class="tab-pane">
+                        <div class="pane-header">
+                            <h2>@(isArabic ? "نصوص الصفحة الرئيسية" : "Home Page Labels")</h2>
+                            <p>@(isArabic ? "تخصيص عناوين الأقسام في الصفحة الرئيسية" : "Customize section titles on the home page")</p>
+                        </div>
+                        <div class="labels-section">
+                            <div class="label-group-card">
+                                <h4><i class="fas fa-star"></i> Features Section</h4>
+                                <div class="input-grid">
+                                    <div class="input-group"><label asp-for="FeaturesTitleEn">Title (En)</label><input asp-for="FeaturesTitleEn" class="modern-input" /></div>
+                                    <div class="input-group"><label asp-for="FeaturesTitleAr">Title (Ar)</label><input asp-for="FeaturesTitleAr" class="modern-input" /></div>
+                                </div>
+                            </div>
+
+                            <div class="label-group-card">
+                                <h4><i class="fas fa-car"></i> Cars Section</h4>
+                                <div class="input-grid">
+                                    <div class="input-group"><label asp-for="CarsTitleEn">Title (En)</label><input asp-for="CarsTitleEn" class="modern-input" /></div>
+                                    <div class="input-group"><label asp-for="CarsTitleAr">Title (Ar)</label><input asp-for="CarsTitleAr" class="modern-input" /></div>
+                                    <div class="input-group full-width"><label asp-for="CarsSubtitleEn">Subtitle (En)</label><input asp-for="CarsSubtitleEn" class="modern-input" /></div>
+                                    <div class="input-group full-width"><label asp-for="CarsSubtitleAr">Subtitle (Ar)</label><input asp-for="CarsSubtitleAr" class="modern-input" /></div>
+                                </div>
+                            </div>
+
+                            <div class="label-group-card">
+                                <h4><i class="fas fa-comments"></i> Testimonials Section</h4>
+                                <div class="input-grid">
+                                    <div class="input-group"><label asp-for="TestimonialsTitleEn">Title (En)</label><input asp-for="TestimonialsTitleEn" class="modern-input" /></div>
+                                    <div class="input-group"><label asp-for="TestimonialsTitleAr">Title (Ar)</label><input asp-for="TestimonialsTitleAr" class="modern-input" /></div>
+                                </div>
+                            </div>
+
+                            <div class="label-group-card">
+                                <h4><i class="fas fa-envelope"></i> Contact Section</h4>
+                                <div class="input-grid">
+                                    <div class="input-group"><label asp-for="ContactTitleEn">Title (En)</label><input asp-for="ContactTitleEn" class="modern-input" /></div>
+                                    <div class="input-group"><label asp-for="ContactTitleAr">Title (Ar)</label><input asp-for="ContactTitleAr" class="modern-input" /></div>
+                                    <div class="input-group full-width"><label asp-for="ContactSubtitleEn">Subtitle (En)</label><input asp-for="ContactSubtitleEn" class="modern-input" /></div>
+                                    <div class="input-group full-width"><label asp-for="ContactSubtitleAr">Subtitle (Ar)</label><input asp-for="ContactSubtitleAr" class="modern-input" /></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. SOCIAL MEDIA TAB -->
+                    <div id="tab-social" class="tab-pane">
+                        <div class="pane-header">
+                            <h2>@(isArabic ? "السوشيال ميديا" : "Social Media")</h2>
+                            <p>@(isArabic ? "أضف روابط حساباتك (اترك الحقل فارغاً لإخفاء الأيقونة)" : "Add your account links (leave blank to hide the icon)")</p>
+                        </div>
+                        <div class="social-inputs">
+                            <div class="social-input-wrapper">
+                                <div class="social-icon facebook"><i class="fab fa-facebook-f"></i></div>
+                                <div class="input-group flex-1">
+                                    <label asp-for="FacebookUrl">Facebook URL</label>
+                                    <input asp-for="FacebookUrl" class="modern-input" placeholder="https://facebook.com/..." />
+                                </div>
+                            </div>
+                            <div class="social-input-wrapper">
+                                <div class="social-icon twitter"><i class="fab fa-twitter"></i></div>
+                                <div class="input-group flex-1">
+                                    <label asp-for="TwitterUrl">Twitter / X URL</label>
+                                    <input asp-for="TwitterUrl" class="modern-input" placeholder="https://twitter.com/..." />
+                                </div>
+                            </div>
+                            <div class="social-input-wrapper">
+                                <div class="social-icon instagram"><i class="fab fa-instagram"></i></div>
+                                <div class="input-group flex-1">
+                                    <label asp-for="InstagramUrl">Instagram URL</label>
+                                    <input asp-for="InstagramUrl" class="modern-input" placeholder="https://instagram.com/..." />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. WHATSAPP TAB -->
+                    <div id="tab-whatsapp" class="tab-pane">
+                        <div class="pane-header">
+                            <h2>@(isArabic ? "إعدادات واتساب" : "WhatsApp Settings")</h2>
+                            <p>@(isArabic ? "تحكم في زر الدردشة الفورية وحجوزات السيارات" : "Control the live chat button and car bookings")</p>
+                        </div>
+                        <div class="whatsapp-card">
+                            <div class="wa-icon-large"><i class="fab fa-whatsapp"></i></div>
+                            <div class="input-grid" style="flex: 1;">
+                                <div class="input-group full-width">
+                                    <label asp-for="WhatsAppNumber">@(isArabic ? "رقم الهاتف (مع كود الدولة)" : "Phone Number (with country code)")</label>
+                                    <input asp-for="WhatsAppNumber" class="modern-input wa-number" placeholder="201065646972" required />
+                                </div>
+                                <div class="input-group full-width">
+                                    <label asp-for="WhatsAppMessageEn">Default Message (En)</label>
+                                    <textarea asp-for="WhatsAppMessageEn" class="modern-textarea" rows="2"></textarea>
+                                </div>
+                                <div class="input-group full-width">
+                                    <label asp-for="WhatsAppMessageAr">Default Message (Ar)</label>
+                                    <textarea asp-for="WhatsAppMessageAr" class="modern-textarea" rows="2" dir="rtl"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
 <style>
-    .form-tabs {
+    /* BASE LAYOUT */
+    .admin-settings-page {
+        padding: 30px 0;
+        background-color: var(--background);
+        min-height: calc(100vh - 80px);
+    }
+
+    /* HEADER */
+    .settings-header-box {
         display: flex;
-        gap: 0.5rem;
-        margin-bottom: 2rem;
-        border-bottom: 2px solid var(--gray-200);
-        padding-bottom: 0.5rem;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--surface);
+        padding: 25px 30px;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        margin-bottom: 25px;
         flex-wrap: wrap;
+        gap: 20px;
     }
 
-    .tab-btn {
-        padding: 0.75rem 1.5rem;
-        background: none;
+    .header-content {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary-light), var(--primary));
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.8rem;
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+
+    .header-content h1 {
+        margin: 0 0 5px;
+        font-size: 1.6rem;
+        color: var(--text-dark);
+    }
+
+    .header-content p {
+        margin: 0;
+        color: var(--text-light);
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 15px;
+    }
+
+    /* BUTTONS */
+    .btn-primary-save {
+        background: var(--primary);
+        color: white;
         border: none;
+        padding: 12px 24px;
         border-radius: 8px;
-        cursor: pointer;
         font-weight: 600;
-        color: var(--text-light);
-        transition: var(--transition);
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-        .tab-btn i {
-            font-size: 1.1rem;
-        }
-
-        .tab-btn:hover {
-            background-color: var(--gray-200);
-            color: var(--primary);
-        }
-
-        .tab-btn.active {
-            background-color: var(--primary);
-            color: white;
-        }
-
-    .tab-content {
-        display: none;
-    }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-    @@keyframes fadeIn {
-        from
-
-    {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-
-    }
-
-    .tab-title {
-        color: var(--primary);
-        margin-bottom: 1.5rem;
-        font-size: 1.3rem;
-    }
-
-    .tab-description {
-        color: var(--text-light);
-        margin-bottom: 2rem;
-    }
-
-    .color-picker-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 1.5rem;
-        margin-bottom: 2rem;
-    }
-
-    .color-item label {
-        display: block;
-        margin-bottom: 0.5rem;
-        color: var(--primary);
-        font-weight: 500;
-    }
-
-    .color-input-group {
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-    }
-
-    .color-picker {
-        width: 50px;
-        height: 40px;
-        padding: 0;
-        border: 1px solid var(--gray-300);
-        border-radius: 8px;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
-    .color-value {
-        flex: 1;
-        padding: 0.5rem;
-        border: 1px solid var(--gray-300);
-        border-radius: 8px;
-        font-family: monospace;
-    }
-
-    .color-preview-box {
-        background-color: var(--gray-100);
-        padding: 1.5rem;
-        border-radius: 15px;
-        margin-top: 2rem;
-    }
-
-        .color-preview-box h4 {
-            color: var(--primary);
-            margin-bottom: 1rem;
+        .btn-primary-save:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
         }
+
+    .btn-outline-cancel {
+        background: transparent;
+        color: var(--text-dark);
+        border: 1px solid var(--gray-300);
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.3s;
+    }
+
+        .btn-outline-cancel:hover {
+            background: var(--gray-200);
+        }
+
+    /* LAYOUT (SIDEBAR + CONTENT) */
+    .settings-layout {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 30px;
+        align-items: start;
+    }
+
+    @@media (max-width: 900px) {
+        .settings-layout {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* SIDEBAR NAV */
+    .settings-sidebar {
+        background: var(--surface);
+        border-radius: 16px;
+        padding: 15px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    }
+
+    .tab-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .tab-link {
+        background: transparent;
+        border: none;
+        padding: 14px 20px;
+        border-radius: 10px;
+        text-align: left;
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--text-light);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    [dir="rtl"] .tab-link {
+        text-align: right;
+    }
+
+    .tab-link i {
+        font-size: 1.2rem;
+        width: 24px;
+        text-align: center;
+    }
+
+    .tab-link:hover {
+        background: var(--gray-100);
+        color: var(--primary);
+    }
+
+    .tab-link.active {
+        background: var(--primary);
+        color: white;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* CONTENT AREA */
+    .settings-content {
+        background: var(--surface);
+        border-radius: 16px;
+        padding: 35px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        min-height: 500px;
+    }
+
+    .tab-pane {
+        display: none;
+        animation: slideFade 0.4s ease forwards;
+    }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+    @@keyframes slideFade {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* PANE HEADER */
+    .pane-header {
+        margin-bottom: 30px;
+        border-bottom: 1px solid var(--gray-200);
+        padding-bottom: 20px;
+    }
+
+        .pane-header h2 {
+            margin: 0 0 8px;
+            color: var(--text-dark);
+            font-size: 1.4rem;
+        }
+
+        .pane-header p {
+            margin: 0;
+            color: var(--text-light);
+        }
+
+    /* FORM INPUTS */
+    .input-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .full-width {
+        grid-column: 1 / -1;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--text-dark);
+        font-size: 0.95rem;
+    }
+
+    .modern-input, .modern-textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1.5px solid var(--gray-300);
+        border-radius: 10px;
+        font-size: 1rem;
+        color: var(--text-dark);
+        background: var(--background);
+        transition: 0.3s;
+        font-family: inherit;
+    }
+
+        .modern-input:focus, .modern-textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(0,0,0,0.05);
+            background: var(--surface);
+        }
+
+    /* COLORS GRID */
+    .color-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+    }
+
+    .color-card {
+        background: var(--gray-100);
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid var(--gray-200);
+    }
+
+        .color-card label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+    .color-control {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .color-swatch-wrapper {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 2px solid var(--gray-300);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        flex-shrink: 0;
+    }
+
+    .color-swatch {
+        width: 150%;
+        height: 150%;
+        margin: -25%;
+        cursor: pointer;
+        border: none;
+        padding: 0;
+    }
+
+    .color-hex {
+        flex: 1;
+        padding: 8px 12px;
+        border: 1px solid var(--gray-300);
+        border-radius: 6px;
+        font-family: monospace;
+        font-size: 0.9rem;
+        text-align: center;
+    }
+
+    /* UPLOAD ZONES */
+    .upload-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+    }
+
+    .upload-zone {
+        background: var(--gray-100);
+        border: 2px dashed var(--gray-300);
+        border-radius: 16px;
+        padding: 25px;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+        .upload-zone:hover {
+            border-color: var(--primary);
+            background: #f8faf9;
+        }
+
+    .zone-label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: var(--text-dark);
+    }
 
     .preview-box {
+        width: 100%;
+        height: 120px;
+        background: var(--surface);
+        border-radius: 10px;
         display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
 
-    .preview-item {
-        flex: 1;
-        min-width: 120px;
-        padding: 1rem;
-        border-radius: 8px;
-        text-align: center;
-        color: white;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-        box-shadow: var(--shadow-sm);
-    }
-
-    .logo-upload-section {
-        display: grid;
-        gap: 2rem;
-    }
-
-    .current-logo, .current-favicon {
-        text-align: center;
-        padding: 1.5rem;
-        background-color: var(--gray-100);
-        border-radius: 15px;
-    }
-
-        .current-logo h4, .current-favicon h4 {
-            color: var(--primary);
-            margin-bottom: 1rem;
+        .preview-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
 
-    .current-logo-img {
-        max-width: 200px;
-        max-height: 80px;
-        object-fit: contain;
+    .favicon-box {
+        height: 80px;
+        width: 80px;
+        margin: 0 auto 15px;
+        border-radius: 20px;
     }
 
-    .current-favicon-img {
-        width: 32px;
-        height: 32px;
-        object-fit: contain;
+    .large-box {
+        height: 200px;
     }
 
-    .no-logo, .no-favicon {
-        padding: 2rem;
-        background-color: white;
-        border: 2px dashed var(--gray-300);
-        border-radius: 10px;
-        color: var(--text-light);
+    .placeholder-icon {
+        font-size: 2.5rem;
+        color: var(--gray-300);
+    }
+
+    .file-btn-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+
+        .file-btn-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+    .btn-upload {
+        background: white;
+        border: 1px solid var(--gray-300);
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        pointer-events: none;
+        color: var(--text-dark);
+    }
+
+    /* LABELS CARDS */
+    .labels-section {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .label-group-card {
+        background: var(--gray-100);
+        border: 1px solid var(--gray-200);
+        border-radius: 12px;
+        padding: 20px;
+    }
+
+        .label-group-card h4 {
+            margin: 0 0 20px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+    /* SOCIAL MEDIA */
+    .social-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .social-input-wrapper {
+        display: flex;
+        align-items: flex-end;
+        gap: 15px;
+        background: var(--gray-100);
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid var(--gray-200);
+    }
+
+    .social-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: white;
+        flex-shrink: 0;
+    }
+
+        .social-icon.facebook {
+            background: #1877F2;
+        }
+
+        .social-icon.twitter {
+            background: #000000;
+        }
+
+        .social-icon.instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+    .flex-1 {
+        flex: 1;
+    }
+
+    /* WHATSAPP CARD */
+    .whatsapp-card {
+        display: flex;
+        gap: 30px;
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        padding: 30px;
+        border-radius: 16px;
+        align-items: flex-start;
+    }
+
+    .wa-icon-large {
+        width: 80px;
+        height: 80px;
+        background: #25D366;
+        color: white;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+    }
+
+    .wa-number {
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        font-weight: 600;
     }
 </style>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        function showTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
+        // Tab Switching Logic
+        function switchTab(tabId, btnElement) {
+            // Remove active class from all tabs and panes
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-link').forEach(b => b.classList.remove('active'));
 
-            // Show selected tab
-            document.getElementById('tab-' + tabName).classList.add('active');
-
-            // Update tab buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
+            // Add active class to target
+            document.getElementById('tab-' + tabId).classList.add('active');
+            btnElement.classList.add('active');
         }
 
-        // Sync color picker with text input
-        document.querySelectorAll('.color-picker').forEach(picker => {
-            picker.addEventListener('input', function() {
-                const textInput = this.closest('.color-input-group').querySelector('.color-value');
-                textInput.value = this.value;
-            });
-        });
-
-        document.querySelectorAll('.color-value').forEach(input => {
-            input.addEventListener('input', function() {
-                const colorPicker = this.closest('.color-input-group').querySelector('.color-picker');
-                colorPicker.value = this.value;
-            });
-        });
-
-        // File name display
-        document.getElementById('logoFile')?.addEventListener('change', function(e) {
-            const fileName = e.target.files[0] ? e.target.files[0].name : '@(isArabic ? "لم يتم اختيار ملف" : "No file chosen")';
-            document.getElementById('logo-file-name').textContent = fileName;
-        });
-
-        document.getElementById('faviconFile')?.addEventListener('change', function(e) {
-            const fileName = e.target.files[0] ? e.target.files[0].name : '@(isArabic ? "لم يتم اختيار ملف" : "No file chosen")';
-            document.getElementById('favicon-file-name').textContent = fileName;
-        });
+        // Live Image Preview Logic
+        function previewImage(input, previewId) {
+            const previewBox = document.getElementById(previewId);
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewBox.innerHTML = `<img src="${e.target.result}" style="animation: fadeIn 0.3s;" />`;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
     </script>
 }

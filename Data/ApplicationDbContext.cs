@@ -186,6 +186,9 @@ namespace CarRentalPortfolio.Data
                     Seats = 5
                 }
             );
+
         }
+        public DbSet<ContactMessage> ContactMessages { get; set; }
+
     }
 }

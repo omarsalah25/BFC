@@ -34,7 +34,7 @@ namespace CarRentalPortfolio.Models
         public bool IsAvailable { get; set; } = true;
 
         [Display(Name = "Year")]
-        [Range(2000, 2025)]
+        [Range(1950, 2050)]
         public int Year { get; set; }
 
         [Display(Name = "Transmission")]

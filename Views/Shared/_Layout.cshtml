@@ -16,6 +16,21 @@
     {
         <link rel="icon" type="image/png" href="@settings.FaviconUrl">
         <link rel="apple-touch-icon" href="@settings.LogoUrl">
+
+        <!-- ADD THIS STYLE BLOCK TO APPLY DYNAMIC COLORS -->
+        <style>
+            :root {
+                --primary: @settings.PrimaryColor !important;
+                --primary-dark: @settings.PrimaryDarkColor !important;
+                --primary-light: @settings.PrimaryLightColor !important;
+                --accent: @settings.AccentColor !important;
+                --accent-dark: @settings.AccentDarkColor !important;
+                --background: @settings.BackgroundColor !important;
+                --surface: @settings.SurfaceColor !important;
+                --text-dark: @settings.TextDarkColor !important;
+                --text-light: @settings.TextLightColor !important;
+            }
+        </style>
     }
     else
     {
@@ -35,7 +50,7 @@
                     <a href="/">
                         @if (settings != null && !string.IsNullOrEmpty(settings.LogoUrl))
                         {
-                            <img src="@settings.LogoUrl" alt="@(isArabic? settings.SiteNameAr: settings.SiteName)" style="height: 50px;">
+                            <img src="@settings.LogoUrl" alt="@(isArabic? settings.SiteNameAr: settings.SiteName)" style="height: 80px; max-width: 250px; object-fit: contain; margin: 5px 0;">
                         }
                         else
                         {
@@ -64,13 +79,14 @@
                         <a href="/Home/ChangeLanguage?lang=ar" class="lang-link @(currentLang == "ar" ? "active" : "")">AR</a>
                     </div>
 
-                    @if (Context.Session.GetString("AdminId") == null)
+              @*       @if (Context.Session.GetString("AdminId") == null)
                     {
                         <a href="/Admin/Login" class="admin-login-btn">
                             <i class="fas fa-user-shield"></i>
                             <span>@(isArabic ? "دخول المدير" : "Admin Login")</span>
                         </a>
                     }
+                    *@
                 </div>
             </div>
         </nav>

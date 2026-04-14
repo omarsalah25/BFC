@@ -1,0 +1,58 @@
+﻿@model IEnumerable<CarRentalPortfolio.Models.ContactMessage>
+@{
+    ViewData["Title"] = "Contact Messages";
+    var isArabic = Context.Request.Cookies["Language"] == "ar";
+}
+
+<div class="admin-cars">
+    <div class="container">
+        <div class="header-actions">
+            <h1>@(isArabic ? "رسائل التواصل" : "Contact Messages")</h1>
+        </div>
+
+        <div class="cars-table-container">
+            <table class="cars-table">
+                <thead>
+                    <tr>
+                        <th>@(isArabic ? "التاريخ" : "Date")</th>
+                        <th>@(isArabic ? "الاسم" : "Name")</th>
+                        <th>@(isArabic ? "الهاتف" : "Phone")</th>
+                        <th>@(isArabic ? "البريد الإلكتروني" : "Email")</th>
+                        <th>@(isArabic ? "الرسالة" : "Message")</th>
+                        <th>@(isArabic ? "الإجراءات" : "Actions")</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var msg in Model)
+                    {
+                        <tr id="msg-row-@msg.Id">
+                            <td>@msg.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>@msg.Name</td>
+                            <td><a href="https://wa.me/@msg.Phone.Replace("+", "").Replace(" ", "")" target="_blank">@msg.Phone</a></td>
+                            <td>@msg.Email</td>
+                            <td style="max-width: 300px; white-space: pre-wrap;">@msg.Message</td>
+                            <td>
+                                <button onclick="deleteMsg(@msg.Id)" class="btn-delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function deleteMsg(id) {
+            if (confirm('@(isArabic ? "حذف هذه الرسالة؟" : "Delete this message?")')) {
+                $.post('/Admin/DeleteMessage', { id: id })
+                    .done(function(res) {
+                        if (res.success) $('#msg-row-' + id).fadeOut();
+                    });
+            }
+        }
+    </script>
+}
