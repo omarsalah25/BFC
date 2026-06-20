@@ -37,7 +37,13 @@
                 <div class="settings-sidebar">
                     <nav class="tab-nav">
                         <button type="button" class="tab-link active" onclick="switchTab('general', this)">
-                            <i class="fas fa-globe"></i> <span>@(isArabic ? "عام" : "General")</span>
+                            <i class="fas fa-globe"></i> <span>@(isArabic ? "عام (النصوص)" : "General (Texts)")</span>
+                        </button>
+                        <button type="button" class="tab-link" onclick="switchTab('contact', this)">
+                            <i class="fas fa-address-book"></i> <span>@(isArabic ? "الاتصال والفروع" : "Contact & Branches")</span>
+                        </button>
+                        <button type="button" class="tab-link" onclick="switchTab('whatsapp', this)">
+                            <i class="fab fa-whatsapp"></i> <span>@(isArabic ? "واتساب" : "WhatsApp")</span>
                         </button>
                         <button type="button" class="tab-link" onclick="switchTab('colors', this)">
                             <i class="fas fa-palette"></i> <span>@(isArabic ? "الألوان" : "Colors")</span>
@@ -46,13 +52,10 @@
                             <i class="fas fa-images"></i> <span>@(isArabic ? "الصور والشعارات" : "Media & Logos")</span>
                         </button>
                         <button type="button" class="tab-link" onclick="switchTab('labels', this)">
-                            <i class="fas fa-language"></i> <span>@(isArabic ? "نصوص الرئيسية" : "Home Labels")</span>
+                            <i class="fas fa-language"></i> <span>@(isArabic ? "عناوين الأقسام" : "Section Titles")</span>
                         </button>
                         <button type="button" class="tab-link" onclick="switchTab('social', this)">
                             <i class="fas fa-share-alt"></i> <span>@(isArabic ? "السوشيال ميديا" : "Social Media")</span>
-                        </button>
-                        <button type="button" class="tab-link" onclick="switchTab('whatsapp', this)">
-                            <i class="fab fa-whatsapp"></i> <span>@(isArabic ? "واتساب" : "WhatsApp")</span>
                         </button>
                     </nav>
                 </div>
@@ -60,11 +63,11 @@
                 <!-- MAIN CONTENT AREA -->
                 <div class="settings-content">
 
-                    <!-- 1. GENERAL TAB -->
+                    <!-- 1. GENERAL TAB (Why H-CAR Text is here) -->
                     <div id="tab-general" class="tab-pane active">
                         <div class="pane-header">
-                            <h2>@(isArabic ? "الإعدادات العامة" : "General Settings")</h2>
-                            <p>@(isArabic ? "المعلومات الأساسية الخاصة بهوية الموقع" : "Basic information for your website identity")</p>
+                            <h2>@(isArabic ? "الإعدادات العامة والنصوص" : "General Settings & Texts")</h2>
+                            <p>@(isArabic ? "المعلومات والنصوص الأساسية في الصفحة الرئيسية" : "Basic information and texts on the home page")</p>
                         </div>
                         <div class="input-grid">
                             <div class="input-group">
@@ -75,15 +78,22 @@
                                 <label asp-for="SiteNameAr">Site Name (Ar)</label>
                                 <input asp-for="SiteNameAr" class="modern-input" required />
                             </div>
-                            <div class="input-group full-width">
-                                <label asp-for="PhilosophyEn">Philosophy Slogan (En)</label>
-                                <input asp-for="PhilosophyEn" class="modern-input" />
+
+                            <!-- WHY H-CAR TEXT (Changed to large text areas) -->
+                            <div class="input-group full-width" style="margin-top: 15px;">
+                                <label asp-for="PhilosophyEn" style="color: var(--primary); font-size: 1.1rem;">
+                                    <i class="fas fa-quote-left"></i> @(isArabic ? "نص قسم (لماذا إتش-كار؟) - إنجليزي" : "'Why H-CAR?' Text (En)")
+                                </label>
+                                <textarea asp-for="PhilosophyEn" class="modern-textarea" rows="4" placeholder="We are a proudly Egyptian brand..."></textarea>
                             </div>
                             <div class="input-group full-width">
-                                <label asp-for="PhilosophyAr">Philosophy Slogan (Ar)</label>
-                                <input asp-for="PhilosophyAr" class="modern-input" />
+                                <label asp-for="PhilosophyAr" style="color: var(--primary); font-size: 1.1rem;">
+                                    <i class="fas fa-quote-right"></i> @(isArabic ? "نص قسم (لماذا إتش-كار؟) - عربي" : "'Why H-CAR?' Text (Ar)")
+                                </label>
+                                <textarea asp-for="PhilosophyAr" class="modern-textarea" rows="4" dir="rtl" placeholder="نحن علامة تجارية مصرية نفخر..."></textarea>
                             </div>
-                            <div class="input-group full-width">
+
+                            <div class="input-group full-width" style="margin-top: 15px;">
                                 <label asp-for="FooterTextEn">Footer Text (En)</label>
                                 <input asp-for="FooterTextEn" class="modern-input" />
                             </div>
@@ -94,11 +104,75 @@
                         </div>
                     </div>
 
-                    <!-- 2. COLORS TAB -->
+                    <!-- 2. CONTACT & BRANCHES TAB -->
+                    <div id="tab-contact" class="tab-pane">
+                        <div class="pane-header">
+                            <h2>@(isArabic ? "بيانات الاتصال والفروع" : "Contact & Branches")</h2>
+                        </div>
+                        <div class="input-grid" style="margin-bottom: 30px;">
+                            <div class="input-group full-width">
+                                <label asp-for="ContactEmail">@(isArabic ? "البريد الإلكتروني" : "Email Address")</label>
+                                <input asp-for="ContactEmail" class="modern-input" placeholder="info@h-car.com" />
+                            </div>
+                            <div class="input-group">
+                                <label asp-for="ContactPhone1">@(isArabic ? "رقم الهاتف 1" : "Phone 1")</label>
+                                <input asp-for="ContactPhone1" class="modern-input" placeholder="010..." />
+                            </div>
+                            <div class="input-group">
+                                <label asp-for="ContactPhone2">@(isArabic ? "رقم الهاتف 2" : "Phone 2")</label>
+                                <input asp-for="ContactPhone2" class="modern-input" placeholder="011..." />
+                            </div>
+                        </div>
+
+                        <h4 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-map-marker-alt"></i> @(isArabic ? "الفروع" : "Branches")</h4>
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label asp-for="Address1En">@(isArabic ? "عنوان الفرع الأول (En)" : "Branch 1 (En)")</label>
+                                <input asp-for="Address1En" class="modern-input" />
+                            </div>
+                            <div class="input-group">
+                                <label asp-for="Address1Ar">@(isArabic ? "عنوان الفرع الأول (Ar)" : "Branch 1 (Ar)")</label>
+                                <input asp-for="Address1Ar" class="modern-input" />
+                            </div>
+                            <div class="input-group">
+                                <label asp-for="Address2En">@(isArabic ? "عنوان الفرع الثاني (En)" : "Branch 2 (En)")</label>
+                                <input asp-for="Address2En" class="modern-input" />
+                            </div>
+                            <div class="input-group">
+                                <label asp-for="Address2Ar">@(isArabic ? "عنوان الفرع الثاني (Ar)" : "Branch 2 (Ar)")</label>
+                                <input asp-for="Address2Ar" class="modern-input" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. WHATSAPP TAB -->
+                    <div id="tab-whatsapp" class="tab-pane">
+                        <div class="pane-header">
+                            <h2>@(isArabic ? "إعدادات واتساب" : "WhatsApp Settings")</h2>
+                        </div>
+                        <div class="whatsapp-card">
+                            <div class="wa-icon-large"><i class="fab fa-whatsapp"></i></div>
+                            <div class="input-grid" style="flex: 1;">
+                                <div class="input-group full-width">
+                                    <label asp-for="WhatsAppNumber">@(isArabic ? "رقم الهاتف (مع كود الدولة)" : "Phone Number (with country code)")</label>
+                                    <input asp-for="WhatsAppNumber" class="modern-input wa-number" placeholder="201065646972" required />
+                                </div>
+                                <div class="input-group full-width">
+                                    <label asp-for="WhatsAppMessageEn">Default Message (En)</label>
+                                    <textarea asp-for="WhatsAppMessageEn" class="modern-textarea" rows="2"></textarea>
+                                </div>
+                                <div class="input-group full-width">
+                                    <label asp-for="WhatsAppMessageAr">Default Message (Ar)</label>
+                                    <textarea asp-for="WhatsAppMessageAr" class="modern-textarea" rows="2" dir="rtl"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. COLORS TAB -->
                     <div id="tab-colors" class="tab-pane">
                         <div class="pane-header">
                             <h2>@(isArabic ? "تخصيص الألوان" : "Color Customization")</h2>
-                            <p>@(isArabic ? "اختر الألوان التي تتناسب مع علامتك التجارية" : "Choose colors that match your brand identity")</p>
                         </div>
                         <div class="color-grid">
                             @{
@@ -124,15 +198,12 @@
                         </div>
                     </div>
 
-                    <!-- 3. MEDIA & LOGOS TAB -->
+                    <!-- 5. MEDIA & LOGOS TAB (Why H-CAR Image is here) -->
                     <div id="tab-media" class="tab-pane">
                         <div class="pane-header">
                             <h2>@(isArabic ? "الصور والشعارات" : "Media & Logos")</h2>
-                            <p>@(isArabic ? "ارفع شعارات وصور موقعك" : "Upload your website logos and images")</p>
                         </div>
-
                         <div class="upload-grid">
-                            <!-- Main Logo -->
                             <div class="upload-zone">
                                 <label class="zone-label">@(isArabic ? "الشعار الأساسي (Logo)" : "Main Logo")</label>
                                 <div class="preview-box" id="preview-logo">
@@ -151,8 +222,6 @@
                                     <button type="button" class="btn-upload"><i class="fas fa-upload"></i> @(isArabic ? "اختر صورة" : "Browse")</button>
                                 </div>
                             </div>
-
-                            <!-- Favicon -->
                             <div class="upload-zone">
                                 <label class="zone-label">@(isArabic ? "أيقونة المتصفح (Favicon)" : "Browser Favicon")</label>
                                 <div class="preview-box favicon-box" id="preview-favicon">
@@ -172,9 +241,11 @@
                                 </div>
                             </div>
 
-                            <!-- Philosophy Image -->
-                            <div class="upload-zone full-width">
-                                <label class="zone-label">@(isArabic ? "صورة قسم (لماذا تختارنا؟)" : "Why Choose Us Section Image")</label>
+                            <!-- WHY H-CAR IMAGE -->
+                            <div class="upload-zone full-width" style="border-color: var(--primary); background: #f8fafc;">
+                                <label class="zone-label" style="color: var(--primary); font-size: 1.1rem;">
+                                    <i class="fas fa-camera"></i> @(isArabic ? "صورة قسم (لماذا إتش-كار؟)" : "Image for 'Why H-CAR?' Section")
+                                </label>
                                 <div class="preview-box large-box" id="preview-phil">
                                     @if (!string.IsNullOrEmpty(Model.PhilosophyImageUrl))
                                     {
@@ -188,27 +259,20 @@
                                 </div>
                                 <div class="file-btn-wrapper">
                                     <input type="file" name="philosophyImageFile" accept="image/*" onchange="previewImage(this, 'preview-phil')" />
-                                    <button type="button" class="btn-upload"><i class="fas fa-upload"></i> @(isArabic ? "اختر صورة" : "Browse")</button>
+                                    <button type="button" class="btn-upload" style="background: var(--primary); color: white; border: none;">
+                                        <i class="fas fa-upload"></i> @(isArabic ? "تغيير الصورة" : "Change Image")
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 4. HOME LABELS TAB -->
+                    <!-- 6. HOME LABELS TAB -->
                     <div id="tab-labels" class="tab-pane">
                         <div class="pane-header">
-                            <h2>@(isArabic ? "نصوص الصفحة الرئيسية" : "Home Page Labels")</h2>
-                            <p>@(isArabic ? "تخصيص عناوين الأقسام في الصفحة الرئيسية" : "Customize section titles on the home page")</p>
+                            <h2>@(isArabic ? "عناوين الأقسام الرئيسية" : "Section Titles")</h2>
                         </div>
                         <div class="labels-section">
-                            <div class="label-group-card">
-                                <h4><i class="fas fa-star"></i> Features Section</h4>
-                                <div class="input-grid">
-                                    <div class="input-group"><label asp-for="FeaturesTitleEn">Title (En)</label><input asp-for="FeaturesTitleEn" class="modern-input" /></div>
-                                    <div class="input-group"><label asp-for="FeaturesTitleAr">Title (Ar)</label><input asp-for="FeaturesTitleAr" class="modern-input" /></div>
-                                </div>
-                            </div>
-
                             <div class="label-group-card">
                                 <h4><i class="fas fa-car"></i> Cars Section</h4>
                                 <div class="input-grid">
@@ -220,10 +284,10 @@
                             </div>
 
                             <div class="label-group-card">
-                                <h4><i class="fas fa-comments"></i> Testimonials Section</h4>
+                                <h4><i class="fas fa-star"></i> Features Section</h4>
                                 <div class="input-grid">
-                                    <div class="input-group"><label asp-for="TestimonialsTitleEn">Title (En)</label><input asp-for="TestimonialsTitleEn" class="modern-input" /></div>
-                                    <div class="input-group"><label asp-for="TestimonialsTitleAr">Title (Ar)</label><input asp-for="TestimonialsTitleAr" class="modern-input" /></div>
+                                    <div class="input-group"><label asp-for="FeaturesTitleEn">Title (En)</label><input asp-for="FeaturesTitleEn" class="modern-input" /></div>
+                                    <div class="input-group"><label asp-for="FeaturesTitleAr">Title (Ar)</label><input asp-for="FeaturesTitleAr" class="modern-input" /></div>
                                 </div>
                             </div>
 
@@ -239,11 +303,10 @@
                         </div>
                     </div>
 
-                    <!-- 5. SOCIAL MEDIA TAB -->
+                    <!-- 7. SOCIAL MEDIA TAB -->
                     <div id="tab-social" class="tab-pane">
                         <div class="pane-header">
                             <h2>@(isArabic ? "السوشيال ميديا" : "Social Media")</h2>
-                            <p>@(isArabic ? "أضف روابط حساباتك (اترك الحقل فارغاً لإخفاء الأيقونة)" : "Add your account links (leave blank to hide the icon)")</p>
                         </div>
                         <div class="social-inputs">
                             <div class="social-input-wrapper">
@@ -270,31 +333,6 @@
                         </div>
                     </div>
 
-                    <!-- 6. WHATSAPP TAB -->
-                    <div id="tab-whatsapp" class="tab-pane">
-                        <div class="pane-header">
-                            <h2>@(isArabic ? "إعدادات واتساب" : "WhatsApp Settings")</h2>
-                            <p>@(isArabic ? "تحكم في زر الدردشة الفورية وحجوزات السيارات" : "Control the live chat button and car bookings")</p>
-                        </div>
-                        <div class="whatsapp-card">
-                            <div class="wa-icon-large"><i class="fab fa-whatsapp"></i></div>
-                            <div class="input-grid" style="flex: 1;">
-                                <div class="input-group full-width">
-                                    <label asp-for="WhatsAppNumber">@(isArabic ? "رقم الهاتف (مع كود الدولة)" : "Phone Number (with country code)")</label>
-                                    <input asp-for="WhatsAppNumber" class="modern-input wa-number" placeholder="201065646972" required />
-                                </div>
-                                <div class="input-group full-width">
-                                    <label asp-for="WhatsAppMessageEn">Default Message (En)</label>
-                                    <textarea asp-for="WhatsAppMessageEn" class="modern-textarea" rows="2"></textarea>
-                                </div>
-                                <div class="input-group full-width">
-                                    <label asp-for="WhatsAppMessageAr">Default Message (Ar)</label>
-                                    <textarea asp-for="WhatsAppMessageAr" class="modern-textarea" rows="2" dir="rtl"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </form>
@@ -302,14 +340,12 @@
 </div>
 
 <style>
-    /* BASE LAYOUT */
     .admin-settings-page {
         padding: 30px 0;
         background-color: var(--background);
         min-height: calc(100vh - 80px);
     }
 
-    /* HEADER */
     .settings-header-box {
         display: flex;
         justify-content: space-between;
@@ -358,7 +394,6 @@
         gap: 15px;
     }
 
-    /* BUTTONS */
     .btn-primary-save {
         background: var(--primary);
         color: white;
@@ -393,11 +428,6 @@
         transition: 0.3s;
     }
 
-        .btn-outline-cancel:hover {
-            background: var(--gray-200);
-        }
-
-    /* LAYOUT (SIDEBAR + CONTENT) */
     .settings-layout {
         display: grid;
         grid-template-columns: 260px 1fr;
@@ -411,7 +441,6 @@
         }
     }
 
-    /* SIDEBAR NAV */
     .settings-sidebar {
         background: var(--surface);
         border-radius: 16px;
@@ -463,7 +492,6 @@
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
-    /* CONTENT AREA */
     .settings-content {
         background: var(--surface);
         border-radius: 16px;
@@ -493,7 +521,6 @@
         }
     }
 
-    /* PANE HEADER */
     .pane-header {
         margin-bottom: 30px;
         border-bottom: 1px solid var(--gray-200);
@@ -511,7 +538,6 @@
             color: var(--text-light);
         }
 
-    /* FORM INPUTS */
     .input-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -549,7 +575,6 @@
             background: var(--surface);
         }
 
-    /* COLORS GRID */
     .color-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -562,14 +587,6 @@
         border-radius: 12px;
         border: 1px solid var(--gray-200);
     }
-
-        .color-card label {
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--text-dark);
-        }
 
     .color-control {
         display: flex;
@@ -606,7 +623,6 @@
         text-align: center;
     }
 
-    /* UPLOAD ZONES */
     .upload-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -621,11 +637,6 @@
         text-align: center;
         transition: 0.3s;
     }
-
-        .upload-zone:hover {
-            border-color: var(--primary);
-            background: #f8faf9;
-        }
 
     .zone-label {
         display: block;
@@ -660,10 +671,6 @@
         border-radius: 20px;
     }
 
-    .large-box {
-        height: 200px;
-    }
-
     .placeholder-icon {
         font-size: 2.5rem;
         color: var(--gray-300);
@@ -694,7 +701,6 @@
         color: var(--text-dark);
     }
 
-    /* LABELS CARDS */
     .labels-section {
         display: flex;
         flex-direction: column;
@@ -716,7 +722,6 @@
             gap: 10px;
         }
 
-    /* SOCIAL MEDIA */
     .social-inputs {
         display: flex;
         flex-direction: column;
@@ -761,7 +766,6 @@
         flex: 1;
     }
 
-    /* WHATSAPP CARD */
     .whatsapp-card {
         display: flex;
         gap: 30px;
@@ -795,18 +799,13 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        // Tab Switching Logic
         function switchTab(tabId, btnElement) {
-            // Remove active class from all tabs and panes
             document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.tab-link').forEach(b => b.classList.remove('active'));
-
-            // Add active class to target
             document.getElementById('tab-' + tabId).classList.add('active');
             btnElement.classList.add('active');
         }
 
-        // Live Image Preview Logic
         function previewImage(input, previewId) {
             const previewBox = document.getElementById(previewId);
             if (input.files && input.files[0]) {

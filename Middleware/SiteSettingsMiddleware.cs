@@ -1,5 +1,4 @@
 ﻿using CarRentalPortfolio.Data;
-using CarRentalPortfolio.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRentalPortfolio.Middleware
@@ -15,17 +14,25 @@ namespace CarRentalPortfolio.Middleware
 
         public async Task InvokeAsync(HttpContext context, ApplicationDbContext dbContext)
         {
-            // ADD THIS TO FETCH SETTINGS AND PASS TO LAYOUT
-            var settings = await dbContext.SiteSettings.FirstOrDefaultAsync();
-            if (settings != null)
+            try
             {
-                context.Items["SiteSettings"] = settings;
+                // Check if database is available and fetch settings
+                var settings = await dbContext.SiteSettings.AsNoTracking().FirstOrDefaultAsync();
+                if (settings != null)
+                {
+                    context.Items["SiteSettings"] = settings;
+                }
+            }
+            catch
+            {
+                // If the table doesn't exist yet (during first run/migration), 
+                // we just ignore the error so the app can finish starting up.
             }
 
             await _next(context);
         }
     }
-    // Extension method to register the middleware
+
     public static class SiteSettingsMiddlewareExtensions
     {
         public static IApplicationBuilder UseSiteSettings(this IApplicationBuilder builder)

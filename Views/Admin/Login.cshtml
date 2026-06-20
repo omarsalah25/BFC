@@ -1,57 +1,268 @@
 ﻿@model CarRentalPortfolio.Models.AdminLoginViewModel
 @{
-    ViewData["Title"] = "Admin Login";
+    Layout = null; // No navbar or footer on the login page
     var isArabic = Context.Request.Cookies["Language"] == "ar";
 }
 
-<div class="login-page">
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <i class="fas fa-user-shield"></i>
-                <h2>@(isArabic ? "تسجيل دخول المدير" : "Admin Login")</h2>
-                <p>@(isArabic ? "الرجاء إدخال بيانات الاعتماد الخاصة بك" : "Please enter your credentials")</p>
-            </div>
+<!DOCTYPE html>
+<html lang="@(isArabic ? "ar" : "en")" dir="@(isArabic ? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@(isArabic ? "تسجيل دخول الإدارة" : "Admin Login") - H-CAR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Base Reset */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-            <form asp-action="Login" method="post" class="login-form">
-                <div asp-validation-summary="ModelOnly" class="text-danger error-summary"></div>
+        /* Stunning Background */
+        .login-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* High-quality dark automotive background */
+            background: linear-gradient(rgba(10, 15, 20, 0.7), rgba(10, 15, 20, 0.8)), url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1920&auto=format&fit=crop') no-repeat center center;
+            background-size: cover;
+            padding: 2rem;
+        }
+
+        /* Glassmorphism Card */
+        .login-box {
+            background: rgba(25, 30, 36, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-box i.fa-user-shield {
+            font-size: 3.5rem;
+            color: #10b981;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .login-box h2 {
+            margin: 0 0 8px;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .login-box p {
+            color: #9ca3af;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+            position: relative;
+        }
+
+        html[dir="rtl"] .form-group {
+            text-align: right;
+        }
+
+        /* Modern Dark Inputs */
+        .form-control {
+            width: 100%;
+            padding: 14px 15px 14px 45px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-size: 1rem;
+            color: #ffffff;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        html[dir="rtl"] .form-control {
+            padding: 14px 45px 14px 15px;
+        }
+
+        .form-control::placeholder {
+            color: #6b7280;
+        }
+
+        .form-control:focus {
+            border-color: #10b981;
+            background: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+        }
+
+        /* Input Icons */
+        .input-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 16px;
+            color: #9ca3af;
+            transition: 0.3s;
+        }
+
+        html[dir="rtl"] .input-icon {
+            left: auto;
+            right: 16px;
+        }
+
+        .form-control:focus + .input-icon,
+        .form-group:focus-within .input-icon {
+            color: #10b981;
+        }
+
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 16px;
+            color: #9ca3af;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 10;
+        }
+
+        html[dir="rtl"] .toggle-password {
+            right: auto;
+            left: 16px;
+        }
+
+        .toggle-password:hover {
+            color: #ffffff;
+        }
+
+        /* Submit Button */
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+            .btn-login:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            }
+
+        /* Errors */
+        .text-danger {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 6px;
+            display: block;
+            text-align: left;
+        }
+
+        html[dir="rtl"] .text-danger {
+            text-align: right;
+        }
+
+        .validation-summary-errors {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        html[dir="rtl"] .validation-summary-errors {
+            text-align: right;
+        }
+
+        .validation-summary-errors ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        html[dir="rtl"] .validation-summary-errors ul {
+            padding-left: 0;
+            padding-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-box">
+            <i class="fas fa-user-shield"></i>
+            <h2>@(isArabic ? "تسجيل دخول الإدارة" : "Secure Login")</h2>
+            <p>@(isArabic ? "مرحباً بك في لوحة تحكم إتش-كار" : "Welcome back to H-CAR Control Panel")</p>
+
+            <form asp-action="Login" method="post">
+                <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
 
                 <div class="form-group">
-                    <label asp-for="Username">@(isArabic ? "اسم المستخدم" : "Username")</label>
-                    <div class="input-icon-wrapper">
-                        <i class="fas fa-user"></i>
-                        <input asp-for="Username" class="form-control" placeholder="@(isArabic ? "أدخل اسم المستخدم" : "Enter username")" />
-                    </div>
+                    <input asp-for="Username" class="form-control" placeholder="@(isArabic ? "اسم المستخدم" : "Username")" required />
+                    <i class="fas fa-user input-icon"></i>
                     <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="Password">@(isArabic ? "كلمة المرور" : "Password")</label>
-                    <div class="input-icon-wrapper" style="position: relative; display: flex; align-items: center;">
-                        <i class="fas fa-lock"></i>
-                        <input asp-for="Password" id="passwordInput" class="form-control" type="password" placeholder="••••••••" style="padding-right: 40px;" />
-                        <i class="fas fa-eye" id="togglePassword" style="position: absolute; right: 15px; cursor: pointer; color: var(--text-light);"></i>
-                    </div>
+                    <input asp-for="Password" id="passwordInput" class="form-control" type="password" placeholder="@(isArabic ? "كلمة المرور" : "Password")" required />
+                    <i class="fas fa-lock input-icon"></i>
+                    <i class="fas fa-eye toggle-password" id="togglePassword"></i>
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
+
                 <button type="submit" class="btn-login">
-                    <i class="fas fa-sign-in-alt"></i>
-                    @(isArabic ? "تسجيل الدخول" : "Login")
+                    @(isArabic ? "تسجيل الدخول" : "Sign In") <i class="fas fa-arrow-right" style="margin: 0 8px; font-size: 0.9em;"></i>
                 </button>
             </form>
         </div>
     </div>
-</div>
-@section Scripts {
+
+    <!-- Script for Toggle Password Visibility -->
     <script>
         document.getElementById('togglePassword').addEventListener('click', function () {
             const passwordInput = document.getElementById('passwordInput');
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
 
-            // Toggle icon
+            // Toggle icon visual
             this.classList.toggle('fa-eye');
             this.classList.toggle('fa-eye-slash');
+            if(type === 'text') {
+                this.style.color = '#10b981';
+            } else {
+                this.style.color = '#9ca3af';
+            }
         });
     </script>
-}
+</body>
+</html>

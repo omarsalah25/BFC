@@ -1,23 +1,23 @@
 ﻿<!DOCTYPE html>
 @{
-    var currentLang = Context.Request.Cookies["Language"] ?? "en";
+    // 1. Make Arabic the absolute default language
+    var currentLang = Context.Request.Cookies["Language"] ?? "ar";
     var isArabic = currentLang == "ar";
     var settings = Context.Items["SiteSettings"] as CarRentalPortfolio.Models.SiteSettings;
 }
-<html lang="@currentLang" dir="ltr">
+<!-- 2. Dynamic RTL layout -->
+<html lang="@currentLang" dir="@(isArabic ? "rtl" : "ltr")">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - @(settings?.SiteName ?? "H-CAR")</title>
-
-    @await Component.InvokeAsync("SiteSettings")
 
     @if (settings != null)
     {
         <link rel="icon" type="image/png" href="@settings.FaviconUrl">
         <link rel="apple-touch-icon" href="@settings.LogoUrl">
 
-        <!-- ADD THIS STYLE BLOCK TO APPLY DYNAMIC COLORS -->
+        <!-- DYNAMIC COLORS -->
         <style>
             :root {
                 --primary: @settings.PrimaryColor !important;
@@ -38,9 +38,41 @@
         <link rel="apple-touch-icon" href="/images/icon.png">
     }
 
+    <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- 3. Added "Cairo" Font for beautiful Arabic typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <style>
+        /* Apply the specific font based on the language */
+        body {
+            font-family: @(isArabic ? "'Cairo', sans-serif" : "'Inter', sans-serif") !important;
+        }
+
+        /* Fix Navbar items for RTL */
+        html[dir="rtl"] .nav-actions {
+            margin-right: auto;
+            margin-left: 0;
+        }
+
+        /* Large Logo Styling */
+        .nav-logo img {
+            height: 75px !important;
+            max-width: 250px;
+            object-fit: contain;
+            margin: 5px 0;
+            transition: transform 0.3s ease;
+        }
+
+            .nav-logo img:hover {
+                transform: scale(1.05);
+            }
+    </style>
 </head>
 <body>
     <div class="wrapper">
@@ -50,25 +82,32 @@
                     <a href="/">
                         @if (settings != null && !string.IsNullOrEmpty(settings.LogoUrl))
                         {
-                            <img src="@settings.LogoUrl" alt="@(isArabic? settings.SiteNameAr: settings.SiteName)" style="height: 80px; max-width: 250px; object-fit: contain; margin: 5px 0;">
+                            <img src="@settings.LogoUrl" alt="@(isArabic? settings.SiteNameAr: settings.SiteName)">
                         }
                         else
                         {
-                            <span class="logo-text">@(isArabic? settings?.SiteNameAr ?? "H-CAR" : settings?.SiteName ?? "H-CAR")</span>
-                            <span class="logo-sub">@(isArabic? settings?.FooterTextAr ?? "تأجير سيارات فاخرة" : settings?.FooterTextEn ?? "Luxury Car Rental")</span>
+                            <span class="logo-text">@(isArabic? settings?.SiteNameAr ?? "إتش-كار" : settings?.SiteName ?? "H-CAR")</span>
+                            <span class="logo-sub">@(isArabic? settings?.FooterTextAr ?? "تأجير سيارات اقتصادية" : settings?.FooterTextEn ?? "Affordable Car Rental")</span>
                         }
                     </a>
                 </div>
 
                 <div class="nav-menu">
                     <a href="/" class="nav-link">@(isArabic ? "الرئيسية" : "Home")</a>
-                    <a href="/Home/About" class="nav-link">@(isArabic ? "عن الشركة" : "About")</a>
+
+                    <!-- ADDED ABOUT LINK HERE -->
+                    <a href="/Home/About" class="nav-link">@(isArabic ? "عن الشركة" : "About Us")</a>
+
                     @if (Context.Session.GetString("AdminId") != null)
                     {
-                        <a href="/Admin/Dashboard" class="nav-link">@(isArabic ? "لوحة التحكم" : "Dashboard")</a>
+                        <a href="/Admin/Dashboard" class="nav-link" style="color: var(--primary); font-weight: 700;">
+                            <i class="fas fa-shield-alt"></i> @(isArabic ? "لوحة التحكم" : "Dashboard")
+                        </a>
                         <a href="/Admin/Cars" class="nav-link">@(isArabic ? "السيارات" : "Cars")</a>
                         <a href="/SiteSettings" class="nav-link">@(isArabic ? "الإعدادات" : "Settings")</a>
-                        <a href="/Admin/Logout" class="nav-link">@(isArabic ? "تسجيل خروج" : "Logout")</a>
+                        <a href="/Admin/Logout" class="nav-link text-danger" style="color: #ef4444;">
+                            <i class="fas fa-sign-out-alt"></i> @(isArabic ? "تسجيل خروج" : "Logout")
+                        </a>
                     }
                 </div>
 
@@ -78,18 +117,10 @@
                         <span class="lang-separator">|</span>
                         <a href="/Home/ChangeLanguage?lang=ar" class="lang-link @(currentLang == "ar" ? "active" : "")">AR</a>
                     </div>
-
-              @*       @if (Context.Session.GetString("AdminId") == null)
-                    {
-                        <a href="/Admin/Login" class="admin-login-btn">
-                            <i class="fas fa-user-shield"></i>
-                            <span>@(isArabic ? "دخول المدير" : "Admin Login")</span>
-                        </a>
-                    }
-                    *@
                 </div>
             </div>
         </nav>
+
         <main role="main">
             @RenderBody()
         </main>
@@ -98,25 +129,30 @@
             <div class="footer-container">
                 <div class="footer-content">
                     <div class="footer-brand">
-                        <h3 style="color: var(--accent);">@(isArabic? settings?.SiteNameAr ?? "H-CAR" : settings?.SiteName ?? "H-CAR")</h3>
-                        <p>@(isArabic? settings?.FooterTextAr ?? "تأجير سيارات فاخرة في مصر" : settings?.FooterTextEn ?? "Luxury Car Rental in Egypt")</p>
+                        <h3 style="color: var(--accent); margin-bottom: 10px; font-weight: 800;">
+                            @(isArabic? settings?.SiteNameAr ?? "إتش-كار" : settings?.SiteName ?? "H-CAR")
+                        </h3>
+                        <p style="opacity: 0.9;">
+                            @(isArabic? settings?.FooterTextAr ?? "تأجير سيارات موثوقة واقتصادية في مصر" : settings?.FooterTextEn ?? "Affordable & Reliable Car Rental in Egypt")
+                        </p>
                     </div>
                     <div class="footer-philosophy">
-                        <p class="philosophy-text">
+                        <p class="philosophy-text" style="font-size: 1.1rem; font-weight: 600;">
                             <i class="fas fa-heart" style="color: var(--accent);"></i>
                             @(isArabic? settings?.PhilosophyAr ?? "راحتك هي أولويتنا القصوى" : settings?.PhilosophyEn ?? "Your comfort is our top priority")
                         </p>
                     </div>
                 </div>
                 <div class="footer-bottom">
-                    <p>&copy; @DateTime.Now.Year - @(isArabic? settings?.SiteNameAr ?? "H-CAR" : settings?.SiteName ?? "H-CAR"). @(isArabic ? "جميع الحقوق محفوظة" : "All rights reserved")</p>
+                    <p>&copy; @DateTime.Now.Year - @(isArabic? settings?.SiteNameAr ?? "إتش-كار" : settings?.SiteName ?? "H-CAR"). @(isArabic ? "جميع الحقوق محفوظة." : "All rights reserved.")</p>
                 </div>
             </div>
         </footer>
     </div>
 
-    @if (settings != null)
+    @if (settings != null && !string.IsNullOrEmpty(settings.WhatsAppNumber))
     {
+        <!-- Floating WhatsApp Button -->
         <a href="https://wa.me/@settings.WhatsAppNumber" class="whatsapp-float" target="_blank">
             <i class="fab fa-whatsapp"></i>
             <span class="tooltip">@(isArabic ? "تواصل معنا عبر واتساب" : "Chat with us on WhatsApp")</span>

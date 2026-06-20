@@ -3,80 +3,263 @@
     var isArabic = Context.Request.Cookies["Language"] == "ar";
 }
 
-<div class="admin-dashboard">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="admin-premium-bg">
     <div class="container">
-        <h1 class="dashboard-title">@(isArabic ? "لوحة التحكم" : "Admin Dashboard")</h1>
+        <div class="header-actions-glass">
+            <div>
+                <h1><i class="fas fa-shield-alt text-emerald"></i> @(isArabic ? "لوحة تحكم الإدارة" : "Admin Dashboard")</h1>
+                <p>@(isArabic ? "مرحباً بك، أدر موقعك بالكامل من هنا" : "Welcome back, manage your entire site from here")</p>
+            </div>
+        </div>
 
         <div class="dashboard-grid">
-            <a href="/Admin/Cars" class="dashboard-card">
-                <div class="card-icon">
-                    <i class="fas fa-car"></i>
-                </div>
+            <a href="/Admin/Cars" class="dashboard-card glass-card">
+                <div class="card-icon"><i class="fas fa-car"></i></div>
                 <h3>@(isArabic ? "إدارة السيارات" : "Manage Cars")</h3>
                 <p>@(isArabic ? "إضافة، تعديل، أو حذف السيارات" : "Add, edit, or remove cars")</p>
             </a>
 
-            <a href="/Admin/HeroImages" class="dashboard-card">
-                <div class="card-icon">
-                    <i class="fas fa-images"></i>
-                </div>
-                <h3>@(isArabic ? "إدارة صور الصفحة الرئيسية" : "Manage Hero Images")</h3>
-                <p>@(isArabic ? "تغيير صور وخلفيات الصفحة الرئيسية" : "Change homepage images and backgrounds")</p>
+            <a href="/Admin/HeroImages" class="dashboard-card glass-card">
+                <div class="card-icon"><i class="fas fa-images"></i></div>
+                <h3>@(isArabic ? "صور الصفحة الرئيسية" : "Hero Images")</h3>
+                <p>@(isArabic ? "تغيير صور وخلفيات الموقع" : "Change homepage images")</p>
             </a>
 
-@*             <div class="dashboard-card">
-                <div class="card-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3>@(isArabic ? "الإحصائيات" : "Statistics")</h3>
-                <p>@(isArabic ? "عرض إحصائيات الموقع والحجوزات" : "View site and booking statistics")</p>
-                <div class="stats-preview">
-                    <div class="stat-item">
-                        <span class="stat-value">@ViewBag.TotalCars ?? 0</span>
-                        <span class="stat-label">@(isArabic ? "سيارة" : "Cars")</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value">@ViewBag.AvailableCars ?? 0</span>
-                        <span class="stat-label">@(isArabic ? "متاحة" : "Available")</span>
-                    </div>
-                </div>
-            </div>
- *@
-            <!-- Add these two new cards anywhere inside the <div class="dashboard-grid"> -->
-
-            <a href="/Admin/Messages" class="dashboard-card">
-                <div class="card-icon">
-                    <i class="fas fa-envelope"></i>
-                </div>
+            <a href="/Admin/Messages" class="dashboard-card glass-card">
+                <div class="card-icon"><i class="fas fa-envelope"></i></div>
                 <h3>@(isArabic ? "رسائل العملاء" : "Customer Messages")</h3>
                 <p>@(isArabic ? "عرض رسائل نموذج اتصل بنا" : "View Contact Us messages")</p>
             </a>
 
-            <a href="/Admin/Profile" class="dashboard-card">
-                <div class="card-icon">
-                    <i class="fas fa-user-shield"></i>
-                </div>
-                <h3>@(isArabic ? "بيانات الدخول" : "Admin Credentials")</h3>
-                <p>@(isArabic ? "تغيير اسم المستخدم وكلمة المرور" : "Change username and password")</p>
+            <a href="/Admin/Profile" class="dashboard-card glass-card">
+                <div class="card-icon"><i class="fas fa-user-shield"></i></div>
+                <h3>@(isArabic ? "بيانات الدخول" : "Admin Profile")</h3>
+                <p>@(isArabic ? "تغيير اسم المستخدم وكلمة المرور" : "Change credentials")</p>
             </a>
 
-@*             <div class="dashboard-card">
-                <div class="card-icon">
-                    <i class="fas fa-cog"></i>
-                </div>
-                <h3>@(isArabic ? "الإعدادات" : "Settings")</h3>
-                <p>@(isArabic ? "تعديل إعدادات الموقع والمعلومات" : "Modify site settings and information")</p>
-            </div>
- *@
-
-            <a href="/SiteSettings" class="dashboard-card">
-                <div class="card-icon">
-                    <i class="fas fa-cog"></i>
-                </div>
+            <a href="/SiteSettings" class="dashboard-card glass-card">
+                <div class="card-icon"><i class="fas fa-cog"></i></div>
                 <h3>@(isArabic ? "إعدادات الموقع" : "Site Settings")</h3>
-                <p>@(isArabic ? "تعديل الألوان، واتساب، والشعارات" : "Modify colors, WhatsApp, and logos")</p>
+                <p>@(isArabic ? "تعديل النصوص والفروع والواتساب" : "Modify text, branches & more")</p>
             </a>
 
+            <!-- EXPORT BACKUP BUTTON (Green Glow) -->
+            <a href="/Admin/ExportBackup" class="dashboard-card glass-card export-card">
+                <div class="card-icon"><i class="fas fa-cloud-download-alt"></i></div>
+                <h3>@(isArabic ? "تنزيل نسخة احتياطية" : "Export Backup")</h3>
+                <p>@(isArabic ? "تحميل قاعدة البيانات والصور" : "Download database & images")</p>
+            </a>
+
+            <!-- RESTORE BACKUP BUTTON (Blue Glow) -->
+            <div class="dashboard-card glass-card restore-card" onclick="document.getElementById('backupFileInput').click();">
+                <div class="card-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                <h3>@(isArabic ? "استعادة الموقع" : "Restore Backup")</h3>
+                <p>@(isArabic ? "رفع ملف ZIP لاستعادة النظام" : "Upload ZIP to restore site")</p>
+            </div>
+
+            <input type="file" id="backupFileInput" accept=".zip" style="display: none;" onchange="handleRestoreBackup(this)" />
         </div>
     </div>
 </div>
+
+<style>
+    /* Premium Dark Automotive Background */
+    .admin-premium-bg {
+        min-height: calc(100vh - 75px);
+        background: linear-gradient(rgba(10, 15, 20, 0.8), rgba(10, 15, 20, 0.9)), url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1920&auto=format&fit=crop') no-repeat center center;
+        background-size: cover;
+        background-attachment: fixed;
+        padding: 3rem 0;
+        color: #f8fafc;
+    }
+
+    /* Header */
+    .header-actions-glass {
+        margin-bottom: 3rem;
+        background: rgba(25, 30, 36, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 25px 35px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        text-align: center;
+    }
+
+        .header-actions-glass h1 {
+            margin: 0 0 10px;
+            color: #ffffff;
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        .header-actions-glass p {
+            margin: 0;
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+    .text-emerald {
+        color: #10b981;
+        margin-right: 10px;
+        text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+    }
+
+    html[dir="rtl"] .text-emerald {
+        margin-right: 0;
+        margin-left: 10px;
+    }
+
+    /* Dashboard Grid & Cards */
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+
+    .dashboard-card {
+        padding: 30px 20px;
+        text-align: center;
+        text-decoration: none;
+        color: #f8fafc;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .glass-card {
+        background: rgba(30, 41, 59, 0.6);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+    .card-icon {
+        width: 70px;
+        height: 70px;
+        background: rgba(16, 185, 129, 0.15);
+        color: #10b981;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin-bottom: 20px;
+        transition: 0.3s;
+        border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .glass-card:hover .card-icon {
+        background: #10b981;
+        color: white;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+    }
+
+    .dashboard-card h3 {
+        margin: 0 0 10px;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #ffffff;
+    }
+
+    .dashboard-card p {
+        margin: 0;
+        color: #94a3b8;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    /* Special Export/Restore Cards Styling */
+    .export-card {
+        background: rgba(16, 185, 129, 0.1);
+        border-color: rgba(16, 185, 129, 0.3);
+    }
+
+        .export-card .card-icon {
+            background: #10b981;
+            color: white;
+        }
+
+        .export-card:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2);
+        }
+
+    .restore-card {
+        background: rgba(59, 130, 246, 0.1);
+        border-color: rgba(59, 130, 246, 0.3);
+    }
+
+        .restore-card .card-icon {
+            background: #3b82f6;
+            color: white;
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .restore-card:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+        }
+
+            .restore-card:hover .card-icon {
+                background: #2563eb;
+                box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+            }
+</style>
+
+<script>
+    function handleRestoreBackup(inputElement) {
+        if (!inputElement.files || inputElement.files.length === 0) return;
+        const file = inputElement.files[0];
+
+        Swal.fire({
+            title: '@(isArabic ? "هل أنت متأكد؟" : "Are you sure?")',
+            text: '@(isArabic ? "سيتم مسح البيانات الحالية واستبدالها بالنسخة המرفوعة!" : "Current data will be wiped and replaced by the backup!")',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3b82f6', cancelButtonColor: '#ef4444',
+            confirmButtonText: '@(isArabic ? "نعم، استعادة" : "Yes, Restore")', cancelButtonText: '@(isArabic ? "إلغاء" : "Cancel")',
+            background: '#1e293b', color: '#f8fafc'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: '@(isArabic ? "جاري الاستعادة..." : "Restoring...")',
+                    html: '@(isArabic ? "يرجى الانتظار..." : "Please wait...")',
+                    allowOutsideClick: false, background: '#1e293b', color: '#f8fafc',
+                    didOpen: () => { Swal.showLoading(); }
+                });
+
+                const formData = new FormData(); formData.append('backupFile', file);
+                try {
+                    const response = await fetch('/Admin/RestoreBackup', { method: 'POST', body: formData });
+                    const data = await response.json();
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success', title: '@(isArabic ? "تمت الاستعادة!" : "Restored!")',
+                            text: '@(isArabic ? "سيتم تحويلك لصفحة الدخول." : "Redirecting to login.")',
+                            confirmButtonColor: '#10b981', background: '#1e293b', color: '#f8fafc'
+                        }).then(() => { window.location.href = '/Admin/Login'; });
+                    } else throw new Error(data.message);
+                } catch (error) {
+                    Swal.fire({ icon: 'error', title: 'Error', text: error.message, confirmButtonColor: '#ef4444', background: '#1e293b', color: '#f8fafc' });
+                }
+                inputElement.value = '';
+            } else inputElement.value = '';
+        });
+    }
+</script>

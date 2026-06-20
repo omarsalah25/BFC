@@ -1,58 +1,345 @@
 ﻿@model IEnumerable<CarRentalPortfolio.Models.ContactMessage>
 @{
-    ViewData["Title"] = "Contact Messages";
+    ViewData["Title"] = "Customer Messages";
     var isArabic = Context.Request.Cookies["Language"] == "ar";
 }
 
-<div class="admin-cars">
+<!-- Include SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="admin-premium-bg">
     <div class="container">
-        <div class="header-actions">
-            <h1>@(isArabic ? "رسائل التواصل" : "Contact Messages")</h1>
+        <div class="header-actions-glass">
+            <div>
+                <h1><i class="fas fa-envelope-open-text text-emerald"></i> @(isArabic ? "رسائل العملاء" : "Customer Messages")</h1>
+                <p>@(isArabic ? "إدارة والرد على استفسارات العملاء بكل سهولة" : "Manage and respond to customer inquiries easily")</p>
+            </div>
+            <a href="/Admin/Dashboard" class="btn-glass-back">
+                <i class="fas fa-arrow-left"></i> @(isArabic ? "العودة للوحة" : "Back to Dashboard")
+            </a>
         </div>
 
-        <div class="cars-table-container">
-            <table class="cars-table">
-                <thead>
-                    <tr>
-                        <th>@(isArabic ? "التاريخ" : "Date")</th>
-                        <th>@(isArabic ? "الاسم" : "Name")</th>
-                        <th>@(isArabic ? "الهاتف" : "Phone")</th>
-                        <th>@(isArabic ? "البريد الإلكتروني" : "Email")</th>
-                        <th>@(isArabic ? "الرسالة" : "Message")</th>
-                        <th>@(isArabic ? "الإجراءات" : "Actions")</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var msg in Model)
-                    {
-                        <tr id="msg-row-@msg.Id">
-                            <td>@msg.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
-                            <td>@msg.Name</td>
-                            <td><a href="https://wa.me/@msg.Phone.Replace("+", "").Replace(" ", "")" target="_blank">@msg.Phone</a></td>
-                            <td>@msg.Email</td>
-                            <td style="max-width: 300px; white-space: pre-wrap;">@msg.Message</td>
-                            <td>
-                                <button onclick="deleteMsg(@msg.Id)" class="btn-delete">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+        @if (!Model.Any())
+        {
+            <div class="empty-state glass-card">
+                <i class="fas fa-inbox"></i>
+                <h3>@(isArabic ? "صندوق الوارد فارغ" : "Inbox is Empty")</h3>
+                <p>@(isArabic ? "لا توجد رسائل جديدة في الوقت الحالي." : "There are no new messages at the moment.")</p>
+            </div>
+        }
+        else
+        {
+            <div class="messages-grid">
+                @foreach (var msg in Model)
+                {
+                    <div class="message-card glass-card" id="msg-row-@msg.Id">
+                        <div class="msg-header">
+                            <div class="msg-avatar">
+                                @msg.Name.Substring(0, 1).ToUpper()
+                            </div>
+                            <div class="msg-info">
+                                <h4>@msg.Name</h4>
+                                <span class="msg-date"><i class="far fa-clock"></i> @msg.CreatedAt.ToString("MMM dd, yyyy - hh:mm tt")</span>
+                            </div>
+                            <button onclick="deleteMsg(@msg.Id)" class="btn-delete-msg" title="@(isArabic ? "حذف الرسالة" : "Delete Message")">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+
+                        <div class="msg-body">
+                            <p>@msg.Message</p>
+                        </div>
+
+                        <div class="msg-footer">
+                            <a href="mailto:@msg.Email" class="contact-pill email-pill">
+                                <i class="fas fa-envelope"></i> @msg.Email
+                            </a>
+                            <a href="https://wa.me/@msg.Phone.Replace("+", "").Replace(" ", "")" target="_blank" class="contact-pill wa-pill">
+                                <i class="fab fa-whatsapp"></i> @msg.Phone
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
     </div>
 </div>
 
-@section Scripts {
-    <script>
-        function deleteMsg(id) {
-            if (confirm('@(isArabic ? "حذف هذه الرسالة؟" : "Delete this message?")')) {
+<style>
+    /* Premium Dark Automotive Background */
+    .admin-premium-bg {
+        min-height: calc(100vh - 75px);
+        background: linear-gradient(rgba(10, 15, 20, 0.8), rgba(10, 15, 20, 0.9)), url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1920&auto=format&fit=crop') no-repeat center center;
+        background-size: cover;
+        background-attachment: fixed;
+        padding: 3rem 0;
+        color: #f8fafc;
+    }
+
+    /* Header */
+    .header-actions-glass {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 3rem;
+        background: rgba(25, 30, 36, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 20px 30px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+        .header-actions-glass h1 {
+            margin: 0 0 5px;
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .header-actions-glass p {
+            margin: 0;
+            color: #94a3b8;
+        }
+
+    .text-emerald {
+        color: #10b981;
+        margin-right: 8px;
+        text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+    }
+
+    html[dir="rtl"] .text-emerald {
+        margin-right: 0;
+        margin-left: 8px;
+    }
+
+    .btn-glass-back {
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 10px 20px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.3s;
+    }
+
+        .btn-glass-back:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+
+    /* Glass Cards */
+    .glass-card {
+        background: rgba(30, 41, 59, 0.7);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        transition: 0.3s;
+    }
+
+    /* Messages Grid */
+    .messages-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 25px;
+    }
+
+    .message-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(16, 185, 129, 0.4);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    .msg-header {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        position: relative;
+    }
+
+    .msg-avatar {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 800;
+        margin-right: 15px;
+        box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+    }
+
+    html[dir="rtl"] .msg-avatar {
+        margin-right: 0;
+        margin-left: 15px;
+    }
+
+    .msg-info h4 {
+        margin: 0 0 5px;
+        color: #f8fafc;
+        font-size: 1.1rem;
+    }
+
+    .msg-date {
+        color: #94a3b8;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .btn-delete-msg {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    html[dir="rtl"] .btn-delete-msg {
+        right: auto;
+        left: 20px;
+    }
+
+    .btn-delete-msg:hover {
+        background: #ef4444;
+        color: white;
+        transform: scale(1.1);
+    }
+
+    .msg-body {
+        padding: 20px;
+        color: #cbd5e1;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        min-height: 100px;
+    }
+
+        .msg-body p {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+    .msg-footer {
+        padding: 15px 20px;
+        background: rgba(0,0,0,0.2);
+        border-top: 1px solid rgba(255,255,255,0.05);
+        border-radius: 0 0 20px 20px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .contact-pill {
+        padding: 8px 15px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: 0.3s;
+    }
+
+    .email-pill {
+        background: rgba(59, 130, 246, 0.15);
+        color: #60a5fa;
+        border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+        .email-pill:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+    .wa-pill {
+        background: rgba(37, 211, 102, 0.15);
+        color: #34d399;
+        border: 1px solid rgba(37, 211, 102, 0.3);
+    }
+
+        .wa-pill:hover {
+            background: #25D366;
+            color: white;
+        }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+    }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: #475569;
+            margin-bottom: 15px;
+        }
+
+        .empty-state h3 {
+            color: #f8fafc;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: #94a3b8;
+            margin: 0;
+        }
+</style>
+
+<script>
+    function deleteMsg(id) {
+        Swal.fire({
+            title: '@(isArabic ? "هل أنت متأكد؟" : "Are you sure?")',
+            text: '@(isArabic ? "لن تتمكن من استعادة هذه الرسالة!" : "You will not be able to recover this message!")',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#475569',
+            confirmButtonText: '@(isArabic ? "نعم، احذفها!" : "Yes, delete it!")',
+            cancelButtonText: '@(isArabic ? "إلغاء" : "Cancel")',
+            background: '#1e293b',
+            color: '#f8fafc'
+        }).then((result) => {
+            if (result.isConfirmed) {
                 $.post('/Admin/DeleteMessage', { id: id })
                     .done(function(res) {
-                        if (res.success) $('#msg-row-' + id).fadeOut();
+                        if (res.success) {
+                            $('#msg-row-' + id).css('transform', 'scale(0.9)').fadeOut(300, function() { $(this).remove(); });
+                            Swal.fire({
+                                title: '@(isArabic ? "تم الحذف!" : "Deleted!")',
+                                text: '@(isArabic ? "تم حذف الرسالة بنجاح." : "The message has been deleted.")',
+                                icon: 'success',
+                                background: '#1e293b',
+                                color: '#f8fafc',
+                                confirmButtonColor: '#10b981'
+                            });
+                        }
                     });
             }
-        }
-    </script>
-}
+        });
+    }
+</script>

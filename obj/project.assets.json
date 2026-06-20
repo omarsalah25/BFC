@@ -3320,23 +3320,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mahmoud.hasaballa\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\bloow\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\BFC (3)\\BFC\\BFC\\BFC.csproj",
+      "projectUniqueName": "I:\\BFC (6)\\BFC\\BFC\\BFC.csproj",
       "projectName": "BFC",
-      "projectPath": "D:\\BFC (3)\\BFC\\BFC\\BFC.csproj",
-      "packagesPath": "C:\\Users\\mahmoud.hasaballa\\.nuget\\packages\\",
-      "outputPath": "D:\\BFC (3)\\BFC\\BFC\\obj\\",
+      "projectPath": "I:\\BFC (6)\\BFC\\BFC\\BFC.csproj",
+      "packagesPath": "C:\\Users\\bloow\\.nuget\\packages\\",
+      "outputPath": "I:\\BFC (6)\\BFC\\BFC\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\mahmoud.hasaballa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\bloow\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3345,7 +3347,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3410,7 +3411,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

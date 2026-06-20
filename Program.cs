@@ -1,20 +1,24 @@
 using CarRentalPortfolio.Data;
-using CarRentalPortfolio.Data;
 using CarRentalPortfolio.Middleware;
-using CarRentalPortfolio.Models;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// 1. Setup Persistent SQLite Path inside AppData folder
+// This ensures your database file is stored safely outside of temporary build folders.
+var appDataPath = Path.Combine(builder.Environment.ContentRootPath, "AppData");
+if (!Directory.Exists(appDataPath))
+{
+    Directory.CreateDirectory(appDataPath);
+}
+var dbPath = Path.Combine(appDataPath, "CarRental.db");
+var connectionString = $"Data Source={dbPath}";
+
+// 2. Add Services
 builder.Services.AddControllersWithViews();
-
-// Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(connectionString));
 
-// Add session support
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -25,7 +29,35 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// 3. DATABASE INITIALIZATION (SAFE VERSION)
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+
+    try
+    {
+        // Creates the database ONLY IF it doesn't already exist.
+        // It will NEVER delete your saved data.
+        await context.Database.EnsureCreatedAsync();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Database Creation Error: " + ex.Message);
+    }
+
+    try
+    {
+        // Seeds the default data ONLY IF the tables are 100% empty.
+        await DbInitializer.SeedAsync(context);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("Seeding Error: " + ex.Message);
+    }
+}
+
+// 4. Configure pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -38,11 +70,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseSession();
-
 app.UseAuthorization();
+
+// Middleware
 app.UseSiteSettings();
 
-// Language middleware
 app.Use(async (context, next) =>
 {
     if (!context.Request.Cookies.ContainsKey("Language"))
@@ -55,12 +87,5 @@ app.Use(async (context, next) =>
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-// Ensure database is created and migrated
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    dbContext.Database.Migrate(); // <--- ADD THIS
-}
 
 app.Run();

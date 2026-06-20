@@ -1,12 +1,12 @@
 ﻿@model CarRentalPortfolio.Models.SiteSettings
 @{
-    ViewData["Title"] = "Site Settings";
+    ViewData["Title"] = "Site Settings Summary";
     var isArabic = Context.Request.Cookies["Language"] == "ar";
 }
 
 <div class="admin-form-page">
     <div class="container">
-        <div class="form-container">
+        <div class="form-container" style="max-width: 1000px;">
             <div class="form-header">
                 <i class="fas fa-cog"></i>
                 <h1>@(isArabic ? "إعدادات الموقع" : "Site Settings")</h1>
@@ -21,6 +21,50 @@
             }
 
             <div class="settings-summary">
+
+                <div class="summary-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <div>
+                        <h3>@(isArabic ? "أرقام التواصل" : "Contact Numbers")</h3>
+                        <p><i class="fab fa-whatsapp text-success"></i> +@Model.WhatsAppNumber</p>
+                        @if (!string.IsNullOrEmpty(Model.ContactPhone1))
+                        {
+                            <p><i class="fas fa-phone fa-sm"></i> @Model.ContactPhone1</p>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.ContactPhone2))
+                        {
+                            <p><i class="fas fa-phone fa-sm"></i> @Model.ContactPhone2</p>
+                        }
+                    </div>
+                </div>
+
+                <div class="summary-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h3>@(isArabic ? "البريد الإلكتروني" : "Email")</h3>
+                        <p>@(string.IsNullOrEmpty(Model.ContactEmail) ? (isArabic ? "لم يتم الإعداد" : "Not Set") : Model.ContactEmail)</p>
+                    </div>
+                </div>
+
+                <div class="summary-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h3>@(isArabic ? "الفروع" : "Branches")</h3>
+                        @if (!string.IsNullOrEmpty(Model.Address1En))
+                        {
+                            <p style="font-size: 0.9rem;"><strong>1:</strong> @(isArabic? Model.Address1Ar: Model.Address1En)</p>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Address2En))
+                        {
+                            <p style="font-size: 0.9rem;"><strong>2:</strong> @(isArabic? Model.Address2Ar: Model.Address2En)</p>
+                        }
+                        @if (string.IsNullOrEmpty(Model.Address1En) && string.IsNullOrEmpty(Model.Address2En))
+                        {
+                            <p>@(isArabic ? "لا توجد فروع" : "No branches set")</p>
+                        }
+                    </div>
+                </div>
+
                 <div class="summary-item">
                     <i class="fas fa-palette"></i>
                     <div>
@@ -34,33 +78,21 @@
                 </div>
 
                 <div class="summary-item">
-                    <i class="fab fa-whatsapp"></i>
-                    <div>
-                        <h3>@(isArabic ? "رقم واتساب" : "WhatsApp")</h3>
-                        <p>+@Model.WhatsAppNumber</p>
-                    </div>
-                </div>
-
-                <div class="summary-item">
                     <i class="fas fa-share-alt"></i>
                     <div>
                         <h3>@(isArabic ? "السوشيال ميديا" : "Social Media")</h3>
                         <p style="font-size: 1.5rem; color: var(--primary);">
                             @if (!string.IsNullOrEmpty(Model.FacebookUrl))
                             {
-                                <i class="fab fa-facebook" style="width:auto; font-size: 1.5rem; color: inherit;"></i>
+                                <i class="fab fa-facebook" style="color: inherit; margin-right: 10px;"></i>
                             }
                             @if (!string.IsNullOrEmpty(Model.TwitterUrl))
                             {
-                                <i class="fab fa-twitter" style="width:auto; font-size: 1.5rem; color: inherit; margin: 0 10px;"></i>
+                                <i class="fab fa-twitter" style="color: inherit; margin-right: 10px;"></i>
                             }
                             @if (!string.IsNullOrEmpty(Model.InstagramUrl))
                             {
-                                <i class="fab fa-instagram" style="width:auto; font-size: 1.5rem; color: inherit;"></i>
-                            }
-                            @if (string.IsNullOrEmpty(Model.FacebookUrl) && string.IsNullOrEmpty(Model.TwitterUrl) && string.IsNullOrEmpty(Model.InstagramUrl))
-                            {
-                                <span style="font-size: 0.9rem; color: var(--text-light);">@(isArabic ? "لم يتم الإعداد" : "Not Set")</span>
+                                <i class="fab fa-instagram" style="color: inherit;"></i>
                             }
                         </p>
                     </div>
@@ -72,20 +104,18 @@
                         <h3>@(isArabic ? "الشعار الأساسي" : "Logo")</h3>
                         @if (!string.IsNullOrEmpty(Model.LogoUrl))
                         {
-                            <img src="@Model.LogoUrl" alt="Logo" style="max-width: 100px; max-height: 50px; border-radius: 4px;">
+                            <img src="@Model.LogoUrl" alt="Logo" style="max-width: 100px; max-height: 50px; border-radius: 4px; background: #f8fafc; padding: 5px;">
                         }
                     </div>
                 </div>
             </div>
 
-            <div class="form-actions" style="margin-top: 30px; border-top: 1px solid var(--gray-200); padding-top: 20px;">
-                <a href="/SiteSettings/Edit" class="btn-save">
-                    <i class="fas fa-edit"></i>
-                    @(isArabic ? "تعديل الإعدادات" : "Edit Settings")
+            <div class="form-actions" style="margin-top: 30px; border-top: 1px solid var(--gray-200); padding-top: 20px; display: flex; gap: 15px;">
+                <a href="/SiteSettings/Edit" class="btn-save" style="background: #10b981; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+                    <i class="fas fa-edit"></i> @(isArabic ? "تعديل الإعدادات" : "Edit Settings")
                 </a>
-                <a href="/Admin/Dashboard" class="btn-cancel">
-                    <i class="fas fa-arrow-left"></i>
-                    @(isArabic ? "العودة للوحة التحكم" : "Back to Dashboard")
+                <a href="/Admin/Dashboard" class="btn-cancel" style="background: #e2e8f0; color: #1e293b; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+                    <i class="fas fa-arrow-left"></i> @(isArabic ? "العودة للوحة التحكم" : "Back to Dashboard")
                 </a>
             </div>
         </div>
@@ -95,36 +125,38 @@
 <style>
     .settings-summary {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 1.5rem;
         margin: 2rem 0;
     }
 
     .summary-item {
-        background-color: var(--gray-100);
+        background-color: #f8fafc;
         padding: 1.5rem;
         border-radius: 15px;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 1rem;
+        border: 1px solid #e2e8f0;
     }
 
-        .summary-item i {
+        .summary-item i:first-child {
             font-size: 2rem;
-            color: var(--primary);
-            width: 50px;
+            color: #10b981;
+            width: 40px;
             text-align: center;
+            margin-top: 5px;
         }
 
         .summary-item h3 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
+            color: #0f172a;
+            margin: 0 0 0.5rem 0;
             font-size: 1.1rem;
         }
 
         .summary-item p {
-            color: var(--text-light);
-            margin: 0;
+            color: #64748b;
+            margin: 0 0 5px 0;
         }
 
     .color-preview {
@@ -136,13 +168,13 @@
             width: 30px;
             height: 30px;
             border-radius: 8px;
-            border: 2px solid var(--surface);
-            box-shadow: var(--shadow-sm);
+            border: 2px solid #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
     .alert-success {
-        background-color: #d4edda;
-        color: #155724;
+        background-color: #dcfce7;
+        color: #166534;
         padding: 1rem;
         border-radius: 10px;
         margin-bottom: 1.5rem;
@@ -150,8 +182,4 @@
         align-items: center;
         gap: 0.5rem;
     }
-
-        .alert-success i {
-            font-size: 1.2rem;
-        }
 </style>

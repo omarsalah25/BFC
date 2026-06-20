@@ -2,6 +2,9 @@
 using CarRentalPortfolio.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.IO.Compression;
+using System.Text.Json;
+
 
 namespace CarRentalPortfolio.Controllers
 {
@@ -19,6 +22,7 @@ namespace CarRentalPortfolio.Controllers
         public IActionResult Login()
         {
             return View();
+
         }
         public async Task<IActionResult> Dashboard()
         {
@@ -330,6 +334,74 @@ namespace CarRentalPortfolio.Controllers
             return Json(new { success = false });
         }
         [HttpPost]
+        public async Task<IActionResult> RestoreBackup(IFormFile backupFile)
+        {
+            if (HttpContext.Session.GetString("AdminId") == null)
+                return Json(new { success = false, message = "Unauthorized" });
+
+            if (backupFile == null || backupFile.Length == 0)
+                return Json(new { success = false, message = "No file uploaded." });
+
+            try
+            {
+                // 1. Open the uploaded ZIP file
+                using var stream = backupFile.OpenReadStream();
+                using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
+
+                // 2. Find and read the JSON database backup
+                var jsonEntry = archive.GetEntry("database_backup.json");
+                if (jsonEntry == null)
+                    return Json(new { success = false, message = "Invalid backup file: database_backup.json not found inside ZIP." });
+
+                using var jsonStream = jsonEntry.Open();
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                var backupData = await JsonSerializer.DeserializeAsync<BackupData>(jsonStream, options);
+
+                if (backupData == null)
+                    return Json(new { success = false, message = "Failed to parse backup data." });
+
+                // 3. SAFE DATABASE WIPE (Delete all current rows)
+                _context.ContactMessages.RemoveRange(_context.ContactMessages);
+                _context.Cars.RemoveRange(_context.Cars);
+                _context.HeroImages.RemoveRange(_context.HeroImages);
+                _context.SiteSettings.RemoveRange(_context.SiteSettings);
+                _context.Admins.RemoveRange(_context.Admins);
+                await _context.SaveChangesAsync();
+
+                // 4. RESTORE DATA FROM JSON
+                if (backupData.Admins != null) _context.Admins.AddRange(backupData.Admins);
+                if (backupData.SiteSettings != null) _context.SiteSettings.AddRange(backupData.SiteSettings);
+                if (backupData.HeroImages != null) _context.HeroImages.AddRange(backupData.HeroImages);
+                if (backupData.Cars != null) _context.Cars.AddRange(backupData.Cars);
+                if (backupData.ContactMessages != null) _context.ContactMessages.AddRange(backupData.ContactMessages);
+
+                await _context.SaveChangesAsync();
+
+                // 5. RESTORE IMAGES
+                var imagesPath = Path.Combine(_environment.WebRootPath, "images");
+                if (!Directory.Exists(imagesPath)) Directory.CreateDirectory(imagesPath);
+
+                foreach (var entry in archive.Entries)
+                {
+                    // If it's an image file inside the images/ folder of the zip
+                    if (entry.FullName.StartsWith("images/") && !string.IsNullOrEmpty(entry.Name))
+                    {
+                        var extractPath = Path.Combine(imagesPath, entry.Name);
+                        entry.ExtractToFile(extractPath, overwrite: true);
+                    }
+                }
+
+                // 6. Force user to log in again (since Admin IDs might have changed)
+                HttpContext.Session.Clear();
+
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Error during restore: " + ex.Message });
+            }
+        }
+        [HttpPost]
         public async Task<IActionResult> SetActiveHeroImage(int id)
         {
             if (HttpContext.Session.GetString("AdminId") == null)
@@ -352,6 +424,58 @@ namespace CarRentalPortfolio.Controllers
             }
 
             return Json(new { success = false, message = "Image not found" });
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> ExportBackup()
+        {
+            if (HttpContext.Session.GetString("AdminId") == null)
+                return RedirectToAction("Login");
+
+            // 1. Gather all database data
+            var exportData = new
+            {
+                Admins = await _context.Admins.ToListAsync(),
+                SiteSettings = await _context.SiteSettings.ToListAsync(),
+                HeroImages = await _context.HeroImages.ToListAsync(),
+                Cars = await _context.Cars.ToListAsync(),
+                ContactMessages = await _context.ContactMessages.ToListAsync()
+            };
+
+            // Serialize to formatted JSON
+            var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
+            string jsonString = JsonSerializer.Serialize(exportData, jsonOptions);
+
+            // 2. Prepare the ZIP file in memory
+            using var memoryStream = new MemoryStream();
+            using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+            {
+                // Add JSON file to ZIP
+                var jsonEntry = archive.CreateEntry("database_backup.json");
+                using (var entryStream = jsonEntry.Open())
+                using (var streamWriter = new StreamWriter(entryStream))
+                {
+                    await streamWriter.WriteAsync(jsonString);
+                }
+
+                // Add Images to ZIP
+                var imagesPath = Path.Combine(_environment.WebRootPath, "images");
+                if (Directory.Exists(imagesPath))
+                {
+                    var imageFiles = Directory.GetFiles(imagesPath);
+                    foreach (var filePath in imageFiles)
+                    {
+                        var fileName = Path.GetFileName(filePath);
+                        archive.CreateEntryFromFile(filePath, $"images/{fileName}");
+                    }
+                }
+            }
+
+            // 3. Return the ZIP file for download
+            memoryStream.Position = 0;
+            var fileNameExport = $"HCar_Backup_{DateTime.Now:yyyyMMdd_HHmmss}.zip";
+            return File(memoryStream.ToArray(), "application/zip", fileNameExport);
         }
     }
 }
