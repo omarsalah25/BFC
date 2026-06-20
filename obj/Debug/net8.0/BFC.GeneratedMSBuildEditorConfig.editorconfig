@@ -1,113 +1,100 @@
 is_global = true
 build_property.TargetFramework = net8.0
-build_property.TargetFramework = net8.0
-build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
-build_property.UsingMicrosoftNETSdkWeb = true
-build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
-build_property.InvariantGlobalization = 
 build_property.PlatformNeutralAssembly = 
-build_property.PlatformNeutralAssembly = 
-build_property.EnforceExtendedAnalyzerRules = 
-build_property.EnforceExtendedAnalyzerRules = 
-build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = BFC
 build_property.RootNamespace = BFC
-build_property.ProjectDir = I:\BFC (6)\BFC\BFC\
-build_property.EnableComHosting = 
-build_property.EnableGeneratedComInterfaceComImportInterop = 
-build_property.RazorLangVersion = 8.0
+build_property.ProjectDir = D:\websitesssss\BFC\
+build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = I:\BFC (6)\BFC\BFC
+build_property.MSBuildProjectDirectory = D:\websitesssss\BFC
 build_property._RazorSourceGeneratorDebug = 
-build_property.EffectiveAnalysisLevelStyle = 8.0
-build_property.EnableCodeStyleSeverity = 
 
-[I:/BFC (6)/BFC/BFC/Views/Admin/AddCar.cshtml]
+[D:/websitesssss/BFC/Views/Admin/AddCar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkQ2FyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/Admin/AddHeroImage.cshtml]
+[D:/websitesssss/BFC/Views/Admin/AddHeroImage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkSGVyb0ltYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/Admin/Cars.cshtml]
+[D:/websitesssss/BFC/Views/Admin/Cars.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ2Fycy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/Admin/Dashboard.cshtml]
+[D:/websitesssss/BFC/Views/Admin/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/Admin/EditCar.cshtml]
+[D:/websitesssss/BFC/Views/Admin/EditCar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdENhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/Admin/EditHeroImage.cshtml]
+[D:/websitesssss/BFC/Views/Admin/EditHeroImage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdEhlcm9JbWFnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/Admin/HeroImages.cshtml]
+[D:/websitesssss/BFC/Views/Admin/HeroImages.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSGVyb0ltYWdlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/Admin/Login.cshtml]
+[D:/websitesssss/BFC/Views/Admin/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/Admin/Messages.cshtml]
+[D:/websitesssss/BFC/Views/Admin/Messages.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWVzc2FnZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/Admin/Profile.cshtml]
+[D:/websitesssss/BFC/Views/Admin/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/Home/About.cshtml]
+[D:/websitesssss/BFC/Views/Home/About.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/Home/Index.cshtml]
+[D:/websitesssss/BFC/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/Home/Privacy.cshtml]
+[D:/websitesssss/BFC/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/Shared/Components/SiteSettings/Default.cshtml]
+[D:/websitesssss/BFC/Views/Shared/Components/SiteSettings/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcU2l0ZVNldHRpbmdzXERlZmF1bHQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/Shared/Error.cshtml]
+[D:/websitesssss/BFC/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/websitesssss/BFC/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/SiteSettings/Edit.cshtml]
+[D:/websitesssss/BFC/Views/SiteSettings/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2l0ZVNldHRpbmdzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/SiteSettings/Index.cshtml]
+[D:/websitesssss/BFC/Views/SiteSettings/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2l0ZVNldHRpbmdzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/_ViewImports.cshtml]
+[D:/websitesssss/BFC/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/_ViewStart.cshtml]
+[D:/websitesssss/BFC/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[I:/BFC (6)/BFC/BFC/Views/Shared/_Layout.cshtml]
+[D:/websitesssss/BFC/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-5cxzmtnmv1
